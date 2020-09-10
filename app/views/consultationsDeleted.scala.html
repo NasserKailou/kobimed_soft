@@ -1,0 +1,98 @@
+@import java.time.LocalDateTime
+@import helper._
+@import java.util
+@(viewMode:String,  consultations: List[models.public_.tables.pojos.VConsultations],
+types: List[models.public_.tables.pojos.TypeConsultation],personnels: List[models.public_.tables.pojos.Personnels], 
+consultation: models.public_.tables.pojos.VConsultations)(implicit request: Http.Request)
+
+@main("Consultations"){
+
+<script type="text/javascript">
+function openPopup(target, x, y, w, h) {
+	var win = window.open(target, 'popup', 'height='+h+', width='+w+', top='+y+', left='+x+', toolbar=no, menubar=yes, location=no, resizable=yes, scrollbars=yes, status=no');
+	win.window.focus();
+	return false;
+}
+
+</script>
+		
+	
+<hr>
+<section >
+	
+	<div class="row">
+
+		<div class = "col-md-12 col-sm-12 col-xs-12 table-responsive">
+		
+				<table class="dta-tbl table table-bordered table-striped text-center" >
+				<center><div class="badged-title"><h4> <b>L</b>istes des Reçus Supprimer<br></div></center>
+					<thead>
+						 <tr>
+							<th style="text-align: center"><b>N°Reçu</b></th>
+							<th style="text-align: center"><b>Nom & Prenom</b></th>
+							<th style="text-align: center"><b>Telephone</b></th>
+							<th style="text-align: center"><b>Type Consultation</b></th>
+							<th style="text-align: center"><b>Date</b></th>
+							<th style="text-align: center"><b>Examens</b></th>
+							<th style="text-align: center"><b>Soins</b></th>
+							
+							@if(request.session.get("droit") == "Admin" || request.session.get("droit") == "Medecin"){
+							<th style="text-align: center"><b>Ordonances</b></th>
+							<th style="text-align: center"><b>Observations</b></th>
+							}
+							
+							<th style="text-align: center"><b>Actions</b></th>
+							
+							
+						 </tr>
+					 </thead>
+					 <tbody>
+						@for(c <-consultations){
+							 <tr>
+							  <td>@c.getId() </td>
+								<td>@c.getNomPatient() </td>
+								<td>@c.getTelPatient() </td>
+								<td>@c.getLibelleType() - @c.getMedecin()</td>
+								<td>@c.getWhenDone().format("yyyy-MM-dd") </td>
+								<td>
+								<a class="btn btn-primary" type="button" title="Ajouter Des Examens à la consultations" href="@controllers.routes.ConsultationCtrl.addExam(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+								<td>
+								<a class="btn btn-info" type="button" title="Ajouter des soins à la consultations" href="@controllers.routes.ConsultationCtrl.addSoin(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+							@if(request.session.get("droit") == "Admin" || request.session.get("droit") == "Medecin"){
+								
+								<td>
+								<a class="btn btn-success" type="button" title="Ajouter une Ordonnance à la consultations" href="@controllers.routes.ConsultationCtrl.addOrdonnance(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+								
+								<td>
+								<a class="btn btn-warning" type="button" title="Ajoutez des observations"
+								 href="@controllers.routes.ConsultationCtrl.show("EDIT", c.getId())">
+						                              	<i class="glyphicon glyphicon-list-alt"></i> </a>
+								</td>
+								}
+								
+								<td>
+								
+									@if(request.session.get("droit") == "Admin" || request.session.get("droit") == "Gestionnaire"){	
+                                    <a id="btnDelete" class="btn btn-success"
+                                       title="Restaurer le Reçu"  onclick="return window.confirm('Voulez-vous restaurer ce reçu ???');"
+                                       href="@controllers.routes.ConsultationCtrl.restaure(c.getId())""><i class="glyphicon glyphicon-refresh"></i></a>
+                                	}
+                                </td>
+                                
+								
+							 </tr>
+							}
+					  </tbody>
+				</table>
+				
+		</div>
+	</div>
+  </section>
+  
+}

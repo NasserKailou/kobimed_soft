@@ -1,0 +1,136 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index(request:Request)
+GET     /accueil                           controllers.HomeController.acceuil(request:Request)
+POST    /login                  	controllers.HomeController.authentification(request:Request)
+GET     /logout                 	controllers.HomeController.deconnecter(request:Request)
+GET     /acceuil                    controllers.HomeController.acceuil(request:Request)
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+#Authentification Ressources
+POST     /auth                           controllers.AuthenticationCtrl.authentification(request:Request)
+GET     /login                          controllers.AuthenticationCtrl.login(request:Request)
+GET     /logout                           controllers.AuthenticationCtrl.logout(request:Request)
+ 
+#User ressources
+GET     /user                           controllers.UserCtrl.show(viewMode: String, login: String,request:Request)
+POST     /user/save                         controllers.UserCtrl.save(request:Request)
+GET     /user/index                           controllers.UserCtrl.index(request:Request)
+GET     /user/delete                           controllers.UserCtrl.delete(login: String, etat: Boolean,request:Request)
+
+#Patient Ressources
+GET			/Patients/show/:subAction/    		controllers.PatientCtrl.show(subAction: String, idPArt: Long,request:Request)
+GET			/Patients/restaure/    		controllers.PatientCtrl.restaure(clientPk: Long,request:Request)
+POST    	/Patients/save                        controllers.PatientCtrl.save(request:Request)
+
+#Personnels Ressources
+GET			/personnel/show/:subAction/    		controllers.PersonnelCtrl.show(subAction: String, persoPk: Long,request:Request)
+POST    	/personnel/save                        controllers.PersonnelCtrl.save(request:Request)
+GET			/liste-print/    		             controllers.PersonnelCtrl.printListePersonnel(request:Request)
+
+
+#Partenaire Ressources
+GET			/partenaires/show/:subAction/    		controllers.PartenaireCtrl.show(subAction: String, idPArt: Long,request:Request)
+GET			/partenaires/restaure/    		controllers.PartenaireCtrl.restaure(clientPk: Long,request:Request)
+POST    	/partenaires/save                        controllers.PartenaireCtrl.save(request:Request)
+
+#Type Consultations Ressources
+GET			/TypeConsultations/show/:subAction/    		   controllers.TypeConsultationCtrl.show(subAction: String, idTypeConsul: Long,request:Request)
+GET			/TypeConsultations/restaure/    		       controllers.TypeConsultationCtrl.restaure(idTypeConsul: Long,request:Request)
+POST    	/TypeConsultations/save                        controllers.TypeConsultationCtrl.save(request:Request)
+
+
+#Consultations Ressources
+GET			/Consultations/show/:subAction/    		controllers.ConsultationCtrl.show(request:Request,subAction: String, idConsult: Long)
+GET			/Consultations/restaure/    		controllers.ConsultationCtrl.restaure(request:Request,idConsult: Long)
+GET			/Consultations/deleted-ticket/    		controllers.ConsultationCtrl.consultationSupp(request:Request)
+POST    	/Consultations/save                        controllers.ConsultationCtrl.save(request:Request)
+GET			/Consultations-add-examen/show    		controllers.ConsultationCtrl.addExam(request:Request,idConsult: Long)
+GET			/Consultations-add-ordonnance/show    		controllers.ConsultationCtrl.addOrdonnance(request:Request,idConsult: Long)
+GET			/Consultations-add-soin/show    		controllers.ConsultationCtrl.addSoin(request:Request,idConsult: Long)
+GET			/impression-recu-consultation/    	 controllers.ConsultationCtrl.print(request:Request,numeroConsultation: String, fileName:String)
+POST			/impression-situation-jour/    	 controllers.ConsultationCtrl.rapportJour(request:Request)
+POST			/impression-situation-partenaire/    	 controllers.ConsultationCtrl.rapportPartenaire(request:Request)
+POST			/impression-situation-periode/    	 controllers.ConsultationCtrl.rapportPeriode(request:Request)
+POST			/view-flter-consultations/    	 controllers.ConsultationCtrl.viewFilter(request:Request)
+POST			/view-rdv-consultations/    	 controllers.ConsultationCtrl.rdv(request:Request)
+GET			/liste-DES-rdv-consultations/    	 controllers.ConsultationCtrl.viewRDV(request:Request)
+GET			/Consultations/SitutationView/    		controllers.ConsultationCtrl.showSituationView(request:Request)
+
+#Examens Ressources
+GET			/Examens/show/:subAction/    		controllers.ExamenCtrl.show(subAction: String, idOrd: Long, idConsult: Long,request:Request)
+GET			/Examens/restaure/    		controllers.ExamenCtrl.restaure(idOrd: Long,request:Request)
+POST    	/Examens/save                        controllers.ExamenCtrl.save(request:Request)
+
+#Ordonnances Ressources
+GET			/Soins/show/:subAction/    		controllers.SoinCtrl.show(subAction: String, idOrd: Long, idConsult: Long,request:Request)
+GET			/Soins/restaure/    		controllers.SoinCtrl.restaure(idOrd: Long,request:Request)
+POST    	/Soins/save                        controllers.SoinCtrl.save(request:Request)
+
+
+#Examens Ressources
+GET			/Ordonnances/show/:subAction/    		controllers.OrdonanceCtrl.show(subAction: String, idOrd: Long, idConsult: Long,request:Request)
+GET			/Ordonnances/restaure/    		controllers.OrdonanceCtrl.restaure(idOrd: Long,request:Request)
+POST    	/Ordonnances/save                        controllers.OrdonanceCtrl.save(request:Request)
+
+
+#JsonServer Ressources
+GET     /json-patient                        controllers.ServerJson.jsonPatients(query:String?="")
+GET     /json-typeConsultations                        controllers.ServerJson.jsonTypeConsultation(query:String?="")
+GET     /json-partenaire                        controllers.ServerJson.jsonPartenaire(query:String?="")
+GET     /json-partenaires                        controllers.ServerJson.jsonPartenaires()
+GET     /json-soins                        controllers.ServerJson.jsonSoins(query:String?="")
+GET     /json-examens                       controllers.ServerJson.jsonExamens(query:String?="")
+GET     /json-cons                       controllers.ServerJson.jsonConsParPartenaire()
+
+
+
+##Stock Ressources ###
+
+GET     /article                           controllers.stock.ArticleCtrl.show(viewMode: String, idArticle: Long,request:Request)
+POST     /article/save                         controllers.stock.ArticleCtrl.save(request:Request)
+GET     /article/index                           controllers.stock.ArticleCtrl.index(request:Request)
+GET     /article/delete                           controllers.stock.ArticleCtrl.delete(idArticle: Long,request:Request)
+GET     /mouvementa/index                           controllers.stock.MouvementCtrl.index(op: String,request:Request)
+GET     /mouvementa                           controllers.stock.MouvementCtrl.show(viewMode: String, op: String,request:Request)
+GET     /mouvementa/save                           controllers.stock.MouvementCtrl.save(request:Request)
+GET     /mouvementa/deleteid                           controllers.stock.MouvementCtrl.deleteById(id: Long, op: String,request:Request)
+GET     /mouvementa/deleteuser                           controllers.stock.MouvementCtrl.deleteByUser(user: String, op: String,request:Request)
+POST     /mouvement/validerop                           controllers.stock.MouvementCtrl.validerop(op: String,request:Request)
+#GET     /mouvement/statistique                           controllers.stock.MouvementCtrl.statistique(request:Request)
+#POST     /mouvement/statistique                           controllers.stock.MouvementCtrl.valide(request:Request)
+#GET     /mouvement/report                           controllers.stock.MouvementCtrl.report(factureId: Long,request:Request)
+GET     /range                           controllers.stock.RangeCtrl.show(viewMode: String, login: Long,request:Request)
+POST     /range/save                         controllers.stock.RangeCtrl.save(request:Request)
+GET     /range/index                           controllers.stock.RangeCtrl.index(request:Request)
+GET     /facture/index                           controllers.stock.MouvementCtrl.getFactures(request:Request)
+POST     /facture-s/save                         controllers.stock.MouvementCtrl.rFacture(request:Request)
+GET     /facture-s/save                         controllers.stock.MouvementCtrl.getFactures(request:Request)
+GET     /json/mouv/:idf                         controllers.stock.MouvementCtrl.jsonListeMouvement(idf : String)
+GET     /transform/index                         controllers.stock.MouvementCtrl.tindex(request:Request)
+POST     /transform/save                         controllers.stock.MouvementCtrl.tsave(request:Request)
+GET     /dispoover                         controllers.stock.MouvementCtrl.dispoover(request:Request)
+GET     /compta                         controllers.stock.MouvementCtrl.compta(request:Request)
+GET      /recu                        controllers.stock.MouvementCtrl.printRecu(idFacture: Long,request:Request)
+GET      /print-bon-caisse                        controllers.stock.MouvementCtrl.printBonCaise(idFacture: Long,request:Request)
+GET      /print-bon-entrer-caisse                        controllers.stock.MouvementCtrl.printBonEntrerCaisse(idFacture: Long,request:Request)
+
+GET      /recap_produit                        controllers.stock.ArticleCtrl.printSituationProduit(idProduit: Long,request:Request)
+GET      /recap_all_produit                        controllers.stock.ArticleCtrl.printSituationAllProduit(request:Request)
+
+###Resources Fourisseur
+GET     /forunisseur                           controllers.stock.FournisseurController.show(viewMode: String, login: Int,request:Request)
+POST     /forunisseur/save                         controllers.stock.FournisseurController.save(request:Request)
+GET     /forunisseur/index                           controllers.stock.FournisseurController.index(request:Request)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+### fin stock Routes

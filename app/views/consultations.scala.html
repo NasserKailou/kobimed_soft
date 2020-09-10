@@ -1,0 +1,345 @@
+@import java.time.LocalDateTime
+@import helper._
+@import java.util
+@(viewMode:String,  consultations: List[models.public_.tables.pojos.VConsultations],
+types: List[models.public_.tables.pojos.TypeConsultation],personnels: List[models.public_.tables.pojos.Personnels], 
+consultation: models.public_.tables.pojos.VConsultations)(implicit request: Http.Request)
+
+@main("Consultations"){
+
+<script type="text/javascript">
+function openPopup(target, x, y, w, h) {
+	var win = window.open(target, 'popup', 'height='+h+', width='+w+', top='+y+', left='+x+', toolbar=no, menubar=yes, location=no, resizable=yes, scrollbars=yes, status=no');
+	win.window.focus();
+	return false;
+}
+
+</script>
+
+
+<hr>
+<div class="card-header" id="titre_header">
+	<div class="row">
+		                    
+                    
+	<form  method="POST" name="form" action="@controllers.routes.ConsultationCtrl.save() "  class="form-horizontal col-md-12 col-sm-12 col-xs-12" role="form">
+			@helper.CSRF.formField
+			<input value="@viewMode"           name="viewMode" type="hidden">
+			<input value="@consultation.getId()" name="id" type="hidden">
+			<input value="@consultation.getPrixConsultation()" name="cout" type="hidden">
+			<input value="@consultation.getIsDeleted()" name="isDeleted" type="hidden">
+			<input value="@consultation.getIsClosed()" name="isClosed" type="hidden">
+			<input value="@consultation.getSommeRemise()" name="sommeRemise" type="hidden">
+			<input value="@consultation.getNumeroConsul()" name="numeroConsul" type="hidden">
+			<input value="@consultation.getMontantEnLettre()" name="montantEnLettre" type="hidden">
+			
+			
+			@if(viewMode.equals("EDIT")){
+				<input value="@consultation.getWhenDone().format("yyyy-MM-dd")" name="dateTmp3" type="hidden">
+			}
+			<center>
+			<fieldset style=" color:#000; width:98%; background-color:#DDE7E9; border-radius:10px; font-size:12px;"  >
+			
+
+					<h6 style="color:#000;">
+						<strong>
+							<i>Tous les champs avec <font style="color:red;  font-size:14px;">*</font> sont obligatoires</i>
+						</strong>
+					</h6>
+			<div  class="row ">
+			    <div class="col-md-12"><h5><u style="color: red;"><b>Informations consultation @if( viewMode.equals("DELETE")){Reçu N°@consultation.getId() }</b></u> </h5></div>
+				<div class="col-md-12">
+				<br>
+						
+						<div class="form-group row ">
+						  @if(viewMode !="DELETE"){ 
+						  <label class="col-sm-1 col-form-label" for="nom" ><b>Prise en charge ?<font style="color:red;  font-size:14px;">:</font></b></label>
+                                        <div class="col-sm-1">
+                                            Non <input type="radio" class="isP" id="poui" name="rad" value="non"@if(viewMode.equals("CREATE")){ checked }>
+                                       
+                                            Oui <input type="radio" class="isP" id="pnon"  name="rad" value="oui" >
+                                        </div> 
+                                        }
+                           <div class="pl" @if( viewMode.equals("CREATE") ){ style="display: none" }>
+                            <label class="col-sm-1 col-form-label" for="nom" ><b>Assureur<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="text" id="partenaire"  name="partenaire" value="@consultation.getNomPartenaire()"
+								 placeholder="Ex: Caren, Saham etc.." class="form-control" @if(viewMode.equals("DELETE")){readonly}   />
+							
+						  	</div>
+						  	
+						  	<label class="col-sm-1 col-form-label" for="nom" ><b>Structaire Partenaire<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+						  	<input type="text" id="tauxCouverture" placeholder="Ex: Orange, Airtel " autocomplete="on"  name="structurePatient" value="@consultation.getStructurePatient()" @if(viewMode.equals("DELETE")){readonly}>
+						  	
+						  	</div>
+						  	
+						  	<label class="col-sm-2 col-form-label" for="nom" ><b>Taux  (en %)<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-1">
+						  	<input type="text" id="tauxCouverture" placeholder="Taux de couvertaure "  name="tauxCouverture" value="@consultation.getTauxCouverture()" @if(viewMode.equals("DELETE")){readonly}>
+						  	<input type="hidden" id="partenaireid" required="required" name="partenaireid" value="@consultation.getPartenaireId()" >
+						  	</div>
+						  	
+						  	
+                           </div>
+						 
+							</div>
+						<div class="form-group row">
+						  
+						  
+						  <label class="col-sm-2 col-form-label" for="nom" ><b>N°Tel Patient<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="text" id="telPatient" class="form-control autocomplete"  name="telPatient" autocomplete="off" value="@consultation.getTelPatient()"
+											placeholder="N°Tel du patient"  required="required" @if(viewMode.equals("DELETE")){readonly}  />
+							
+						  	</div>
+						  	
+						  	<label class="col-sm-2 col-form-label" for="nom" ><b>Nom & Prénom Patient<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+						  	
+								<input type="text"  id="nomPrenomPatient"  name="nomPrenomPatient" autocomplete="off" value="@consultation.getNomPatient()"
+											placeholder="nom & prenom du patient" 
+											class="form-control"  
+											required="required" @if(viewMode.equals("DELETE")){readonly}  />
+							
+						  	</div>
+						  	
+						  	<label class="col-sm-2 col-form-label" for="nom" ><b>Age Patient<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="text" id="age"  name="age" autocomplete="off" value="@consultation.getAge()"
+											placeholder="âge du patient" 
+											class="form-control"  
+											required="required"  @if(viewMode.equals("DELETE")){readonly} />
+							
+						  	</div>
+						 
+						
+						  </div>
+						  <div class="form-group row">
+						  <label class="col-sm-1 col-form-label" for="nom" ><b>Type de Consultation :<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-3">
+								
+                            	<select class="form-control" required="required" id="typeConsultation" @if(viewMode.equals("DELETE")){readonly}  name="typeConsultation">
+	                                	<option value="">Selectionner le type de consultation</option>
+	                                @for(c<-types){
+	                               			 <option value="@c.getId()"  @if(consultation.getTypeConsultation()==c.getId()){ selected="selected"}>@c.getLibelle -- @c.getPrix() F CFA ; prise en charge : @c.getPrixPcm()</option>
+	                               			
+	                                }
+                            </select>
+						  	</div>
+						  	
+						   <label class="col-sm-2 col-form-label" for="nom" ><b>Médecin Traitant :<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								
+                            	<select class="form-control" required="required" id="medecinTraitrant" @if(viewMode.equals("DELETE")){readonly}  name="medecinTraitrant">
+	                                	<option value="">Précisez le médecin</option>
+	                                @for(c<-personnels){
+	                               			 <option value="@c.getId()"  @if(consultation.getMedecinTraitrant()==c.getId()){ selected="selected"}>@c.getNomP -- @c.getPrenomP</option>
+	                               			
+	                                }
+                            </select>
+						  	</div>
+						  	
+						  	<label class="col-sm-2 col-form-label" for="nom" ><b>Somme Perçu<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="number" id="sommeRecu"  name="sommeRecu" autocomplete="off" value="@consultation.getSommeRecu()"
+											placeholder="montant remis par le patient" 
+											class="form-control"  
+											required="required" @if(viewMode.equals("DELETE")){readonly}  />
+							
+						  	</div>
+						  	
+						  	 
+						</div>
+						<div class="form-group row">
+						@if(request.session.get("droit").get() == "Admin" && viewMode.equals("EDIT")){
+						  	<label class="col-sm-2 col-form-label" for="nom" ><b>Observations<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+							
+								<textarea  name="observation" type="text" class="form-control" style="width: 200px;" maxlength="250" title="Observations sur la consultations"  required="required">
+                                               @consultation.getObservation()
+                                            </textarea>
+							
+							
+						  	</div>
+						  	}
+						  	
+						 @if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+						  	 @if( viewMode.equals("EDIT") && consultation.getDateRdv() !=null){ 
+						<label class="col-sm-1 col-form-label" for="nom" ><b>Date de Prochain RDV<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input value="@consultation.getDateRdv().format("yyyy-MM-dd")" 
+								name="tmpDate" type="date" @if(consultation.getDateRdv()!=null){ selected="selected"} required="required">
+						  	 </div>
+						  	 }
+						  	  @if( viewMode.equals("EDIT") && consultation.getDateRdv() ==null){ 
+					 	<label class="col-sm-1 col-form-label" for="nom" ><b>Date de Prochain RDV<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input value="" name="tmpDate" type="date" placeholder="JJ/MM/AAAA" class="form-control" required="required">
+						  	 </div>
+						  	 }
+						  	} 
+						  	</div>
+						</div>
+						</div>
+
+			<div class="row" style="color:#000;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<button class="btn btn-primary" type="submit"  name="Annuler" value="Retour" onclick="history.go(-1)">Retour</button>
+					@if( viewMode.equals("CREATE")){ 
+					<button class="btn btn-success" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >
+						<i class="glyphicon glyphicon-save"></i> Enregistrer
+					</button> } 
+					@if( viewMode.equals("EDIT")){ 
+					<button class="btn btn-warning" type="submit" id="valider" name="Valider" title="Valider(Modifier les informations)">
+						<i class="glyphicon glyphicon-edit"></i> Modifier
+					</button> } 
+					@if( viewMode.equals("DELETE")){ 
+					<button class="btn btn-danger" type="submit" id="valider"
+					 name="Valider" title="Supprimer la consultations"  onclick="return window.confirm('Voulez-vous vraiment annuler/supprimer ce reçu?');">
+						<i class="glyphicon glyphicon-edit"></i> Supprimer
+					</button> } 
+					
+<!-- 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				<button class="btn btn-danger" type="submit"  name="Annuler" value="Annuler">Annuler</button> -->
+				</div>
+				<div class="col-md-3"></div>
+			</div>	
+		</div>
+
+			
+	
+			
+			
+			</fieldset>
+			</center>
+			<br>
+		</form>
+		</div>		
+		
+	</div>
+</div>
+
+<center>
+			<form  method="POST" name="form" action="@controllers.routes.ConsultationCtrl.viewFilter()"  class="form-horizontal col-md-12 col-sm-12 col-xs-12" >
+			@helper.CSRF.formField
+			<fieldset style=" color:#000; width:90%; background-color:#DDE7E9; border-radius:5px; font-size:10px;" >
+			
+					<h6 style="color:#000;">
+						<strong>
+							<i> <font style="color:blue;  font-size:14px;">Filtre</font> </i>	
+						</strong>
+					</h6>
+						<div class="form-group row">
+						 
+						 
+						  	<label class="col-sm-1 col-form-label" for="nom" ><b>Date début:</b></label>
+						  	<div class="col-sm-2">
+								<input type="date" id="tmpDate"  name="tmpDate" placeholder="JJ/MM/AAAA" class="form-control" />
+							</div>
+						  	<label class="col-sm-1 col-form-label" for="nom" ><b>Date fin:</b></label>
+						  	<div class="col-sm-2">
+								<input type="date" id="tmpDate2"  name="tmpDate2" placeholder="JJ/MM/AAAA" class="form-control" />
+							</div>
+						   <label class="col-sm-1 col-form-label" for="nom" ><b>N°Tel Patient<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="text" id="telPatient" class="form-control autocomplete"  name="telPatient"	placeholder="N°Tel du patient" />
+							
+						  	</div>
+						  	 
+						 <div class="col-sm-2">
+						  	<button class="btn btn-primary" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >	<i class="glyphicon glyphicon-search"></i> Rechercher</button> 
+						</div>
+						  </div>
+				
+			
+			
+				</fieldset>
+			
+			</form>
+			</center>
+<section >
+	
+	<div class="row">
+
+		<div class = "col-md-12 col-sm-12 col-xs-12 table-responsive">
+		
+				<table class="dta-tbl table table-bordered table-striped text-center" >
+				<center><div class="badged-title"><h4> <b>L</b>istes des consultations<br></div></center>
+					<thead>
+						 <tr>
+							<th style="text-align: center"><b>#</b></th>
+							<th style="text-align: center"><b>Nom & Prenom</b></th>
+							<th style="text-align: center"><b>Telephone</b></th>
+							<th style="text-align: center"><b>Type Consultation</b></th>
+							<th style="text-align: center"><b>Date</b></th>
+							<th style="text-align: center"><b>Examens</b></th>
+							<th style="text-align: center"><b>Soins</b></th>
+							
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+							<th style="text-align: center"><b>Ordonances</b></th>
+							<th style="text-align: center"><b>Observations</b></th>
+							}
+							
+							<th style="text-align: center"><b>Actions</b></th>
+							<th style="text-align: center"><b>Facture</b></th>
+							
+						 </tr>
+					 </thead>
+					 <tbody>
+						@for(c <-consultations){
+							 <tr>
+							  <td>@c.getId() </td>
+								<td>@c.getNomPatient() </td>
+								<td>@c.getTelPatient() </td>
+								<td>@c.getLibelleType() - @c.getMedecin()</td>
+								<td>@c.getWhenDone().format("yyyy-MM-dd") </td>
+								<td>
+								<a class="btn btn-primary" type="button" title="Ajouter Des Examens à la consultations" href="@controllers.routes.ConsultationCtrl.addExam(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+								<td>
+								<a class="btn btn-info" type="button" title="Ajouter des soins à la consultations" href="@controllers.routes.ConsultationCtrl.addSoin(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+								
+								<td>
+								<a class="btn btn-success" type="button" title="Ajouter une Ordonnance à la consultations" href="@controllers.routes.ConsultationCtrl.addOrdonnance(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+								
+								<td>
+								<a class="btn btn-warning" type="button" title="Ajoutez des observations"
+								 href="@controllers.routes.ConsultationCtrl.show("EDIT", c.getId())">
+						                              	<i class="glyphicon glyphicon-list-alt"></i> </a>
+								</td>
+								}
+								
+								<td>
+								  <a id="btnReadWrite" class="btn btn-primary" title="Modification"
+									href="@controllers.routes.ConsultationCtrl.show("EDIT", c.getId()) " ><i class="glyphicon glyphicon-edit"></i></a>
+									
+									@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Gestionnaire"){	|
+                                    <a id="btnDelete" class="btn btn-danger"
+                                       title="Annuler Reçu"
+                                       href="@controllers.routes.ConsultationCtrl.show("DELETE", c.getId())""><i class="glyphicon glyphicon-trash"></i></a>
+                                	}
+                                </td>
+                                <td>
+								<a class="btn btn-success" type="button" title="Imprimer le réçu"
+								 href="@controllers.routes.ConsultationCtrl.print(c.getNumeroConsul(),"recu")" onclick="return(openPopup(this.href, 600, 600, 600, 600));">
+						                              	<i class="glyphicon glyphicon-print"></i> </a>
+								</td>
+								
+							 </tr>
+							}
+					  </tbody>
+				</table>
+				
+		</div>
+	</div>
+  </section>
+  
+}

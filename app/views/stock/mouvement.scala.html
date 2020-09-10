@@ -1,0 +1,230 @@
+@(viewMode: String, articles: List[models.stock.tables.pojos.VArticle],mas: List[models.stock.tables.pojos.VMouvement], op: String,
+fs: List[models.stock.tables.pojos.Fournisseur], services: List[models.stock.tables.pojos.Services])(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+
+@import views.html._
+
+@montantTotal(mv :List[models.stock.tables.pojos.VMouvement]) = @{
+	var i:Long = 0L
+	for(d<-mv){
+	i = i + (d.getQuantiteM)
+	}
+	i
+}
+
+@main(op) {
+
+
+
+<h3 style="text-align: center">Espace @op</h3>
+
+<input type="hidden" value="1" id="test">
+<input type="hidden" id="idFacture">
+<div class="col-md-7 ">
+    <div class="panel @if(op.equals("Distribution")){panel-primary}else if(op.equals("Approvisionnement")){panel-success}else{panel-info} ">
+        <div class="panel-heading">PRODUIT</div>
+        <div class="panel-body">
+            <div class="row">
+                <input type="text" class="form-control input-md" id="detailLibelle" disabled="disabled" style="text-align: center;">
+            </div>
+            <br>
+            <div class="row">
+                @form(controllers.stock.routes.MouvementCtrl.save()){
+                @CSRF.formField
+                <div class="col-lg-5 row">
+                    <div class="form-group">
+                        @if(request.session().get("droit") == "Financier") {<label for="pwd">Montant</label>}else{<label for="pwd">Qte</label>}
+                        <input type="text" class="form-control input-md "  placeholder="Montant de la dépense" required="required" name="quantite" id="quantite" style="text-align: center;">
+                        @if(op.equals("Distribution") && request.session().get("droit") == "Financier"){
+                        <label for="pwd">Désignation</label>
+						<input type="text" class="form-control input-md " placeholder="Désignation de la dépense" name="designation" >
+						}
+                    </div>
+
+                </div>
+
+                <div class=" ">
+<!--                     <div class="form-group"> -->
+<!--                         <label for="pwd">Prix</label> -->
+<!--                         <input type="text" required="required"  @if(op.equals("Rejet")){ readonly="readonly" } @if(op.equals("Distribution")){ readonly="readonly" } class="form-control input-md " name="prix" id="prix" style="text-align: center;"> -->
+<!--                     </div> -->
+                    <input type="hidden" id="article-id" name="article-id">
+                    <input type="hidden" id="viewMode" name="viewMode">
+                    <input type="hidden" id="op" name="op" value="@op">
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="pwd">  </label>
+                        <button type="submit" class="form-control btn-primary" id="detailButton" >Valider</button>
+
+                    </div>
+
+                </div>
+                }
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <table class="dta-tbl table table-bordered table-striped text-center" style="border-color: white;" id="articleTable">
+                    <thead>
+                    <th>#</th><th>article</th>@if(request.session().get("droit") == "Financier") {<th>Solde</th>}else{<th>Qte</th>}
+                    </thead>
+                    <tbody>
+                        @for(a<-articles){
+                        <tr class='rowSearchV'><td>@a.getId()</td><td>@a.getLibelle()</td><td style="text-align: right">@a.getQuantiteDisponible()</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="col-md-5 ">
+    <div class="panel @if(op.equals("Distribution")){panel-primary}else if(op.equals("Approvisionnement")){panel-success}else{panel-info}">
+        <div class="panel-heading">Articles sélectionnés</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="pwd">Total</label>
+                        <input type="text" value="@formatMontant(montantTotal(mas))" class="form-control input-md" id="ttc" disabled="disabled" style="text-align: right;">
+                    </div>
+
+                </div>
+
+                @if(op.equals("Transfert")){
+                <div class="col-lg-6">
+                <div class="form-group">
+
+                    <div class="control-label col-sm-12">
+
+                        <label class="control-label">Services</label>
+                        <select class="form-control" required="required" name="servicesId" value="" form="valide">
+                            <option value="">Selectionner Le Services</option>
+                            @for(s<-services){
+                            <option value="@s.getId()" >@s.getNomS</option>
+                                }
+                        </select>
+
+                    </div>
+
+                </div>
+                </div>
+                }
+
+
+                @if(op.equals("Distribution")){
+                @*
+<!--                 <div class="col-lg-4"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <label for="pwd">Somme réçue</label> -->
+<!--                         <input type="text" value="" name="sommerecue" class="form-control input-md quant" id="sr"  style="text-align: right;" form="valide" required="required"> -->
+<!--                     </div> -->
+
+<!--                 </div> -->
+<!--                 <div class="col-lg-4"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <label for="pwd">Somme à remettre</label> -->
+<!--                         <input type="text" value="" class="form-control input-md" id="sar"  style="text-align: right;" disabled="disabled"> -->
+<!--                     </div> -->
+
+<!--                 </div> -->
+                *@
+                }
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 ">
+                    <b><a class="btn btn-danger btn-xs" href="@controllers.stock.routes.MouvementCtrl.deleteByUser("user", op)" role="button" data-rel="tooltip" title="Aperçu avant suppression" onclick="return window.confirm('Voulez vous vider la liste?');">
+                        <span class="glyphicon glyphicon-trash"> Vider la liste</span>
+                        </a></b><hr>
+                </div>
+                <div class="col-md-2 ">
+
+                    <form action="@controllers.stock.routes.MouvementCtrl.validerop(op)" method="POST" id="valide" name="valide">
+                        @CSRF.formField
+                        <input type="submit" class="btn btn-success" id="valideFactureV" value="SAVE">
+                    </form>
+
+
+                </div>
+
+
+
+            </div>
+            @if(op.equals("Distribution")){
+            <div>
+                <!--<input type="text" class="form-control input-md" name="client" form="valide" id="client"  value="non defini" required="required">-->
+            </div>
+            }
+            <table class="table table-bordered" id="tableFacture" style="font-size: 13px;">
+                <thead style="font-weight: bold;">
+                @if(request.session().get("droit") == "Financier") {<td style="width:20px">Nature</td> <td style="width:50px">Désignation</td>}else{<td style="width:50px">Produit</td>}
+                @if(request.session().get("droit") == "Financier") {<td style="width:15px">Montant</td>}else{<td style="width:10px">Qte</td>}
+                <td style="width:4px">Retirer</td>
+                </thead>
+                <tbody>
+                    @for(a<-mas){
+<!--                     <tr><td>@a.getQuantiteM()</td> -->
+                    <td>@a.getLibelle()</td>
+                    @if(request.session().get("droit") == "Financier") {<td>@a.getDesignation()</td>}
+<!--                     <td style="text-align: right">@formatMontant(a.getMontantMouvement())</td> -->
+						 <td style="text-align: right">@a.getQuantiteM()</td>
+                    <td><a class="btn btn-danger btn-xs" href="@controllers.stock.routes.MouvementCtrl.deleteById(a.getIdM(), op)" role="button" data-rel="tooltip" title="Vider le panier" onclick="return window.confirm('Voulez vous rétiré cet produit de la liste?');">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a></td></tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+}
+
+<script>
+    $(document).on('click', '.rowSearchV', function () {
+        $('#article-id').val($(this).find('td').eq(0).text());
+        $('#viewMode').val("CREATE");
+        $('#detailLibelle').val($(this).find('td').eq(1).text() + "/" + $(this).find('td').eq(3).text());
+        $('#prix').val($(this).find('td').eq(2).text());
+        $('#quantite').val(1);
+        //  alert($('#articleId').val());
+        //$('#tempQte').val($(this).find('td').eq(2).text());
+        //$('#tempPrix').val($(this).find('td').eq(1).text());
+        //	 $('#libelle').attr("disabled", true);
+//			 $('#description').attr("disabled", true);
+//			 $('#prixVente').attr("disabled", true);
+
+    });
+
+$(document).on('input', '.quant', function () {
+var v=$('#ttc').val();
+if(v<=0){
+$( ".quant" ).prop( "disabled", true );
+$( ".quant" ).val("0");
+}else{
+$( ".quant" ).prop( "disabled", false );
+}
+vm=parseInt($( "#sr" ).val())-parseInt($( "#ttc" ).val().replace(/\s+/, ""));
+$( "#sar" ).val(vm);
+});
+
+
+</script>

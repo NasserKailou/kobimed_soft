@@ -1,0 +1,59 @@
+@( as: List[models.stock.tables.pojos.VArticle])(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+@import views.html._
+
+@montant(liste: List[models.stock.tables.pojos.VFactureConsulster]) = @{
+var i:Long = 0L
+for(c<-liste){
+i = i+c.getMontantchiffre
+}
+i
+}
+@main("Commande stock initial") {
+
+
+<h3 style="text-align: center">Eclater un Carton de produit en unité</h3>
+<div class="row col-md-6 col-md-offset-3">
+    <div class="panel panel-primary ">
+        <div class="panel-heading">
+            <h4 class="text-center">Eclater</h4>
+        </div>
+        <div class="panel-body" >
+            <div class="row">
+                @form(controllers.stock.routes.MouvementCtrl.tsave()){
+                @CSRF.formField
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="control-label col-sm-12">
+                            <label class="control-label">Produit  (Carton)</label>
+                            <select class="form-control" required="required" name="barticle" value="" >
+                                <option value="">Selectionner Le Produit</option>
+                                @for(u<-as){
+                                <option value="@u.getId()" >@u.getLibelle</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <br><br>
+
+                <div class="col-sm-12">
+                    <div class="form-group" style="">
+                        <button type="submit" class="btn btn-primary" >Eclater</button>
+                    </div>
+                </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+}

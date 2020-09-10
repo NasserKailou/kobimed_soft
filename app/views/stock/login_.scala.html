@@ -1,0 +1,23 @@
+@import helper._
+@import views.html.utils._
+@(implicit request: Http.Request)
+@log("Bienvenue") {
+
+        <div class="card card-container">
+            <div class="row"  >
+                <center>
+                     <img class="img-circle" width="150px" height="150px" src="@routes.Assets.versioned("images/i1.jpg")" alt=""  />
+                </center>    
+            </div>
+           
+            <form class="form-signin" action="@routes.AuthenticationCtrl.authentification()" method="post">
+                @CSRF.formField
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="text" id="login" class="form-control input-lg" placeholder="Login" name="login" required autofocus>
+                <input type="password" id="passe" class="form-control input-lg" placeholder="Password" name="passe" required>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Connexion</button>
+            </form><!-- /form -->
+           
+        </div>
+
+}

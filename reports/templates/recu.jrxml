@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recu" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6108400-a88b-4b47-82ed-a64b245235f3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dicko/DICKO.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT id, numero_consul, type_consultation, libelle_type, patient, nom_patient, age, partenaire_id,
+ nom_partenaire, taux_couverture, tel_patient,prix_consultation, montant_consultation,montant_en_lettre, somme_recu, 
+ somme_remise, montant_pris_en_charge, montant_a_payer, is_closed, is_deleted, when_done,who_done
+	FROM public.v_consultations 
+	where numero_consul =  $P{id} ;]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+	</field>
+	<field name="numero_consul" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numero_consul"/>
+	</field>
+	<field name="type_consultation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="type_consultation"/>
+	</field>
+	<field name="libelle_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelle_type"/>
+	</field>
+	<field name="patient" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="patient"/>
+	</field>
+	<field name="nom_patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nom_patient"/>
+	</field>
+	<field name="age" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="age"/>
+	</field>
+	<field name="partenaire_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="partenaire_id"/>
+	</field>
+	<field name="nom_partenaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nom_partenaire"/>
+	</field>
+	<field name="taux_couverture" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="taux_couverture"/>
+	</field>
+	<field name="tel_patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tel_patient"/>
+	</field>
+	<field name="prix_consultation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="prix_consultation"/>
+	</field>
+	<field name="montant_consultation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="montant_consultation"/>
+	</field>
+	<field name="montant_en_lettre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="montant_en_lettre"/>
+	</field>
+	<field name="somme_recu" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="somme_recu"/>
+	</field>
+	<field name="somme_remise" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="somme_remise"/>
+	</field>
+	<field name="montant_pris_en_charge" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="montant_pris_en_charge"/>
+	</field>
+	<field name="montant_a_payer" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="montant_a_payer"/>
+	</field>
+	<field name="is_closed" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_closed"/>
+	</field>
+	<field name="is_deleted" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_deleted"/>
+	</field>
+	<field name="when_done" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="when_done"/>
+	</field>
+	<field name="who_done" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="who_done"/>
+	</field>
+	<group name="Groupe1 Consultation">
+		<groupHeader>
+			<band height="210">
+				<subreport isUsingCache="true">
+					<reportElement x="-7" y="0" width="560" height="210" uuid="6873ee27-bca9-498a-83d4-7ef76c563c57"/>
+					<subreportParameter name="id">
+						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["sub_recu1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="261">
+				<line>
+					<reportElement x="1" y="3" width="549" height="1" uuid="f5a57882-3862-4de5-af15-9e491972135f"/>
+				</line>
+				<subreport>
+					<reportElement x="-7" y="10" width="560" height="251" uuid="849ae8c8-1ad8-4177-bcb8-4b3dacb07769"/>
+					<subreportParameter name="id">
+						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["sub_recu2.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

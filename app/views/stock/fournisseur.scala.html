@@ -1,0 +1,112 @@
+@(viewMode: String, fournisseurs: List[models.stock.tables.pojos.Fournisseur], fournisseur: models.stock.tables.pojos.Fournisseur )(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+@import views.html._
+
+@main("Fournisseur") {
+
+
+<hr>
+<div class="card-header" id="titre_header">
+        <div class="row" >
+            <div class="row">
+                <form  method="POST" name="form" action="@controllers.stock.routes.FournisseurController.save()"  class="form-horizontal col-md-12 col-sm-12 col-xs-12" role="form">
+                    @CSRF.formField
+                    <input type="hidden" name="prenomF" value="@fournisseur.getPrenomF()" required="required" @if( viewMode.equals("VIEW")){ disabled=disabled} />
+                    <input type="hidden" name="viewMode" value="@viewMode">
+                    <input type="hidden" name="id" value="@fournisseur.getId()">
+                    <center>
+                        <fieldset style=" color:#000; width:65%; background-color:#DDE7E9; border-radius:10px; font-size:14px;"  >
+                            <br>
+
+                            <h6 style="color:#000;">
+                                <strong>
+                                    <i>Tous les champs avec <font style="color:red;  font-size:14px;">*</font> sont obligatoires</i>
+                                </strong>
+                            </h6>
+                            <div  class="row ">
+                                <div class="col-md-12"><h5><u style="color: red;"><b>Cr&eacuteation Fournisseur</b></u> </h5></div>
+                                <div class="col-md-5">
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label" for="nom" ><b>Nom<font style="color:red;  font-size:14px;">*:</font></b></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="nomF" value="@fournisseur.getNomF()" required="required" @if( viewMode.equals("VIEW")){ disabled=disabled} />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label" for="nom" ><b>Telephone<font style="color:red;  font-size:14px;">*:</font></b></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="telephone" value="@fournisseur.getTelephone()" required="required" @if( viewMode.equals("VIEW")){ disabled=disabled} />
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label" for="nom" ><b>Adresse<font style="color:red;  font-size:14px;">*:</font></b></label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="adresse" value="@fournisseur.getAdresse()" required="required" @if( viewMode.equals("VIEW")){ disabled=disabled} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                            @if( !viewMode.equals("VIEW")){
+                                <div class="col-sm-12">
+                                    <div class="form-group" style="">
+                                        <a href="@controllers.stock.routes.FournisseurController.index()" class="btn btn-default" >Rétour</a>ou
+                                        <button type="submit" class="btn btn-primary" >@if( !viewMode.equals("CREATE")){Modifier}else{Valider}</button>
+                                    </div>
+                                </div>
+                            }else{
+                                <a href="@controllers.stock.routes.FournisseurController.index()" class="btn btn-default" >Rétour</a>
+                                }
+                    </fieldset>
+                </center>
+                </form>
+        </div>
+    </div>
+</div>
+
+
+<hr>
+<section class="container">
+    <br /><br />
+    <div class="row">
+        <div class = "col-md-12 table-responsive">
+            <table class="dta-tbl table table-bordered table-striped text-center" >
+                <thead>
+                    <tr>
+                        <th style="width:10px">#</th>
+                        <th>Nom</th>
+                        <th>Telephone</th>
+                        <th>Adresse</th>
+                        <th style="width: 100px">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for(d <-fournisseurs){
+
+                <tr>
+                    <td class="text-left" >@d.getId()</td>
+                    <td class="text-left" style="text-align: center">@d.getNomF()</td>
+                    <td class="text-left" style="text-align: center">@d.getTelephone()</td>
+                    <td class="text-left" style="text-align: center">@d.getAdresse()</td>
+                    <td class="text-right">
+                        <a class="btn btn-success btn-xs" href="@controllers.stock.routes.FournisseurController.show("EDIT", d.getId())" role="button" data-rel="tooltip" title="Editer">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        </a> |
+                        <a class="btn btn-default btn-xs" href="@controllers.stock.routes.FournisseurController.show("VIEW", d.getId())" role="button" data-rel="tooltip" title="Aperçu avant suppression">
+                        <span class="glyphicon glyphicon-record"></span>
+                        </a>
+
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+}

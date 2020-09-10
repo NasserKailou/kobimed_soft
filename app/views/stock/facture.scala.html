@@ -1,0 +1,196 @@
+@( mouvements: List[models.stock.tables.pojos.VMouvement], factures: List[models.stock.tables.pojos.VFactureConsulster],
+users: List[models.public_.tables.pojos.Users], mF : String)(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+
+@montant(liste: List[models.stock.tables.pojos.VFactureConsulster]) = @{
+var i:Long = 0L
+for(c<-liste){
+i = i+c.getMontantchiffre
+}
+i
+}
+@main("Facture par user") {
+
+
+<!-- <h3 style="text-align: center">Les factures</h3> -->
+<br>
+<div class="row col-md-6 col-md-offset-3">
+    <div class="panel panel-primary ">
+        <div class="panel-heading">
+            <h4 class="text-center">Rechercher</h4>
+        </div>
+        <div class="panel-body" >
+                <div class="row">
+                    @form(controllers.stock.routes.MouvementCtrl.rFacture()){
+                    @CSRF.formField
+                    @if(request.session().get("droit") == "Admin") {
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="control-label col-sm-12">
+                                <label class="control-label">Utilisateur</label>
+                                <select class="form-control" required="required" name="login" value="" >
+                                    <option value="">Selectionner Utilisateur</option>
+                                    @for(u<-users){
+                                    <option value="@u.getLogin()" >@u.getLogin</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="control-label col-sm-12">
+                                <label class="control-label">Opération</label>
+                                <select class="form-control" required="required" name="operation" value="" >
+                                    <option value="" selected="selected">Selectionner Opération</option>
+                                    <option value="Distribution" >Sortie</option>
+                                    <option value="Approvisionnement" >Entrée</option>
+                                    <option value="Transfert">Transfert</option>
+                                    <option value="Rejet" >Rejet</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="control-label col-sm-12">
+                                <label class="control-label">Date Opération</label>
+                                <input type="text" class="form-control datepicker"  placeholder="jj/mm/aaaa" required   id="date" name="date"  pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br><br>
+
+                    <div class="col-sm-12">
+                        <div class="form-group" style="">
+                            <button type="submit" class="btn btn-primary" >Rechercher</button>
+                        </div>
+                    </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div class="col-md-5">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="text-center">@mF</h4>
+        </div>
+        <div class="panel-body" >
+            <div class="table-responsive">
+
+                <table class="table table-bordered" id="">
+                    <thead>
+                    <tr >
+                        <th style="width:10px">#</th>
+                        <th>User</th>
+                        <th>Opération</th>
+                        <th>Date</th>
+<!--                         <th>Montant</th> -->
+                        <th style="width: 100px">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for(f <- factures){
+                    <tr class="rowFact">
+                        <td>@f.getFactureId</td>
+                        <td>@f.getWhoDoneM</td>
+                        <td>@f.getOperation</td>
+                        <td>@f.getWhenDoneF.format("dd/MM/yyyy hh:mm:ss")</td>
+<!--                         <td>@formatMontant(f.getMontantchiffre)</td> -->
+                        <td><input type="button" class="btn-link" value="@f.getFactureId"></td>
+                    </tr>
+                    }
+                    <tr>
+<!--                         <td colspan="2"><b>Total</b></td> -->
+<!--                         <td colspan="4" style="text-align: right"><b><i>@formatMontant(montant(factures))</i></b></td> -->
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+<div class="col-md-7">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="text-center">Liste des mouvements</h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered" id="tableMvDetail">
+                        <thead>
+                        <tr>
+                            <th>Désignation</th>
+                            <th>Montant/Quantité</th>
+<!--                             <th>Prix</th> -->
+<!--                             <th>Total</th> -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+}
+<script>
+$(document).ready(function(){
+
+
+
+$('.rowFact').on('click', function () {
+var code=$(this).find('td').eq(0).text();
+
+
+$("#tableMvDetail > tbody").empty();
+$.ajax({type:"GET", url:"/json/mouv/"+code,
+error : function(err){ console.log(err); },
+success : function(dataFromServer) {
+var availableTags=[];
+
+for(i=0; i<dataFromServer.options.length; i++){
+
+$("#tableMvDetail > tbody").append("<tr class=''><td>"+dataFromServer.options[i].libelle+"</td><td >"+dataFromServer.options[i].quantiteM+"</td></tr>");
+//$("#tableMvDetail > tbody").append("<tr class=''><td >"+dataFromServer.options[i].quantiteM+"</td><td>"+dataFromServer.options[i].libelle+"</td><td>"+dataFromServer.options[i].prix+"</td><td>"+dataFromServer.options[i].montantMouvement+"</td></tr>");
+
+
+}
+
+
+}
+
+});
+
+});
+
+});
+</script>

@@ -1,0 +1,118 @@
+@(implicit request: Http.Request)
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #235681 !important; z-index: 10300;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-5">
+				<img src="@routes.Assets.versioned("images/logo.png")" class="logo" />
+			</div>
+			<div class="col-sm-4">
+				<h2 style="color: #fff;">Cabinet Médical Dicko</h2>
+			</div>
+			<div class="col-sm-3">
+				<ul class="nav navbar-nav pull-right">
+					<li class="dropdown">
+						<a data-toggle="dropdown" href="#">
+							<img src="@routes.Assets.versioned("images/face5.jpg")" class="img-circle" alt="profile" style="width: 40px;" />
+							<b class="caret"></b>
+							<span class="nav-profile-name"></span>
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="#">Compte</a></li>
+							<li><a href="@controllers.routes.HomeController.deconnecter()">Se deconnecter</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #3a7b9c !important; top:85px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<ul class="nav navbar-nav text-center">
+				
+				
+				@if(request.session.getOptional("droit").get() == "Admin" || request.session.getOptional("droit").get() == "Gestionnaire") {
+				<li><a href="@routes.HomeController.acceuil()" style="background-color: #235681; color: #fff;">Accueil</a></li>
+   					<li class="dropdown" >
+						<a data-toggle="dropdown" style="color: #fff;" href="#">Paramètrages<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+								<li><a href="@routes.TypeConsultationCtrl.show("CREATE",0L)">Type Consultation</a></li>
+<!-- 								<li><a href="#">Patients</a></li> -->
+								<li><a href="@routes.PartenaireCtrl.show("CREATE",0L)">Partenaires</a></li>
+								<li><a href="#">Utilisateurs</a></li>
+						</ul>
+					</li>
+					<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
+					<li><a href="@routes.PatientCtrl.show("CREATE",0L)" style="color: #fff;">Patients</a></li>
+					<li><a href="@routes.UserCtrl.index()" style="color: #fff;">Utilisateurs</a></li>
+					<li><a href="@routes.PersonnelCtrl.show("CREATE",0L)" style="color: #fff;">Personnels</a></li>
+					<li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li>
+					<li><a href="@routes.ConsultationCtrl.consultationSupp()" style="color: #fff;">Reçu Supprimer</a></li>
+					
+<!-- 					<li class="dropdown"> -->
+<!-- 						<a data-toggle="dropdown" href="#" style="color: #fff;">Situations<b class="caret"></b></a> -->
+<!-- 						<ul class="dropdown-menu"> -->
+									
+<!-- 						</ul> -->
+<!-- 					</li> -->
+					
+					<li><a href="@routes.ConsultationCtrl.viewRDV()" style="color: #fff;">Rendez-vous</a></li>
+					<li><a href="@routes.HomeController.acceuil()" style="color: #fff;">Statistiques</a></li>
+          }
+					@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Gestionnaire") {
+					
+					}
+			@if(request.session.get("droit").get() == "Caissier") {
+   					<li class="dropdown" >
+						<a data-toggle="dropdown" style="color: #fff;" href="#">Paramètrages<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+								<li><a href="@routes.TypeConsultationCtrl.show("CREATE",0L)">Type Consultation</a></li>
+<!-- 								<li><a href="#">Patients</a></li> -->
+								<li><a href="@routes.PartenaireCtrl.show("CREATE",0L)">Partenaires</a></li>
+								
+						</ul>
+					</li>
+			<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
+			<li><a href="@routes.PatientCtrl.show("CREATE",0L)" style="color: #fff;">Patients</a></li>
+			<li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li>
+          }
+					
+					
+<!-- 					<li class="dropdown"> -->
+<!-- 						<a data-toggle="dropdown" href="#">Gestion caisse<b class="caret"></b></a> -->
+<!-- 						<ul class="dropdown-menu"> -->
+<!-- 						</ul> -->
+<!-- 					</li> -->
+<!-- 					<li class="dropdown"> -->
+<!-- 						<a data-toggle="dropdown" href="@controllers.stock.routes.MouvementCtrl.getFactures()">Situation<b class="caret"></b></a> -->
+<!-- 						<ul class="dropdown-menu"> -->
+<!-- 						</ul> -->
+<!-- 					</li> -->
+
+					@if(request.session.get("droit").get() == "Admin") {
+<!-- 					<li class="dropdown"> -->
+<!-- 						<a data-toggle="dropdown" href="#" style="color: #fff;">Stock<b class="caret"></b></a> -->
+<!-- 						<ul class="dropdown-menu"> -->
+<!-- 							<li><a href="@controllers.stock.routes.ArticleCtrl.index()">Accessoirs</a></li> -->
+<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.index("Approvisionnement")">Entrées</a></li> -->
+<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.index("Distribution")">Sorties</a></li> -->
+<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.dispoover()">Seuil</a></li> -->
+						
+<!-- <!-- 							<li><a href="@controllers.stock.routes.FournisseurController.show("CREATE",0)">Fournisseur</a></li> --> -->
+<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.tindex()">Initialiser Stock</a></li> -->
+<!-- <!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.getFactures()">Controle</a></li> --> -->
+<!-- 						</ul> -->
+<!-- 					</li> -->
+					}
+					
+<!-- 				<ul class="nav navbar-nav navbar-right"> -->
+			    
+<!-- 			      <li><a ><span class="glyphicon glyphicon-user"></span> @request.session.get("login")</a></li> -->
+<!-- 			      <li><a href="@routes.AuthenticationCtrl.logout()"><span class="glyphicon glyphicon-log-in"></span> Deconnecter</a></li> -->
+<!-- 		    </ul> -->
+			</div>
+		</div>
+	</div>
+</div>

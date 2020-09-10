@@ -1,0 +1,52 @@
+@(ma : Long, mv : Long, mr : Long, mo : Long)(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+@import views.html._
+
+@main("Comptabilité") {
+
+
+<h3 style="text-align: center">La comptabilité</h3>
+<div class="row col-md-8 col-md-offset-2">
+    <div class="panel panel-primary ">
+        <div class="panel-heading">
+            <h4 class="text-center">La comptabilité</h4>
+        </div>
+        <div class="panel-body" >
+            <div class="row">
+                <div class="col-md-6">
+                    <legend>Les récettes</legend>
+                    <b>Ventes :</b> @mv <br>
+                    <b>Quantité restante :</b> @mo
+                </div>
+                <div class="col-md-6">
+                    <legend>Les dépenses</legend>
+                    <b>Achats :</b> : @ma <br>
+                    <b>Réjets :</b> :@mr
+                </div>
+                <div class="col-md-6">
+                    <legend>Total récettes</legend>
+                    <b>Total :</b> : @(mv + mo)
+                </div>
+                <div class="col-md-6">
+                    <legend>Total dépense</legend>
+                    <b>Total :</b> : @(ma + mr)
+                </div>
+                <br><br><br><br><br><br>
+                <div class="col-md-8 col-md-offset-2" style="text-align: center">
+                    <legend>PROFI</legend>
+                    <b>Profi :</b> : @((mv + mo) - (ma + mr))
+                </div>
+
+            </div>
+            <br><br>
+            <div class="row">
+                <a href="@controllers.stock.routes.MouvementCtrl.index("Vente")" class="btn btn-default" >Rétour</a>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}

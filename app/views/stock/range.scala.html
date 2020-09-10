@@ -1,0 +1,112 @@
+@(viewMode: String, rangees: List[models.stock.tables.pojos.Rangee], rangee: models.stock.tables.pojos.Rangee )(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+@import views.html._
+
+@main("Gestion casier") {
+
+
+<h3 style="text-align: center">Gestion des casiers</h3>
+
+<div class="col-md-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="text-center">Cr&eacuteation Casier</h4>
+        </div>
+        <div class="panel-body" >
+            <div class="row">
+                @form(controllers.stock.routes.RangeCtrl.save()){
+                @CSRF.formField
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="control-label col-sm-12">
+                            <label class="control-label">Libelle</label>
+                            <input type="text" class="form-control" name="libelle" value="@rangee.getLibelle()" required="required" @if( viewMode.equals("VIEW")){ disabled=disabled} />
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="viewMode" value="@viewMode">
+                <input type="hidden" name="rangee-id" value="@rangee.getId()">
+
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="control-label col-sm-12">
+                            <label class="control-label">Utilisateur</label>
+                            <input type="text"  class="form-control" disabled="disabled" value="@rangee.getWhoDone()"  />
+                        </div>
+                    </div>
+                </div>
+            <br><br><br>
+            @if( !viewMode.equals("VIEW")){
+            <div class="col-sm-12">
+                <div class="form-group" style="">
+                    <a href="@controllers.stock.routes.RangeCtrl.index()" class="btn btn-default" >Rétour</a>ou
+                    <button type="submit" class="btn btn-primary" >@if( !viewMode.equals("CREATE")){Modifier}else{Valider}</button>
+                </div>
+            </div>
+            }else{
+                <a href="@controllers.stock.routes.RangeCtrl.index()" class="btn btn-default" >Rétour</a>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+<div class="col-md-8">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="text-center">Liste des casiers</h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered" id="articleTable">
+                        <thead>
+                        <tr>
+                            <th style="width:10px">#</th>
+                            <th>Libelle</th>
+                            <th style="width: 100px">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @for(d <-rangees){
+
+                        <tr>
+                            <td class="text-left" >@d.getId()</td>
+                            <td class="text-left" style="text-align: center">@d.getLibelle()</td>
+                            <td class="text-right">
+                                <a class="btn btn-success btn-xs" href="@controllers.stock.routes.RangeCtrl.show("EDIT", d.getId())" role="button" data-rel="tooltip" title="Editer">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                </a> |
+                                <a class="btn btn-default btn-xs" href="@controllers.stock.routes.RangeCtrl.show("VIEW", d.getId())" role="button" data-rel="tooltip" title="Aperçu avant suppression">
+                                <span class="glyphicon glyphicon-record"></span>
+                                </a>
+
+                            </td>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+}

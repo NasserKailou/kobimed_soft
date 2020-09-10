@@ -1,0 +1,51 @@
+body {
+    padding-top: 117px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+  footer {
+    position: fixed;
+    height: 25px;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background:#235681;
+    padding-top: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    }
+
+.autocomplete-suggestions {
+	border: 1px solid #999;
+	background: #FFF;
+	overflow: auto;
+}
+
+.autocomplete-suggestion {
+	/*added start*/
+	font: menu;
+    font-size: 12px;
+	cursor: pointer;
+	/*added end*/
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.autocomplete-selected {
+	/*background: #F0F0F0;*/
+	background-color: Highlight;
+    color: HighlightText;
+}
+
+.autocomplete-suggestions strong {
+	font-weight: normal;
+	color: #3399FF;
+}

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_recu" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8dc01a95-5b45-4d18-b86d-01ddd0d7e7ed">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dicko/DICKO.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT id, numero_consul, type_consultation, libelle_type, patient, nom_patient, age, partenaire_id,structure_patient,
+ nom_partenaire, taux_couverture, tel_patient,prix_consultation, montant_consultation,montant_en_lettre, somme_recu, 
+ somme_remise, montant_pris_en_charge, montant_a_payer, is_closed, is_deleted, when_done,who_done,medecin
+
+	FROM public.v_consultations 
+	where numero_consul =  $P{id} ;]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+	</field>
+	<field name="numero_consul" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="numero_consul"/>
+	</field>
+	<field name="type_consultation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="type_consultation"/>
+	</field>
+	<field name="libelle_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelle_type"/>
+	</field>
+	<field name="patient" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="patient"/>
+	</field>
+	<field name="nom_patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nom_patient"/>
+	</field>
+	<field name="age" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="age"/>
+	</field>
+	<field name="partenaire_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="partenaire_id"/>
+	</field>
+	<field name="structure_patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="structure_patient"/>
+	</field>
+	<field name="nom_partenaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nom_partenaire"/>
+	</field>
+	<field name="taux_couverture" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="taux_couverture"/>
+	</field>
+	<field name="tel_patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tel_patient"/>
+	</field>
+	<field name="prix_consultation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="prix_consultation"/>
+	</field>
+	<field name="montant_consultation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="montant_consultation"/>
+	</field>
+	<field name="montant_en_lettre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="montant_en_lettre"/>
+	</field>
+	<field name="somme_recu" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="somme_recu"/>
+	</field>
+	<field name="somme_remise" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="somme_remise"/>
+	</field>
+	<field name="montant_pris_en_charge" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="montant_pris_en_charge"/>
+	</field>
+	<field name="montant_a_payer" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="montant_a_payer"/>
+	</field>
+	<field name="is_closed" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_closed"/>
+	</field>
+	<field name="is_deleted" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_deleted"/>
+	</field>
+	<field name="when_done" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="when_done"/>
+	</field>
+	<field name="who_done" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="who_done"/>
+	</field>
+	<field name="medecin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="medecin"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-12" width="90" height="80" uuid="e8e25104-14e1-4594-86df-0d2316046b56"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="-9" width="200" height="20" uuid="1f19ed32-3a3a-407f-a1e2-9a4258a71301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CABINET MEDICAL DICKO]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="470" y="16" width="83" height="40" uuid="fc490b02-744d-450e-8a75-e8a0cb45ef5b"/>
+				<jr:Codabar xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA[$F{numero_consul}]]></jr:codeExpression>
+				</jr:Codabar>
+			</componentElement>
+			<staticText>
+				<reportElement x="112" y="16" width="358" height="20" uuid="3178a105-14a7-455f-acff-e444adb317c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[BP: 10201 Niamey-Niger-CUNI-Koira-Kano, Boulevevard Askia Mohamed Rue KK 77]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="31" width="358" height="20" uuid="f1af96c4-a5d7-46f1-b006-f484aeeb3d78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TEL : +227 96 11 13 65 / 20 37 18 18, Compte SONIBANK 2511239351-54]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="48" width="358" height="20" uuid="ceb3ebe7-01a2-419b-bdcf-b076c9af3d30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Arrêté N° 1188/MSP/SG/DGSP/DOS du 13/11/2019]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="7" width="239" height="15" uuid="7b7a18e9-c5dc-4cec-935c-bf88eb88bcf2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[RCCM: NE.NIM-01-2020-A 10-00286,NIF : 61817/P]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="151" y="18" width="250" height="19" uuid="2bead129-56b4-4ecd-b423-2ed585036656"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reçu N° 00"+$F{id}+"/"+new SimpleDateFormat("yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="360" y="1" width="197" height="20" uuid="8a3a356f-1f66-4da1-896a-464785f90236"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Niamey, Le " + new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="101" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="19" width="356" height="20" uuid="08475e88-2de1-4926-a3c2-51597617b513"/>
+				<textFieldExpression><![CDATA["Nom & prénom : "+$F{nom_patient} +", Tel : "+$F{tel_patient}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="47" width="126" height="21" uuid="6fbec54e-2b32-408c-943b-e45886e9576f"/>
+				<textFieldExpression><![CDATA["Âge : "+$F{age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="20" width="195" height="19" uuid="658be58e-9922-4556-888e-cc6725ff5b40"/>
+				<textFieldExpression><![CDATA["Médecin : "+$F{medecin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="71" width="170" height="30" backcolor="#E8E8E8" uuid="157c0043-7671-4ec2-b3dc-dde0fa9ee86c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0fd13c51-e63c-4a7d-ac00-f7353bbd3865"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consultation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="170" y="71" width="69" height="30" backcolor="#E8E8E8" uuid="cc873d49-af5b-44ad-aa8f-25b489a86333">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36a99710-fd48-4677-812d-39bd0ed32f15"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="239" y="71" width="70" height="30" backcolor="#E8E8E8" uuid="e90b4d82-0665-4abc-a44c-8ce7ec3cc396">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7e48cc5-bf4e-431f-b29d-2a5e40c31694"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Taux de couverture]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="309" y="71" width="70" height="30" backcolor="#E8E8E8" uuid="e2de7565-b32a-43e9-ab71-5d45b8a24aa3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cf24a6f-5342-409d-a0eb-4de3a074f4f7"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net à payer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="379" y="71" width="80" height="30" backcolor="#E8E8E8" uuid="63d386c9-b235-472d-b627-ab40dc4b4e69">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdb7524e-e65d-40ec-beea-c03a0818fec3"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant reçu du patient]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="459" y="71" width="74" height="30" backcolor="#E8E8E8" uuid="ef3a587b-5539-4564-9184-57935a3a76a7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3c61a6d-6b84-4fdf-b134-a67bbe3e5735"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remise]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="47" width="427" height="21" uuid="55c3e338-8ba4-411f-8356-7527df8d1b43"/>
+				<textFieldExpression><![CDATA["Prise en charge : "+$F{nom_partenaire} +" "+$F{structure_patient}+"  à "+ ($F{taux_couverture}*100)+"%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="3" width="200" height="15" uuid="c425b212-b825-4964-bdd5-dc0b56ab9e96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informations patient (e)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="170" height="20" uuid="63ad7478-57c5-484c-a045-a436d4d9f9f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0fd13c51-e63c-4a7d-ac00-f7353bbd3865"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{libelle_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="69" height="20" uuid="8c4d389c-b106-49ac-ad2b-d5ccc994fe77">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36a99710-fd48-4677-812d-39bd0ed32f15"/>
+				</reportElement>
+				<box rightPadding="3">
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{prix_consultation})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="0" width="70" height="20" uuid="e172b833-6d5a-4f27-aa85-c74d460bb78d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7e48cc5-bf4e-431f-b29d-2a5e40c31694"/>
+				</reportElement>
+				<box rightPadding="3">
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format(($F{taux_couverture} * 100) )+" %"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="0" width="70" height="20" uuid="6e59fde4-87aa-4731-b601-ac6b991ee07a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cf24a6f-5342-409d-a0eb-4de3a074f4f7"/>
+				</reportElement>
+				<box rightPadding="3">
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{montant_consultation})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="0" width="80" height="20" uuid="b180c72b-00d3-4e4e-b8fc-6adc322483da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdb7524e-e65d-40ec-beea-c03a0818fec3"/>
+				</reportElement>
+				<box rightPadding="3">
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{somme_recu})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="0" width="74" height="20" uuid="a3ef096a-e78b-42ad-b990-245751542dff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3c61a6d-6b84-4fdf-b134-a67bbe3e5735"/>
+				</reportElement>
+				<box rightPadding="3">
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{somme_remise})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="114" splitType="Stretch">
+			<staticText>
+				<reportElement x="459" y="37" width="89" height="30" uuid="33637c3e-76db-4e76-a61d-432d71b1aac1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="42" width="90" height="30" uuid="e092b313-9cc8-464b-84c9-ffc145228b4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Patient (e):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="75" width="263" height="23" uuid="08e14b18-ffce-49e0-9402-4a707ca9fdea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Ce Reçu est valable pour une periode de 10 jours !]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="4" width="533" height="34" uuid="0dd81375-4245-4af1-b76b-6cedcf72fde3"/>
+				<textElement verticalAlignment="Top">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Arretez le présent reçu à la somme de "+$F{montant_en_lettre} + " F CFA "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="100" width="330" height="14" uuid="c6bb576d-243b-4306-8dda-7178e977846d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Logiciel de de gestion médical KobiSoft cel: 90413363]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="439" y="100" width="103" height="14" uuid="ddef9833-7202-4cbf-a9e0-17aab85e3d4b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="367" y="98" width="70" height="16" uuid="5c919690-fff6-4336-acc5-9042af603108"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Imprimé le :]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="358" y="38" width="94" height="52" uuid="59c04107-7b81-4c5a-90ee-7b91cbcdc89f"/>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" margin="1">
+					<jr:codeExpression><![CDATA["Cabinet médical dicko, BP: 10201 Niamey-Niger-CUNI-Koira-Kano, Boulevevard Askia Mohamed Rue KK 77 ,TEL : +227 96 11 13 65 / 20 37 18 18, Compte SONIBANK 2511239351-54, Arrêté N° 1188/MSP/SG/DGSP/DOS du 13/11/2019 " +"  Opération validé par :" +$F{who_done}]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<staticText>
+				<reportElement x="200" y="50" width="153" height="30" uuid="3b5d3ab1-4eca-42be-9785-d67f784c221a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Meilleur santé !!!]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

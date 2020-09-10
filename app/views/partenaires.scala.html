@@ -1,0 +1,183 @@
+@import java.time.LocalDateTime
+@import helper._
+@import java.util
+@(viewMode:String,  partenaires: List[models.public_.tables.pojos.Partenaire],partsDeleted: List[models.public_.tables.pojos.Partenaire], 
+partenaire: models.public_.tables.pojos.Partenaire)(implicit request: Http.Request)
+
+
+@main("Clients"){
+
+<script type="text/javascript">
+function openPopup(target, x, y, w, h) {
+	var win = window.open(target, 'popup', 'height='+h+', width='+w+', top='+y+', left='+x+', toolbar=no, menubar=yes, location=no, resizable=yes, scrollbars=yes, status=no');
+	win.window.focus();
+	return false;
+}
+
+</script>
+
+
+<hr>
+<div class="card-header" id="titre_header">
+	<div class="row">
+
+	<form  method="POST" name="form" action="@controllers.routes.PartenaireCtrl.save() "  class="form-horizontal col-md-12 col-sm-12 col-xs-12" role="form">
+			@helper.CSRF.formField
+			<input value="@viewMode"           name="viewMode" type="hidden">
+			<input value="@partenaire.getId() " name="id" type="hidden">
+			<center>
+			<fieldset style=" color:#000; width:98%; background-color:#DDE7E9; border-radius:10px; font-size:14px;"  >
+			<br>
+
+					<h6 style="color:#000;">
+						<strong>
+							<i>Tous les champs avec <font style="color:red;  font-size:14px;">*</font> sont obligatoires</i>
+						</strong>
+					</h6>
+			<div  class="row ">
+			    <div class="col-md-12"><h5><u style="color: red;"><b>Informations Structure Partenaire</b></u> </h5></div>
+				<div class="col-md-12">
+
+						<br>
+						<div class="form-group row">
+						  <label class="col-sm-2 col-form-label" for="nom" ><b>Nom /Raison Social <font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-5">
+								<input type="text"  name="libelle" autocomplete="off" value="@partenaire.getLibelle()"
+											placeholder="Nom du partenaire" 
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											class="form-control"
+											required="required"  />
+						  	</div>
+						</div>
+<!-- 						<div class="form-group row"> -->
+<!-- 					 	 <label class="col-sm-2 col-form-label" for="prenom"><b>Taux de couverture  <font style="color:red;  font-size:14px;">*:</font></b></label> -->
+<!-- 					 		 <div class="col-sm-5"> -->
+<!-- 								<input type="text" name="tauxCouverture" autocomplete="off" value="@partenaire.getTauxCouverture()"  -->
+<!-- 											class="form-control" -->
+<!-- 											@if( viewMode.equals("DELETE")){ disabled=disabled} -->
+<!-- 											placeholder="Précisez le taux de couverture des prestation (en %) exemple: 0.80 " -->
+<!-- 				                    		required="required"/> -->
+<!-- 					  		</div> -->
+<!-- 					  		</div> -->
+					  		<div class="form-group row">
+					  		<label class="col-sm-2 col-form-label" for="prenom"><b>Telephone <font style="color:red;  font-size:14px;">*:</font></b></label>
+					 		 <div class="col-sm-5">
+								<input type="text" name="telephone" autocomplete="off" value="@partenaire.getTelephone()"
+											class="form-control"
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											placeholder="Numéro de téléphone du partenaire"
+				                    		required="required"/>
+					  		</div>
+						</div>
+
+						
+				</div>
+
+			
+				</div>
+			<div class="row" style="color:#000;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<button class="btn btn-primary" type="submit"  name="Annuler" value="Retour" onclick="history.go(-1)">Retour</button>
+					@if( viewMode.equals("CREATE")){ 
+					<button class="btn btn-success" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >
+						<i class="glyphicon glyphicon-save"></i> Enregistrer
+					</button> } 
+					@if( viewMode.equals("EDIT")){ 
+					<button class="btn btn-warning" type="submit" id="valider" name="Valider" title="Valider(Modifier les informations)">
+						<i class="glyphicon glyphicon-edit"></i> Modifier
+					</button> } 
+					@if( viewMode.equals("DELETE")){ 
+					<button class="btn btn-danger" type="submit" id="valider"
+					 name="Valider" title="Supprimer le partenaire"  onclick="return window.confirm('Voulez vous supprimer ce partenaire?');">
+						<i class="glyphicon glyphicon-edit"></i> Supprimer
+					</button> } 
+					
+<!-- 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				<button class="btn btn-danger" type="submit"  name="Annuler" value="Annuler">Annuler</button> -->
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<br>
+			</fieldset></center>
+			<br>
+		</form>
+				</div>
+</div>
+<hr>
+<section class="container">
+	
+	<div class="row">
+
+		<div class = "col-md-12 table-responsive">
+		
+				<table class="dta-tbl table table-bordered table-striped text-center" >
+				<center><div class="badged-title"><h4> <b>L</b>istes des clients<br></div></center>
+					<thead>
+						 <tr>
+<!-- 							<th style="text-align: center"><b>N°</b></th> -->
+							<th style="text-align: center"><b>Nom/Raison Sociale</b></th>
+							<th style="text-align: center"><b>Telephone</b></th>
+							<th style="text-align: center"><b>Action</b></th>
+						 </tr>
+					 </thead>
+					 <tbody>
+						@for(c <-partenaires){
+							 <tr>
+<!-- 							  <td>@c.getId() </td> -->
+								<td>@c.getLibelle() </td>
+
+								<td>@c.getTelephone() </td>
+								<td>
+								  <a id="btnReadWrite" class="btn btn-primary" title="Modification"
+									href="@controllers.routes.PartenaireCtrl.show("EDIT", c.getId()) " ><i class="glyphicon glyphicon-edit"></i></a>
+										|
+                                    <a id="btnDelete" class="btn btn-danger"
+                                       title="Supprimer"
+                                       href="@controllers.routes.PartenaireCtrl.show("DELETE", c.getId())""><i class="glyphicon glyphicon-trash"></i></a>
+                                	
+                                </td>
+							 </tr>
+							}
+					  </tbody>
+				</table>
+				
+<!-- 	@if(request.session().get("droit") == "Admin") { -->
+<!-- 			<table class="dta-tbl table table-bordered table-striped text-center" > -->
+<!-- 				<center><div class="badged-title"><h4> <b>L</b>istes des partenaires Supprimer<br></div></center> -->
+<!-- 			<thead> -->
+<!-- 						 <tr> -->
+<!-- 							<th style="text-align: center"><b>N°</b></th> -->
+<!-- 							<th style="text-align: center"><b>Nom/Raison Sociale</b></th> -->
+<!-- <!-- 							<th style="text-align: center"><b>Taux de couverture</b></th> --> -->
+<!-- 							<th style="text-align: center"><b>Telephone</b></th> -->
+<!-- 							<th style="text-align: center"><b>Action</b></th> -->
+<!-- 						 </tr> -->
+<!-- 					 </thead> -->
+<!-- 					 <tbody> -->
+<!-- 						@for(c <-partsDeleted){ -->
+<!-- 							 <tr> -->
+<!-- 							  <td>@c.getId() </td> -->
+<!-- 								<td>@c.getLibelle() </td> -->
+<!-- <!-- 								<td>@c.getTauxCouverture() </td> --> -->
+
+<!-- 								<td>@c.getTelephone() </td> -->
+<!-- 								<td> -->
+<!-- 								  <a id="btnReadWrite" class="btn btn-primary" title="Modification" -->
+<!-- 									href="@controllers.routes.PartenaireCtrl.show("EDIT", c.getId()) " ><i class="glyphicon glyphicon-edit"></i></a> -->
+<!-- 										| -->
+<!--                                     <a id="btnDelete" class="btn btn-danger" -->
+<!--                                        title="Supprimer" -->
+<!--                                        href="@controllers.routes.PartenaireCtrl.show("DELETE", c.getId())""><i class="glyphicon glyphicon-trash"></i></a> -->
+                                	
+<!--                                 </td> -->
+<!-- 							 </tr> -->
+<!-- 							} -->
+<!-- 					  </tbody> -->
+<!-- 				</table> -->
+<!-- 				} -->
+		</div>
+	</div>
+  </section>
+  
+}

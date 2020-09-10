@@ -1,0 +1,49 @@
+@(articles: List[models.stock.tables.pojos.VArticle])(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+@import views.html._
+
+@main("Disponible en baisse") {
+
+@if(request.session().get("droit") == "Financier") {<h3 style="text-align: center">Alerte Seuil Aprovissionnement de la caisse</h3>}else{<h3 style="text-align: center">Les articles quantité en baisse</h3>}
+
+<div class="row col-md-6 col-md-offset-3">
+    <div class="panel panel-primary ">
+        <div class="panel-heading">
+            <h4 class="text-center">Les produits</h4>
+        </div>
+        <div class="panel-body" >
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered" id="articleTable">
+                        <thead>
+                        <tr>
+                            <th style="width:10px">#</th>
+                            <th>Libelle</th>
+                            <th>Qte</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @for(d <-articles){
+
+                        <tr>
+                            <td class="text-left" >@d.getId()</td>
+                            <td class="text-left" style="text-align: center">@d.getLibelle()</td>
+                            <td class="text-left" style="text-align: right">@formatMontant(d.getQuantiteDisponible().longValue)</td>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <a href="@controllers.stock.routes.MouvementCtrl.index("Distribution")" class="btn btn-default" >Rétour</a>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}

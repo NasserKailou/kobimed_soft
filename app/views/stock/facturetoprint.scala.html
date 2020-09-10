@@ -1,0 +1,76 @@
+@(f: models.stock.tables.pojos.VFactureConsulster)(implicit request: Http.Request)
+@import helper._
+@import views.html.utils._
+
+@import views.html._
+
+@montant(liste: List[models.stock.tables.pojos.VFactureConsulster]) = @{
+var i:Long = 0L
+for(c<-liste){
+i = i+c.getMontantchiffre
+}
+i
+}
+@main("Print facture") {
+
+<script type="text/javascript">
+function openPopup(target, x, y, w, h) {
+	var win = window.open(target, 'popup', 'height='+h+', width='+w+', top='+y+', left='+x+', toolbar=no, menubar=yes, location=no, resizable=yes, scrollbars=yes, status=no');
+	win.window.focus();
+	return false;
+}
+
+</script>
+
+
+<h3 style="text-align: center">Les factures</h3>
+<div class="row col-md-6 col-md-offset-3">
+    <div class="panel panel-primary ">
+        <div class="panel-heading">
+            <h4 class="text-center">Facture</h4>
+        </div>
+        <div class="panel-body" >
+                <div class="row">
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered" id="">
+                            <thead>
+                            <tr >
+                                <th style="width:10px">#</th>
+                                <th>User</th>
+                                <th>Opération</th>
+                                @if(request.session().get("droit") == "Financier") {<th>Montant</th>}
+                                <th>Date</th>
+                                
+                                <th style="width: 100px">Print</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr >
+                                <td>@f.getFactureId</td>
+                                <td>@f.getWhoDoneM</td>
+                                <td>@f.getOperation</td>
+                                @if(request.session().get("droit") == "Financier") {<td>@f.getQuantiteM</td>}
+                                <td>@f.getWhenDoneF.format("dd/MM/yyyy hh:mm:ss")</td>
+                              @if(request.session().get("droit") != "Financier") {<td><a href="@controllers.stock.routes.MouvementCtrl.printRecu(f.getFactureId)" onclick="return(openPopup(this.href, 600, 600, 600, 600));" class="btn btn-info"><i class="glyphicon glyphicon-print">Print</i></a></td>}
+                             
+                              @if(request.session().get("droit") == "Financier" && f.getOperation.equals("Distribution")) {<td><a href="@controllers.stock.routes.MouvementCtrl.printBonCaise(f.getFactureId)" onclick="return(openPopup(this.href, 600, 600, 600, 600));" class="btn btn-info"><i class="glyphicon glyphicon-print">Print</i></a></td>} 
+                              @if(request.session().get("droit") == "Financier" && f.getOperation.equals("Approvisionnement")) {<td><a href="@controllers.stock.routes.MouvementCtrl.printBonEntrerCaisse(f.getFactureId)" onclick="return(openPopup(this.href, 600, 600, 600, 600));" class="btn btn-info"><i class="glyphicon glyphicon-print">Print</i></a></td>}     
+                              
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <div class="row">
+                <a href="@controllers.stock.routes.MouvementCtrl.index("Distribution")" class="btn btn-default" >Rétour</a>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}

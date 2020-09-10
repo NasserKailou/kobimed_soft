@@ -1,0 +1,27 @@
+@import helper._
+@import java.util
+@(listes:String)(implicit request: Http.Request)
+
+@main("Accueil"){
+ 
+  <div class="acceuil-containeur"> 
+   	<center> 
+  	<img src="@routes.Assets.versioned("images/logo.png")" class="profile-img-card0" 
+   	style="width: 400px;height:400px;  margin-top: 140px;"> 
+ 	 </center>       
+	</div> 
+ 
+	<forme>
+		<input type="hidden" id="listesID" name="listesID" value="@listes"></input>
+	</forme>
+	
+<!--   <div id="container1" class="col-sm-6" style=" padding-top: 25px"></div> -->
+<!--   <div id="container3" class="col-sm-6 highcharts-figure"></div> -->
+<!--   <div id="container2" class="col-sm-6 highcharts-figure" ></div> -->
+<!--   <div id="container4" class="col-sm-6 highcharts-figure" ></div>  -->
+  
+}
+
+<script type="text/javascript">
+       
+    </script>
