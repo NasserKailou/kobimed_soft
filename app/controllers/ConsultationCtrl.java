@@ -82,10 +82,10 @@ public class ConsultationCtrl extends Controller {
 		VConsultations c;
 		List<VConsultations> consultations = new ArrayList<VConsultations>();
 		// consultationServices.listeConsultations();
-		if (String.valueOf(request.session().get("droit")).equals("Gestionnaire"))
+		if (String.valueOf(request.session().get("droit").get()).equals("Gestionnaire"))
 			consultations = consultationServices.listeConsultationsByDate();
 		else
-			consultations = consultationServices.listeConsultationsByOwnerToDate(String.valueOf(request.session().get("login")));
+			consultations = consultationServices.listeConsultationsByOwnerToDate(String.valueOf(request.session().get("login").get()));
 //List<VConsultations> consultations = consultationServices.listeConsultationsByOwnerToDate(session("login"));
 		List<Personnels> medecins = persServices.listes("Medecin");
 		if (0 == idConsul) {
