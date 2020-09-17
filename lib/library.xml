@@ -59,7 +59,7 @@
 
       <!-- The destination directory of your generated classes. Using Maven directory layout here -->
 
-      <directory>/home/ins/workspace/kms_play/app/</directory>
+      <directory>/home/nasser/workspace/kms_play/app/</directory>
 
     </target>
     <generate>
