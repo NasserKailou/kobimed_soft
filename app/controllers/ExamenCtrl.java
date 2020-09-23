@@ -84,7 +84,7 @@ public class ExamenCtrl extends Controller {
 		Examens c = uForm.get();
 		c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 		c.setIsDeleted(false);
-		c.setWhoDone(String.valueOf(request.session().get("login")));
+		c.setWhoDone(String.valueOf(request.session().get("login").get()));
 
 		if (c.getCoutExamen() == null)
 			c.setCoutExamen(0L);

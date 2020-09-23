@@ -86,7 +86,7 @@ public class OrdonanceCtrl extends Controller {
 		Ordonances c = uForm.get();
 		c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 		c.setIsDeleted(false);
-		c.setWhoDone(String.valueOf(request.session().get("login")));
+		c.setWhoDone(String.valueOf(request.session().get("login").get()));
 		c.setIsSoin(false);
 		c.setMontant(0L);
 		// System.out.println("Id Consultation :"+ c.getConsultation());

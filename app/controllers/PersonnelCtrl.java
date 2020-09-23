@@ -83,6 +83,7 @@ public class PersonnelCtrl extends Controller {
 //            return redirect(routes.UserCtrl.show(ViewHelper.VIEW_MODE_CREATE, ""));
 //        }
 		p.setWhenDone(new Timestamp(System.currentTimeMillis()));
+		p.setWhoDone(String.valueOf(request.session().get("login").get()));
 		p.setIsDeleted(false);
 
 		// p.setWhoDone(session("login"));

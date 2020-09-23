@@ -90,7 +90,7 @@ public class UserCtrl extends Controller {
 			return redirect(routes.UserCtrl.show(ViewMode.VIEW_MODE_CREATE, "")).flashing("error", "utilisateur avec login " + a.getLogin() + " existe déja ");
 		}
 		a.setWhenDone(new Timestamp(System.currentTimeMillis()));
-		a.setWhoDone(String.valueOf(request.session().get("login")));
+		a.setWhoDone(String.valueOf(request.session().get("login").get()));
 		if (viewMode.equals(ViewMode.VIEW_MODE_CREATE)) {
 			if (userService.saveLogical(a, true).equals("ok")) {
 				p.setNomP(a.getNomPrenom());
@@ -134,7 +134,7 @@ public class UserCtrl extends Controller {
 	}
 
 	private boolean isAdmin(Request request) {
-		return String.valueOf(request.session().get("droit")).equals("Admin");
+		return String.valueOf(request.session().get("droit").get()).equals("Admin");
 	}
 
 }

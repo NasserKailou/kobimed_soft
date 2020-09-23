@@ -1,5 +1,5 @@
 name := "dicko_2.8"
-organization := "com.example"
+organization := "com.kobimultiservices"
 
 version := "1.0-SNAPSHOT"
 
@@ -40,5 +40,6 @@ libraryDependencies += "com.google.zxing" % "core" % "3.3.1"
 libraryDependencies += "com.itextpdf" % "itextpdf" % "5.4.2"
 libraryDependencies += "com.itextpdf.tool" % "xmlworker" % "5.4.1"
 
-resolvers += "Jasper3rd" at "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/"
+//resolvers += "Jasper3rd" at "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/"
 
+resolvers += ("Jasper3rd" at "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/").withAllowInsecureProtocol(true)

@@ -192,7 +192,7 @@ public class ConsultationCtrl extends Controller {
 		LocalDateTime dateV = null; // valeur par défaut
 		boolean dateError = false;
 		// System.out.println("le droit est :" +session("droit"));
-		if (viewMode.equals(ViewMode.VIEW_MODE_EDIT) && "Admin".equals(request.session().get("droit"))) {
+		if (viewMode.equals(ViewMode.VIEW_MODE_EDIT) && "Admin".equals(request.session().get("droit").get())) {
 
 			String dateRDV = formFactory.form().bindFromRequest(request).get("tmpDate");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -219,7 +219,7 @@ public class ConsultationCtrl extends Controller {
 
 			c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 			c.setIsDeleted(false);
-			c.setWhoDone(String.valueOf(request.session().get("login")));
+			c.setWhoDone(String.valueOf(request.session().get("login").get()));
 			c.setIsClosed(false);
 
 //			coutConsultation = (long) (typeConServices.findById(c.getTypeConsultation()).getPrix()
@@ -264,12 +264,12 @@ public class ConsultationCtrl extends Controller {
 			// System.out.println("les montant recu et cout : " + c.getSommeRecu() + " - " +
 			// coutConsultation);
 			c.setSommeRemise(c.getSommeRecu() - coutConsultation);
-			if ("Admin".equals(String.valueOf(request.session().get("droit"))))
+			if ("Admin".equals(String.valueOf(request.session().get("droit").get())))
 				c.setDateRdv(Timestamp.valueOf(dateV));
 			// c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 			String dateModif = formFactory.form().bindFromRequest(request).get("dateTmp3");
 			c.setWhenDone(consultationServices.getDateT(dateModif));
-			c.setWhoDone(String.valueOf(request.session().get("login")));
+			c.setWhoDone(String.valueOf(request.session().get("login").get()));
 			c.setIsClosed(false);
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
 				//flash("success", "Consultations  modifier avec success");
@@ -281,7 +281,7 @@ public class ConsultationCtrl extends Controller {
 		} else if (viewMode.equals(ViewMode.VIEW_MODE_DELETE)) {
 			c.setIsDeleted(true);
 			c.setWhenDone(new Timestamp(System.currentTimeMillis()));
-			c.setWhoDone(String.valueOf(request.session().get("login")) );
+			c.setWhoDone(String.valueOf(request.session().get("login").get()) );
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
 				//flash("success", "Consultations  Supprimer avec success");
 				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success", "Consultations  Supprimer avec success");

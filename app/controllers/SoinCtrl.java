@@ -112,7 +112,7 @@ public class SoinCtrl extends Controller {
 			c.setWhenDone(Timestamp.valueOf(dateV));
 
 		c.setIsDeleted(false);
-		c.setWhoDone(String.valueOf(request.session().get("login")));
+		c.setWhoDone(String.valueOf(request.session().get("login").get()));
 		c.setIsSoin(true);
 
 		if (c.getMontant() == null)

@@ -111,7 +111,7 @@ public class PatientCtrl extends Controller {
 		Patients c = uForm.get();
 		c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 		c.setIsDeleted(false);
-		c.setWhoDone(String.valueOf(request.session().get("login")));
+		c.setWhoDone(String.valueOf(request.session().get("login").get()));
 
 		c.setDateNaissance(Timestamp.valueOf(dateV));
 		c.setAge(

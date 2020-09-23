@@ -77,7 +77,7 @@ public class PartenaireCtrl extends Controller {
 		Partenaire c = uForm.get();
 		c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 		c.setIsDeleted(false);
-		c.setWhoDone(String.valueOf(request.session().get("login")));
+		c.setWhoDone(String.valueOf(request.session().get("login").get()));
 		c.setTauxCouverture(0.00);
 		if (viewMode.equals(ViewMode.VIEW_MODE_CREATE)) {
 

@@ -76,7 +76,7 @@ public class TypeConsultationCtrl extends Controller {
 		TypeConsultation c = uForm.get();
 		c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 		c.setIsDeleted(false);
-		c.setWhoDone(String.valueOf( request.session().get("login")));
+		c.setWhoDone(String.valueOf( request.session().get("login").get()));
 
 		if (viewMode.equals(ViewMode.VIEW_MODE_CREATE)) {
 
