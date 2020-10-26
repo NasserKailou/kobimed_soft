@@ -51,7 +51,7 @@ function openPopup(target, x, y, w, h) {
 			</center>
 			
 			<br>
-			@if(request.session().get("droit") == "Admin" || request.session().get("droit") == "Medecin"){
+			@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
 			<center>
 		
 		<form  method="POST" name="form" action="@controllers.routes.ConsultationCtrl.rapportPartenaire()"  class="form-horizontal col-md-12 col-sm-12 col-xs-12" >
