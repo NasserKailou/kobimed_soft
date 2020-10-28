@@ -24,6 +24,8 @@ import models.public_.tables.Params;
 import models.public_.tables.Partenaire;
 import models.public_.tables.Patients;
 import models.public_.tables.Personnels;
+import models.public_.tables.Rendezvous;
+import models.public_.tables.Roles;
 import models.public_.tables.SConsultations;
 import models.public_.tables.TypeConsultation;
 import models.public_.tables.Users;
@@ -52,7 +54,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1655370736;
+    private static final long serialVersionUID = -887966816;
 
     /**
      * The reference instance of <code>public</code>
@@ -123,6 +125,16 @@ public class Public extends SchemaImpl {
      * The table <code>public.personnels</code>.
      */
     public final Personnels PERSONNELS = models.public_.tables.Personnels.PERSONNELS;
+
+    /**
+     * The table <code>public.rendezvous</code>.
+     */
+    public final Rendezvous RENDEZVOUS = models.public_.tables.Rendezvous.RENDEZVOUS;
+
+    /**
+     * The table <code>public.roles</code>.
+     */
+    public final Roles ROLES = models.public_.tables.Roles.ROLES;
 
     /**
      * The table <code>public.s_consultations</code>.
@@ -201,6 +213,8 @@ public class Public extends SchemaImpl {
             Sequences.PARTENAIRE_ID_SEQ,
             Sequences.PATIENTS_ID_SEQ,
             Sequences.PERSONNELS_ID_SEQ,
+            Sequences.RENDEZVOUS_ID_RDV_SEQ,
+            Sequences.ROLES_ID_ROLE_SEQ,
             Sequences.TYPE_CONSULTATION_ID_SEQ);
     }
 
@@ -226,6 +240,8 @@ public class Public extends SchemaImpl {
             Partenaire.PARTENAIRE,
             Patients.PATIENTS,
             Personnels.PERSONNELS,
+            Rendezvous.RENDEZVOUS,
+            Roles.ROLES,
             SConsultations.S_CONSULTATIONS,
             TypeConsultation.TYPE_CONSULTATION,
             Users.USERS,

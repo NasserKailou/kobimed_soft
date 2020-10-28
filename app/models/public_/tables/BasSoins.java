@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BasSoins extends TableImpl<BasSoinsRecord> {
 
-    private static final long serialVersionUID = -689999428;
+    private static final long serialVersionUID = -211337661;
 
     /**
      * The reference instance of <code>public.bas_soins</code>
@@ -132,7 +132,7 @@ public class BasSoins extends TableImpl<BasSoinsRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ID_BASE_SOIN);
+        return Arrays.<Index>asList(Indexes.ID_PRIMARY);
     }
 
     /**
@@ -148,7 +148,7 @@ public class BasSoins extends TableImpl<BasSoinsRecord> {
      */
     @Override
     public UniqueKey<BasSoinsRecord> getPrimaryKey() {
-        return Keys.ID_BASE_SOIN;
+        return Keys.ID_PRIMARY;
     }
 
     /**
@@ -156,7 +156,7 @@ public class BasSoins extends TableImpl<BasSoinsRecord> {
      */
     @Override
     public List<UniqueKey<BasSoinsRecord>> getKeys() {
-        return Arrays.<UniqueKey<BasSoinsRecord>>asList(Keys.ID_BASE_SOIN);
+        return Arrays.<UniqueKey<BasSoinsRecord>>asList(Keys.ID_PRIMARY);
     }
 
     /**

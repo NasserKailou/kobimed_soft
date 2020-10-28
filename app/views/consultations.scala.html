@@ -21,7 +21,8 @@ function openPopup(target, x, y, w, h) {
 <div class="card-header" id="titre_header">
 	<div class="row">
 		                    
-                    
+ @if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Caissier"){             
+
 	<form  method="POST" name="form" action="@controllers.routes.ConsultationCtrl.save() "  class="form-horizontal col-md-12 col-sm-12 col-xs-12" role="form">
 			@helper.CSRF.formField
 			<input value="@viewMode"           name="viewMode" type="hidden">
@@ -164,7 +165,7 @@ function openPopup(target, x, y, w, h) {
 						  	</div>
 						  	}
 						  	
-						 @if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+						 @if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Asistant"){
 						  	 @if( viewMode.equals("EDIT") && consultation.getDateRdv() !=null){ 
 						<label class="col-sm-1 col-form-label" for="nom" ><b>Date de Prochain RDV<font style="color:red;  font-size:14px;">*:</font></b></label>
 						  	<div class="col-sm-2">
@@ -208,7 +209,7 @@ function openPopup(target, x, y, w, h) {
 			</div>	
 		</div>
 
-			
+		}	
 	
 			
 			
@@ -275,16 +276,19 @@ function openPopup(target, x, y, w, h) {
 							<th style="text-align: center"><b>Type Consultation</b></th>
 							<th style="text-align: center"><b>Date</b></th>
 							<th style="text-align: center"><b>Examens</b></th>
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Caissier" || request.session.get("droit").get() == "Asistant"){
 							<th style="text-align: center"><b>Soins</b></th>
-							
-							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+							}
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Asistant"){
 							<th style="text-align: center"><b>Ordonances</b></th>
 							<th style="text-align: center"><b>Observations</b></th>
 							}
 							
+							
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Caissier"){
 							<th style="text-align: center"><b>Actions</b></th>
 							<th style="text-align: center"><b>Facture</b></th>
-							
+							}
 						 </tr>
 					 </thead>
 					 <tbody>
@@ -303,7 +307,8 @@ function openPopup(target, x, y, w, h) {
 								<a class="btn btn-info" type="button" title="Ajouter des soins à la consultations" href="@controllers.routes.ConsultationCtrl.addSoin(c.getId())">
 						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
 								</td>
-							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+								
+								@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Asistant"){
 								
 								<td>
 								<a class="btn btn-success" type="button" title="Ajouter une Ordonnance à la consultations" href="@controllers.routes.ConsultationCtrl.addOrdonnance(c.getId())">
@@ -317,6 +322,20 @@ function openPopup(target, x, y, w, h) {
 								</td>
 								}
 								
+								
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin"){
+								
+								<td>
+								<a class="btn btn-success" type="button" title="Ajouter une Ordonnance à la consultations" href="@controllers.routes.ConsultationCtrl.addOrdonnance(c.getId())">
+						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
+								</td>
+								
+								<td>
+								<a class="btn btn-warning" type="button" title="Ajoutez des observations"
+								 href="@controllers.routes.ConsultationCtrl.show("EDIT", c.getId())">
+						                              	<i class="glyphicon glyphicon-list-alt"></i> </a>
+								</td>
+								
 								<td>
 								  <a id="btnReadWrite" class="btn btn-primary" title="Modification"
 									href="@controllers.routes.ConsultationCtrl.show("EDIT", c.getId()) " ><i class="glyphicon glyphicon-edit"></i></a>
@@ -327,12 +346,17 @@ function openPopup(target, x, y, w, h) {
                                        href="@controllers.routes.ConsultationCtrl.show("DELETE", c.getId())""><i class="glyphicon glyphicon-trash"></i></a>
                                 	}
                                 </td>
+								}
+								
+								
+                               @if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Caissier"){
+							
                                 <td>
 								<a class="btn btn-success" type="button" title="Imprimer le réçu"
 								 href="@controllers.routes.ConsultationCtrl.print(c.getNumeroConsul(),"recu")" onclick="return(openPopup(this.href, 600, 600, 600, 600));">
 						                              	<i class="glyphicon glyphicon-print"></i> </a>
 								</td>
-								
+								}
 							 </tr>
 							}
 					  </tbody>

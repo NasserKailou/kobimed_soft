@@ -18,6 +18,7 @@ import models.public_.tables.pojos.Examens;
 import models.public_.tables.pojos.Ordonances;
 import models.public_.tables.pojos.Patients;
 import models.public_.tables.pojos.Personnels;
+import models.public_.tables.pojos.Rendezvous;
 import models.public_.tables.pojos.TypeConsultation;
 import models.public_.tables.pojos.VConsultations;
 import play.data.Form;
@@ -32,6 +33,7 @@ import services.ConsultationsMainServices;
 import services.PartenaireMainServices;
 import services.PatientsMainServices;
 import services.PersonnelMainServices;
+import services.RdvMainService;
 import services.TypeConsultationsMainServices;
 import utils.CallJasperReport;
 import utils.Secured;
@@ -51,19 +53,21 @@ public class ConsultationCtrl extends Controller {
 	PatientsMainServices patientService;
 	PartenaireMainServices partServices;
 	PersonnelMainServices persServices;
+	RdvMainService rdvService;
 	CallJasperReport jasper;
 	Long coutConsultation = 0L;
 
 	@Inject
 	public ConsultationCtrl(FormFactory formFactory, ConsultationsMainServices consultationServices,
 			TypeConsultationsMainServices typeConServices, PatientsMainServices patientService,
-			PartenaireMainServices partServices, CallJasperReport jasper, PersonnelMainServices persServices) {
+			PartenaireMainServices partServices,RdvMainService rdvService, CallJasperReport jasper, PersonnelMainServices persServices) {
 		super();
 		this.formFactory = formFactory;
 		this.consultationServices = consultationServices;
 		this.typeConServices = typeConServices;
 		this.patientService = patientService;
 		this.partServices = partServices;
+		this.rdvService = rdvService;
 		this.jasper = jasper;
 		this.persServices = persServices;
 
@@ -442,11 +446,12 @@ public class ConsultationCtrl extends Controller {
 		else
 			vcons = consultationServices.listeRDV(consultationServices.getDateT(dateD2));
 
-		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,request));
+		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,rdvService.listeRDV(consultationServices.getDateT(dateD2)),request));
 	}
 
 	public Result viewRDV(Request request) {
 		List<VConsultations> vcons = new ArrayList<>();
-		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,request));
+		List<Rendezvous> vrdv= new ArrayList<>();
+		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,vrdv,request));
 	}
 }

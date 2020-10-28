@@ -19,6 +19,8 @@ import models.public_.tables.Params;
 import models.public_.tables.Partenaire;
 import models.public_.tables.Patients;
 import models.public_.tables.Personnels;
+import models.public_.tables.Rendezvous;
+import models.public_.tables.Roles;
 import models.public_.tables.TypeConsultation;
 import models.public_.tables.Users;
 import models.public_.tables.records.BasConsultationsRecord;
@@ -34,6 +36,8 @@ import models.public_.tables.records.ParamsRecord;
 import models.public_.tables.records.PartenaireRecord;
 import models.public_.tables.records.PatientsRecord;
 import models.public_.tables.records.PersonnelsRecord;
+import models.public_.tables.records.RendezvousRecord;
+import models.public_.tables.records.RolesRecord;
 import models.public_.tables.records.TypeConsultationRecord;
 import models.public_.tables.records.UsersRecord;
 
@@ -74,6 +78,8 @@ public class Keys {
     public static final Identity<PartenaireRecord, Long> IDENTITY_PARTENAIRE = Identities0.IDENTITY_PARTENAIRE;
     public static final Identity<PatientsRecord, Long> IDENTITY_PATIENTS = Identities0.IDENTITY_PATIENTS;
     public static final Identity<PersonnelsRecord, Long> IDENTITY_PERSONNELS = Identities0.IDENTITY_PERSONNELS;
+    public static final Identity<RendezvousRecord, Long> IDENTITY_RENDEZVOUS = Identities0.IDENTITY_RENDEZVOUS;
+    public static final Identity<RolesRecord, Long> IDENTITY_ROLES = Identities0.IDENTITY_ROLES;
     public static final Identity<TypeConsultationRecord, Long> IDENTITY_TYPE_CONSULTATION = Identities0.IDENTITY_TYPE_CONSULTATION;
 
     // -------------------------------------------------------------------------
@@ -83,7 +89,7 @@ public class Keys {
     public static final UniqueKey<BasConsultationsRecord> BAS_SONSULTATIONS_PKEY = UniqueKeys0.BAS_SONSULTATIONS_PKEY;
     public static final UniqueKey<BasExamensRecord> BAS_EXAMENS_PKEY = UniqueKeys0.BAS_EXAMENS_PKEY;
     public static final UniqueKey<BasMedicamentsRecord> BAS_MEDICAMENTS_PKEY = UniqueKeys0.BAS_MEDICAMENTS_PKEY;
-    public static final UniqueKey<BasSoinsRecord> ID_BASE_SOIN = UniqueKeys0.ID_BASE_SOIN;
+    public static final UniqueKey<BasSoinsRecord> ID_PRIMARY = UniqueKeys0.ID_PRIMARY;
     public static final UniqueKey<ConsultationsRecord> CONSULTATIONS_PKEY = UniqueKeys0.CONSULTATIONS_PKEY;
     public static final UniqueKey<ExamensRecord> EXAMENS_PKEY = UniqueKeys0.EXAMENS_PKEY;
     public static final UniqueKey<InfosMedicaleRecord> INFOS_MEDICALE_PKEY = UniqueKeys0.INFOS_MEDICALE_PKEY;
@@ -93,6 +99,8 @@ public class Keys {
     public static final UniqueKey<PartenaireRecord> PARTENAIRE_PKEY = UniqueKeys0.PARTENAIRE_PKEY;
     public static final UniqueKey<PatientsRecord> PATIENTS_PKEY = UniqueKeys0.PATIENTS_PKEY;
     public static final UniqueKey<PersonnelsRecord> PERSONNELS_PKEY = UniqueKeys0.PERSONNELS_PKEY;
+    public static final UniqueKey<RendezvousRecord> RENDEZVOUS_PKEY = UniqueKeys0.RENDEZVOUS_PKEY;
+    public static final UniqueKey<RolesRecord> ROLES_PKEY = UniqueKeys0.ROLES_PKEY;
     public static final UniqueKey<TypeConsultationRecord> TYPE_CONSULTATION_PKEY = UniqueKeys0.TYPE_CONSULTATION_PKEY;
     public static final UniqueKey<UsersRecord> USERS_PKEY = UniqueKeys0.USERS_PKEY;
 
@@ -127,6 +135,8 @@ public class Keys {
         public static Identity<PartenaireRecord, Long> IDENTITY_PARTENAIRE = createIdentity(Partenaire.PARTENAIRE, Partenaire.PARTENAIRE.ID);
         public static Identity<PatientsRecord, Long> IDENTITY_PATIENTS = createIdentity(Patients.PATIENTS, Patients.PATIENTS.ID);
         public static Identity<PersonnelsRecord, Long> IDENTITY_PERSONNELS = createIdentity(Personnels.PERSONNELS, Personnels.PERSONNELS.ID);
+        public static Identity<RendezvousRecord, Long> IDENTITY_RENDEZVOUS = createIdentity(Rendezvous.RENDEZVOUS, Rendezvous.RENDEZVOUS.ID_RDV);
+        public static Identity<RolesRecord, Long> IDENTITY_ROLES = createIdentity(Roles.ROLES, Roles.ROLES.ID_ROLE);
         public static Identity<TypeConsultationRecord, Long> IDENTITY_TYPE_CONSULTATION = createIdentity(TypeConsultation.TYPE_CONSULTATION, TypeConsultation.TYPE_CONSULTATION.ID);
     }
 
@@ -134,7 +144,7 @@ public class Keys {
         public static final UniqueKey<BasConsultationsRecord> BAS_SONSULTATIONS_PKEY = createUniqueKey(BasConsultations.BAS_CONSULTATIONS, "bas_sonsultations_pkey", BasConsultations.BAS_CONSULTATIONS.ID);
         public static final UniqueKey<BasExamensRecord> BAS_EXAMENS_PKEY = createUniqueKey(BasExamens.BAS_EXAMENS, "bas_examens_pkey", BasExamens.BAS_EXAMENS.ID);
         public static final UniqueKey<BasMedicamentsRecord> BAS_MEDICAMENTS_PKEY = createUniqueKey(BasMedicaments.BAS_MEDICAMENTS, "bas_medicaments_pkey", BasMedicaments.BAS_MEDICAMENTS.ID);
-        public static final UniqueKey<BasSoinsRecord> ID_BASE_SOIN = createUniqueKey(BasSoins.BAS_SOINS, "id_base_soin", BasSoins.BAS_SOINS.ID);
+        public static final UniqueKey<BasSoinsRecord> ID_PRIMARY = createUniqueKey(BasSoins.BAS_SOINS, "id_primary", BasSoins.BAS_SOINS.ID);
         public static final UniqueKey<ConsultationsRecord> CONSULTATIONS_PKEY = createUniqueKey(Consultations.CONSULTATIONS, "consultations_pkey", Consultations.CONSULTATIONS.ID);
         public static final UniqueKey<ExamensRecord> EXAMENS_PKEY = createUniqueKey(Examens.EXAMENS, "examens_pkey", Examens.EXAMENS.ID);
         public static final UniqueKey<InfosMedicaleRecord> INFOS_MEDICALE_PKEY = createUniqueKey(InfosMedicale.INFOS_MEDICALE, "infos_medicale_pkey", InfosMedicale.INFOS_MEDICALE.ID);
@@ -144,6 +154,8 @@ public class Keys {
         public static final UniqueKey<PartenaireRecord> PARTENAIRE_PKEY = createUniqueKey(Partenaire.PARTENAIRE, "partenaire_pkey", Partenaire.PARTENAIRE.ID);
         public static final UniqueKey<PatientsRecord> PATIENTS_PKEY = createUniqueKey(Patients.PATIENTS, "patients_pkey", Patients.PATIENTS.ID);
         public static final UniqueKey<PersonnelsRecord> PERSONNELS_PKEY = createUniqueKey(Personnels.PERSONNELS, "personnels_pkey", Personnels.PERSONNELS.ID);
+        public static final UniqueKey<RendezvousRecord> RENDEZVOUS_PKEY = createUniqueKey(Rendezvous.RENDEZVOUS, "rendezvous_pkey", Rendezvous.RENDEZVOUS.ID_RDV);
+        public static final UniqueKey<RolesRecord> ROLES_PKEY = createUniqueKey(Roles.ROLES, "roles_pkey", Roles.ROLES.ID_ROLE);
         public static final UniqueKey<TypeConsultationRecord> TYPE_CONSULTATION_PKEY = createUniqueKey(TypeConsultation.TYPE_CONSULTATION, "type_consultation_pkey", TypeConsultation.TYPE_CONSULTATION.ID);
         public static final UniqueKey<UsersRecord> USERS_PKEY = createUniqueKey(Users.USERS, "users_pkey", Users.USERS.LOGIN);
     }

@@ -91,7 +91,11 @@
 										<option value="Gestionnaire" @if(user.getDroit() !=null
 											&& user.getDroit().equals("Gestionnaire")){ selected="selected"}>Gestionnaire</option>
 										<option value="Infirmier" @if(user.getDroit() !=null
-											&& user.getDroit().equals("Caissier")){ selected="selected"}>Infirmier</option>
+											&& user.getDroit().equals("Infirmier")){ selected="selected"}>Infirmier</option>
+										<option value="Laboratoire" @if(user.getDroit() !=null
+											&& user.getDroit().equals("Laboratoire")){ selected="selected"}>Laboratoire</option>
+										<option value="Asistant" @if(user.getDroit() !=null
+											&& user.getDroit().equals("Asistant")){ selected="selected"}>Asistant</option>
 										<option value="Caissier" @if(user.getDroit() !=null
 											&& user.getDroit().equals("Caissier")){ selected="selected"}>Caissier</option>
 									</select>

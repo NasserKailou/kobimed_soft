@@ -120,6 +120,8 @@
 	
 	<div class="row">
 @if(!ordonances.isEmpty()) {
+		@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Caissier"){
+							
 		<table class="table table-bordered table-striped text-center" >
 		  
 		      <tr >
@@ -131,6 +133,7 @@
 		     </tr>
 		     
 	    </table>
+	    }
 	}
 		<div class = "col-md-12 table-responsive">
 		

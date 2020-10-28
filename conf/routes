@@ -69,6 +69,13 @@ GET			/Examens/show/:subAction/    		controllers.ExamenCtrl.show(subAction: Stri
 GET			/Examens/restaure/    		controllers.ExamenCtrl.restaure(idOrd: Long,request:Request)
 POST    	/Examens/save                        controllers.ExamenCtrl.save(request:Request)
 
+#Renden-vous Ressources
+GET			/Rdv/show/:subAction/    		controllers.RdvCtrl.show(subAction: String, idOrd: Long,request:Request)
+GET			/Rdv/restaure/    		controllers.RdvCtrl.restaure(idOrd: Long,request:Request)
+POST    	/RDV/save                        controllers.RdvCtrl.save(request:Request)
+GET			/liste-DES-rdv/    controllers.RdvCtrl.listeRdv(request:Request)
+GET			/Rdv/restaure/    		controllers.RdvCtrl.restaure(idRdv: Long,request:Request)
+
 #Ordonnances Ressources
 GET			/Soins/show/:subAction/    		controllers.SoinCtrl.show(subAction: String, idOrd: Long, idConsult: Long,request:Request)
 GET			/Soins/restaure/    		controllers.SoinCtrl.restaure(idOrd: Long,request:Request)

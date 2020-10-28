@@ -19,6 +19,8 @@ import models.public_.tables.Params;
 import models.public_.tables.Partenaire;
 import models.public_.tables.Patients;
 import models.public_.tables.Personnels;
+import models.public_.tables.Rendezvous;
+import models.public_.tables.Roles;
 import models.public_.tables.TypeConsultation;
 import models.public_.tables.Users;
 
@@ -47,7 +49,7 @@ public class Indexes {
     public static final Index BAS_SONSULTATIONS_PKEY = Indexes0.BAS_SONSULTATIONS_PKEY;
     public static final Index BAS_EXAMENS_PKEY = Indexes0.BAS_EXAMENS_PKEY;
     public static final Index BAS_MEDICAMENTS_PKEY = Indexes0.BAS_MEDICAMENTS_PKEY;
-    public static final Index ID_BASE_SOIN = Indexes0.ID_BASE_SOIN;
+    public static final Index ID_PRIMARY = Indexes0.ID_PRIMARY;
     public static final Index CONSULTATIONS_PKEY = Indexes0.CONSULTATIONS_PKEY;
     public static final Index EXAMENS_PKEY = Indexes0.EXAMENS_PKEY;
     public static final Index INFOS_MEDICALE_PKEY = Indexes0.INFOS_MEDICALE_PKEY;
@@ -57,6 +59,8 @@ public class Indexes {
     public static final Index PARTENAIRE_PKEY = Indexes0.PARTENAIRE_PKEY;
     public static final Index PATIENTS_PKEY = Indexes0.PATIENTS_PKEY;
     public static final Index PERSONNELS_PKEY = Indexes0.PERSONNELS_PKEY;
+    public static final Index RENDEZVOUS_PKEY = Indexes0.RENDEZVOUS_PKEY;
+    public static final Index ROLES_PKEY = Indexes0.ROLES_PKEY;
     public static final Index TYPE_CONSULTATION_PKEY = Indexes0.TYPE_CONSULTATION_PKEY;
     public static final Index USERS_PKEY = Indexes0.USERS_PKEY;
 
@@ -68,7 +72,7 @@ public class Indexes {
         public static Index BAS_SONSULTATIONS_PKEY = createIndex("bas_sonsultations_pkey", BasConsultations.BAS_CONSULTATIONS, new OrderField[] { BasConsultations.BAS_CONSULTATIONS.ID }, true);
         public static Index BAS_EXAMENS_PKEY = createIndex("bas_examens_pkey", BasExamens.BAS_EXAMENS, new OrderField[] { BasExamens.BAS_EXAMENS.ID }, true);
         public static Index BAS_MEDICAMENTS_PKEY = createIndex("bas_medicaments_pkey", BasMedicaments.BAS_MEDICAMENTS, new OrderField[] { BasMedicaments.BAS_MEDICAMENTS.ID }, true);
-        public static Index ID_BASE_SOIN = createIndex("id_base_soin", BasSoins.BAS_SOINS, new OrderField[] { BasSoins.BAS_SOINS.ID }, true);
+        public static Index ID_PRIMARY = createIndex("id_primary", BasSoins.BAS_SOINS, new OrderField[] { BasSoins.BAS_SOINS.ID }, true);
         public static Index CONSULTATIONS_PKEY = createIndex("consultations_pkey", Consultations.CONSULTATIONS, new OrderField[] { Consultations.CONSULTATIONS.ID }, true);
         public static Index EXAMENS_PKEY = createIndex("examens_pkey", Examens.EXAMENS, new OrderField[] { Examens.EXAMENS.ID }, true);
         public static Index INFOS_MEDICALE_PKEY = createIndex("infos_medicale_pkey", InfosMedicale.INFOS_MEDICALE, new OrderField[] { InfosMedicale.INFOS_MEDICALE.ID }, true);
@@ -78,6 +82,8 @@ public class Indexes {
         public static Index PARTENAIRE_PKEY = createIndex("partenaire_pkey", Partenaire.PARTENAIRE, new OrderField[] { Partenaire.PARTENAIRE.ID }, true);
         public static Index PATIENTS_PKEY = createIndex("patients_pkey", Patients.PATIENTS, new OrderField[] { Patients.PATIENTS.ID }, true);
         public static Index PERSONNELS_PKEY = createIndex("personnels_pkey", Personnels.PERSONNELS, new OrderField[] { Personnels.PERSONNELS.ID }, true);
+        public static Index RENDEZVOUS_PKEY = createIndex("rendezvous_pkey", Rendezvous.RENDEZVOUS, new OrderField[] { Rendezvous.RENDEZVOUS.ID_RDV }, true);
+        public static Index ROLES_PKEY = createIndex("roles_pkey", Roles.ROLES, new OrderField[] { Roles.ROLES.ID_ROLE }, true);
         public static Index TYPE_CONSULTATION_PKEY = createIndex("type_consultation_pkey", TypeConsultation.TYPE_CONSULTATION, new OrderField[] { TypeConsultation.TYPE_CONSULTATION.ID }, true);
         public static Index USERS_PKEY = createIndex("users_pkey", Users.USERS, new OrderField[] { Users.USERS.LOGIN }, true);
     }

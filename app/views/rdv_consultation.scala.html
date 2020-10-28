@@ -1,0 +1,182 @@
+@import java.time.LocalDateTime
+@import helper._
+@import java.util
+@(viewMode:String,  rendezvous: List[models.public_.tables.pojos.Rendezvous],
+rdv:  models.public_.tables.pojos.Rendezvous)(implicit request: Http.Request)
+
+@main("Rendezvous"){
+
+<script type="text/javascript">
+function openPopup(target, x, y, w, h) {
+	var win = window.open(target, 'popup', 'height='+h+', width='+w+', top='+y+', left='+x+', toolbar=no, menubar=yes, location=no, resizable=yes, scrollbars=yes, status=no');
+	win.window.focus();
+	return false;
+}
+</script>
+<hr>
+<center>
+	<form  method="POST" name="form" action="@controllers.routes.RdvCtrl.save()"  class="form-horizontal col-md-12 col-sm-12 col-xs-12" >
+		@helper.CSRF.formField
+	<input value="@viewMode"           name="viewMode" type="hidden">
+	<input value="@rdv.getIdRdv()" name="idRdv" type="hidden">
+<!-- 	<input value="@rdv.getNumTel()" name="numTel" type="hidden"> -->
+<!-- 	<input value="@rdv.getMotifRdv()" name="motifRdv" type="hidden"> -->
+<!-- 	<input value="@rdv.getNomPatient()" name="nomPatient" type="hidden"> -->
+		<fieldset style=" color:#000; width:98%; background-color:#DDE7E9; border-radius:10px; font-size:14px;"  >
+			<br>
+
+					<h6 style="color:#000;">
+						<strong>
+							<i>Tous les champs avec <font style="color:red;  font-size:14px;">*</font> sont obligatoires</i>
+						</strong>
+					</h6>
+			<div  class="row ">
+			   
+				<div class="col-md-12">
+
+						<br>
+						<div class="form-group row">
+						  <label class="col-sm-1 col-form-label" for="libelle" ><b>Nom & Prenom Patient <font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="text" id="libelle"  name="nomPatient" value="@rdv.getNomPatient()"
+											placeholder="Précisez le nom du patient" 
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											class="form-control autocomplete"
+											required="required"  />
+						  	</div>
+						  	
+						 	<label class="col-sm-1 col-form-label" for="libelle" ><b>Numero Tel :<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-1">
+								<input type="numTel" id="numTel" name="numTel"  value="@rdv.getNumTel()"
+											placeholder="Numero de téléphone" 
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											class="form-control" />
+						  	</div>
+						  	
+						 <label class="col-sm-1 col-form-label" for="libelle" ><b>Motif du RDV :<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-3">
+								<input type="motifRdv" id="motifRdv" name="motifRdv" value="@rdv.getMotifRdv()"
+											placeholder="Précisez le motif du rendez-vous" 
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											class="form-control" required="required"/>
+						  	</div>
+						  	
+							  <label class="col-sm-1 col-form-label" for="nom" ><b>Date Rdv<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-1">
+						  	 @if( viewMode.equals("EDIT")){ 
+						  	 	
+								<input value="@rdv.getDateRdv().format("yyyy-MM-dd")" name="tmpDate2" type="date">
+						  	 }
+						  	 @if( viewMode.equals("CREATE")){
+								<input type="date" id=""  name="tmpDate2"  value="@rdv.getDateRdv()"
+											placeholder="JJ/MM/AAAA" 
+											class="form-control"  
+											  @if(rdv.getDateRdv()!=null){ selected="selected"} required="required"/>
+							}
+							
+							@if( viewMode.equals("DELETE")){ 
+						  	 	
+								<input value="@rdv.getDateRdv().format("yyyy-MM-dd")" name="tmpDate2"  readonly="readonly">
+						  	 }
+						  
+						  	
+						  
+						</div>
+						
+
+						
+				</div>
+
+			
+				</div>
+			<div class="row" style="color:#000;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<button class="btn btn-primary" type="submit"  name="Annuler" value="Retour" onclick="history.go(-1)">Retour</button>
+					@if( viewMode.equals("CREATE")){ 
+					<button class="btn btn-success" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >
+						<i class="glyphicon glyphicon-save"></i> Enregistrer
+					</button> } 
+					@if( viewMode.equals("EDIT")){ 
+					<button class="btn btn-warning" type="submit" id="valider" name="Valider" title="Valider(Modifier les informations)">
+						<i class="glyphicon glyphicon-edit"></i> Modifier
+					</button> } 
+					@if( viewMode.equals("DELETE")){ 
+					<button class="btn btn-danger" type="submit" id="valider"
+					 name="Valider" title="Supprimer le Soin"  onclick="return window.confirm('Voulez vous supprimer ce rdv?');">
+						<i class="glyphicon glyphicon-edit"></i> Supprimer
+					</button> } 
+					
+<!-- 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				<button class="btn btn-danger" type="submit"  name="Annuler" value="Annuler">Annuler</button> -->
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<br>
+			</fieldset>
+			
+		</form>
+
+			</center>
+<section >
+	@if(rendezvous.isEmpty() || rendezvous == null){
+	<br>
+	<center><div class="badged-title"><h4> <b>Aucun Rendez-vous!!!</b><br></div></center>
+	}else{
+	<div class="row">
+
+		<div class = "col-md-12 col-sm-12 col-xs-12 table-responsive">
+		
+				<table class="dta-tbl table table-bordered table-striped text-center">
+				<center><div class="badged-title"><h4><font style="color:blue;  font-size:18px;"> <b>L</b>istes des Rendez-vous</h4></font></div></center>
+					<thead>
+						 <tr>
+							<th style="text-align: center"><b>#</b></th>
+							<th style="text-align: center"><b>Nom & Prenom</b></th>
+							<th style="text-align: center"><b>Numero Tel</b></th>
+							<th style="text-align: center"><b>Motif RDV</b></th>
+							<th style="text-align: center"><b>Date RDV</b></th>
+							<th style="text-align: center"><b>Action</b></th>
+							
+							
+							
+							
+						 </tr>
+					 </thead>
+					 <tbody>
+						@for(c <-rendezvous){
+							 <tr>
+							  <td>@c.getIdRdv() </td>
+								<td>@c.getNomPatient() </td>
+								<td>@c.getNumTel()</td>
+								<td>@c.getMotifRdv() </td>
+								<td>@c.getDateRdv().format("yyyy-MM-dd")</td>
+								
+								<td>
+                                    <a id="btnReadWrite" class="btn btn-primary" title="Modification"
+                                      href="@controllers.routes.RdvCtrl.show("EDIT", c.getIdRdv()) " ><i class="glyphicon glyphicon-edit"></i></a>
+                                          |
+                                      <a id="btnDelete" class="btn btn-danger"
+                                         title="Supprimer"
+                                         href="@controllers.routes.RdvCtrl.show("DELETE", c.getIdRdv())""><i class="glyphicon glyphicon-trash"></i></a>
+                                          
+                                     
+                                          
+                                  </td>
+								
+								}
+								
+							
+							 </tr>
+							}
+					  </tbody>
+				</table>
+				
+		</div>
+	</div>
+  
+ 
+  
+  </section>
+  
+}

@@ -1,7 +1,8 @@
 @import java.time.LocalDateTime
 @import helper._
 @import java.util
-@(viewMode:String,  consultations: List[models.public_.tables.pojos.VConsultations])(implicit request: Http.Request)
+@(viewMode:String,  consultations: List[models.public_.tables.pojos.VConsultations],
+rendezvous: List[models.public_.tables.pojos.Rendezvous])(implicit request: Http.Request)
 
 @main("Consultations"){
 
@@ -25,7 +26,7 @@ function openPopup(target, x, y, w, h) {
 			
 				<h6 style="color:#000;">
 						<strong>
-							<i> <font style="color:blue;  font-size:14px;">Zone de Recherche</font> </i>	
+							<i> <font style="color:blue;  font-size:14px;">Rechercher des Rendez-vous</font> </i>	
 						</strong>
 					</h6>
 					
@@ -112,6 +113,61 @@ function openPopup(target, x, y, w, h) {
 		</div>
 	</div>
   }
+  
+  @if(rendezvous.isEmpty() || rendezvous == null){
+	<br>
+	<center><div class="badged-title"><h4> <b></b><br></div></center>
+	}else{
+  	<div class = "col-md-12 col-sm-12 col-xs-12 table-responsive">
+		
+				<table class="dta-tbl table table-bordered table-striped text-center" >
+				<center><div class="badged-title"><h4><font style="color:blue;  font-size:18px;"> <b>L</b>istes des Rendez-vous</h4></font></div></center>
+					<thead>
+						 <tr>
+							<th style="text-align: center"><b>#</b></th>
+							<th style="text-align: center"><b>Nom & Prenom</b></th>
+							<th style="text-align: center"><b>Numero Tel</b></th>
+							<th style="text-align: center"><b>Motif RDV</b></th>
+							<th style="text-align: center"><b>Date RDV</b></th>
+							<th style="text-align: center"><b>Action</b></th>
+							
+							
+							
+							
+						 </tr>
+					 </thead>
+					 <tbody>
+						@for(c <-rendezvous){
+							 <tr>
+							  <td>@c.getIdRdv() </td>
+								<td>@c.getNomPatient() </td>
+								<td>@c.getNumTel()</td>
+								<td>@c.getMotifRdv() </td>
+								<td>@c.getDateRdv().format("yyyy-MM-dd")</td>
+								
+								<td>
+                                    <a id="btnReadWrite" class="btn btn-primary" title="Modification"
+                                      href="@controllers.routes.RdvCtrl.show("EDIT", c.getIdRdv()) " ><i class="glyphicon glyphicon-edit"></i></a>
+                                          |
+                                      <a id="btnDelete" class="btn btn-danger"
+                                         title="Supprimer"
+                                         href="@controllers.routes.RdvCtrl.show("DELETE", c.getIdRdv())""><i class="glyphicon glyphicon-trash"></i></a>
+                                          
+                                     
+                                          
+                                  </td>
+								
+								}
+								
+							
+							 </tr>
+							}
+					  </tbody>
+				</table>
+				
+		</div>
+	</div>
+  
   </section>
   
 }

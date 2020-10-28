@@ -3,7 +3,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-5">
-				<img src="@routes.Assets.versioned("images/logo.png")" class="logo" />
+				<img src="@routes.Assets.versioned("images/logo.png")" class="logo" style="width: 80px; height: 70px" />
 			</div>
 			<div class="col-sm-4">
 				<h2 style="color: #fff;">Cabinet Médical Dicko</h2>
@@ -12,7 +12,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="dropdown">
 						<a data-toggle="dropdown" href="#">
-							<img src="@routes.Assets.versioned("images/face5.jpg")" class="img-circle" alt="profile" style="width: 40px;" />
+							<img src="@routes.Assets.versioned("images/face5.jpg")" class="img-circle" alt="profile" style="width: 40px; " />
 							<b class="caret"></b>
 							<span class="nav-profile-name"></span>
 						</a>
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 </div>
-<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #3a7b9c !important; top: 85px;">
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #3a7b9c !important; top: 65px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -52,13 +52,34 @@
 					<li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li>
 					<li><a href="@routes.ConsultationCtrl.consultationSupp()" style="color: #fff;">Reçu Supprimer</a></li>
 
-					
-					<li><a href="@routes.ConsultationCtrl.viewRDV()" style="color: #fff;">Rendez-vous</a></li>
+					<li class="dropdown" >
+						<a data-toggle="dropdown" style="color: #fff;" href="#">Rendez-vous<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+								<li><a href="@routes.RdvCtrl.show("CREATE",0L)">Ajouter un Rendez-vous</a></li>
+								<li><a href="@routes.ConsultationCtrl.viewRDV()">Rechercher des Rendez-vous</a></li>
+								
+						</ul>
+					</li>
+
 					<li><a href="@routes.HomeController.acceuil()" style="color: #fff;">Statistiques</a></li>
           }
-					@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Gestionnaire") {
+					@if(request.session.get("droit").get() == "Asistant") {
+					<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
+					<li class="dropdown" >
+						<a data-toggle="dropdown" style="color: #fff;" href="#">Rendez-vous<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+								<li><a href="@routes.RdvCtrl.show("CREATE",0L)">Ajouter un Rendez-vous</a></li>
+								<li><a href="@routes.ConsultationCtrl.viewRDV()">Rechercher des Rendez-vous</a></li>
+								
+						</ul>
+					</li>
 					
 					}
+					
+					@if(request.session.get("droit").get() == "Laboratoire") {
+   					<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
+          }
+          
 			@if(request.session.get("droit").get() == "Caissier") {
    					<li class="dropdown" >
 						<a data-toggle="dropdown" style="color: #fff;" href="#">Paramètrages<b class="caret"></b></a>
