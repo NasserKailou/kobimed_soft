@@ -2,11 +2,12 @@
 <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #235681 !important; z-index: 10300;">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-5">
-				<img src="@routes.Assets.versioned("images/logo.png")" class="logo" style="width: 80px; height: 70px" />
-			</div>
 			<div class="col-sm-4">
-				<h2 style="color: #fff;">Cabinet Médical Dicko</h2>
+				<img src="@routes.Assets.versioned("images/logo.jpg")" class="logo" style="width: 80px; height: 70px" />
+			</div>
+			<div class="col-sm-5">
+<!-- 				<h2 style="color: #fff;">Cabinet Médical Dicko</h2> -->
+<h2 style="color: #fff;">Logiciel de Gestion Médical KobiSoft</h2>
 			</div>
 			<div class="col-sm-3">
 				<ul class="nav navbar-nav pull-right">
@@ -34,7 +35,7 @@
 				<ul class="nav navbar-nav text-center">
 				
 				
-				@if(request.session.getOptional("droit").get() == "Admin" || request.session.getOptional("droit").get() == "Gestionnaire") {
+				@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Gestionnaire") {
 				<li><a href="@routes.HomeController.acceuil()" style="background-color: #235681; color: #fff;">Accueil</a></li>
    					<li class="dropdown" >
 						<a data-toggle="dropdown" style="color: #fff;" href="#">Paramètrages<b class="caret"></b></a>
@@ -60,8 +61,8 @@
 								
 						</ul>
 					</li>
-
-					<li><a href="@routes.HomeController.acceuil()" style="color: #fff;">Statistiques</a></li>
+					<!-- <li><a href="@controllers.routes.HomeController.deconnecter()"> Déconnexion <i class="glyphicon glyphicon-log-out"></i></a></li> -->
+					<!-- <li><a href="@routes.HomeController.acceuil()" style="color: #fff;">Statistiques</a></li> -->
           }
 					@if(request.session.get("droit").get() == "Asistant") {
 					<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
@@ -92,7 +93,7 @@
 					</li>
 			<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
 			<li><a href="@routes.PatientCtrl.show("CREATE",0L)" style="color: #fff;">Patients</a></li>
-			<li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li>
+			<!-- <li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li> -->
           }
 					
 					

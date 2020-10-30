@@ -106,4 +106,11 @@ public class InfosMedicaleDao extends DAOImpl<InfosMedicaleRecord, models.public
     public List<models.public_.tables.pojos.InfosMedicale> fetchByWhoDone(String... values) {
         return fetch(InfosMedicale.INFOS_MEDICALE.WHO_DONE, values);
     }
+
+    /**
+     * Fetch records that have <code>resultat IN (values)</code>
+     */
+    public List<models.public_.tables.pojos.InfosMedicale> fetchByResultat(String... values) {
+        return fetch(InfosMedicale.INFOS_MEDICALE.RESULTAT, values);
+    }
 }

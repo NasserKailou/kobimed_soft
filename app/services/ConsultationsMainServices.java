@@ -177,6 +177,20 @@ public class ConsultationsMainServices extends ConsultationsDao {
 		return c;
 	}
 
+	/**
+	 * return la liste des consultations pour un patient
+	 * 
+	 * @param idPatients
+	 * @return
+	 */
+	public List<VConsultations> listeConsultationsPatient(Long idPatients) {
+		List<VConsultations> c = con.connection().selectFrom(Tables.V_CONSULTATIONS)
+				.where(Tables.V_CONSULTATIONS.IS_DELETED.isFalse()).and(Tables.V_CONSULTATIONS.PATIENT.eq(idPatients))
+				.fetchInto(VConsultations.class);
+		con.connection().close();
+		return c;
+	}
+
 	public Consultations findById(Long id) {
 		return super.findById(id);
 	}

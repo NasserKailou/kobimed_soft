@@ -19,6 +19,10 @@ import play.mvc.Http;
 import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
+import services.ConsultationsMainServices;
+import services.ExamenMainServices;
+import services.InfosMedicalMainServices;
+import services.OrdonanceMainServices;
 import services.PatientsMainServices;
 //import utils.Commons;
 import utils.Secured;
@@ -34,14 +38,24 @@ public class PatientCtrl extends Controller {
 
 	FormFactory formFactory;
 	PatientsMainServices patientServices;
+	ConsultationsMainServices consServ;
+	OrdonanceMainServices ordServ;
+	ExamenMainServices examServ;
+	InfosMedicalMainServices infoMedServ;
 
-	//public static Commons common;
+	// public static Commons common;
 
 	@Inject
-	public PatientCtrl(FormFactory formFactory, PatientsMainServices patientServices) {
+	public PatientCtrl(FormFactory formFactory, PatientsMainServices patientServices,
+			ConsultationsMainServices consServ, OrdonanceMainServices ordServ, ExamenMainServices examServ,
+			InfosMedicalMainServices infoMedServ) {
 		super();
 		this.formFactory = formFactory;
 		this.patientServices = patientServices;
+		this.consServ = consServ;
+		this.ordServ = ordServ;
+		this.examServ = examServ;
+		this.infoMedServ = infoMedServ;
 	}
 
 	public Result show(String subAction, Long idPart, Request request) {
@@ -69,6 +83,18 @@ public class PatientCtrl extends Controller {
 		}
 		return ok(views.html.patients.render(viewMode, patients, patientsDeleted, c, request));
 
+	}
+
+	public Result showMedicalDoc(long idPatient, Request request) {
+
+		return ok(views.html.patientsMedicalDoc.render(examServ.ListExamensPatiens(idPatient),
+				ordServ.findSoinByPatient(idPatient), consServ.listeConsultationsPatient(idPatient),
+				infoMedServ.findAllByPatient(idPatient), patientServices.findById(idPatient), request));
+		// return TODO(request);
+	}
+
+	public Result addInfos(Request request, Long idPatient) {
+		return redirect(routes.InfosMedicalCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L, idPatient));
 	}
 
 	public Result restaure(Long idPart, Request request) {

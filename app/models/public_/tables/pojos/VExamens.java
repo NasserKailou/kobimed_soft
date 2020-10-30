@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VExamens implements Serializable {
 
-    private static final long serialVersionUID = -1446946585;
+    private static final long serialVersionUID = 223463420;
 
     private Long      id;
     private String    libelle;
@@ -40,6 +40,7 @@ public class VExamens implements Serializable {
     private Double    montantPrisEnCharge;
     private Double    montantNetAPayer;
     private String    numeroConsul;
+    private Long      medecin;
     private Long      age;
     private Long      idPatient;
     private String    nomPatient;
@@ -64,6 +65,7 @@ public class VExamens implements Serializable {
         this.montantPrisEnCharge = value.montantPrisEnCharge;
         this.montantNetAPayer = value.montantNetAPayer;
         this.numeroConsul = value.numeroConsul;
+        this.medecin = value.medecin;
         this.age = value.age;
         this.idPatient = value.idPatient;
         this.nomPatient = value.nomPatient;
@@ -87,6 +89,7 @@ public class VExamens implements Serializable {
         Double    montantPrisEnCharge,
         Double    montantNetAPayer,
         String    numeroConsul,
+        Long      medecin,
         Long      age,
         Long      idPatient,
         String    nomPatient,
@@ -108,6 +111,7 @@ public class VExamens implements Serializable {
         this.montantPrisEnCharge = montantPrisEnCharge;
         this.montantNetAPayer = montantNetAPayer;
         this.numeroConsul = numeroConsul;
+        this.medecin = medecin;
         this.age = age;
         this.idPatient = idPatient;
         this.nomPatient = nomPatient;
@@ -235,6 +239,14 @@ public class VExamens implements Serializable {
         this.numeroConsul = numeroConsul;
     }
 
+    public Long getMedecin() {
+        return this.medecin;
+    }
+
+    public void setMedecin(Long medecin) {
+        this.medecin = medecin;
+    }
+
     public Long getAge() {
         return this.age;
     }
@@ -294,6 +306,7 @@ public class VExamens implements Serializable {
         sb.append(", ").append(montantPrisEnCharge);
         sb.append(", ").append(montantNetAPayer);
         sb.append(", ").append(numeroConsul);
+        sb.append(", ").append(medecin);
         sb.append(", ").append(age);
         sb.append(", ").append(idPatient);
         sb.append(", ").append(nomPatient);

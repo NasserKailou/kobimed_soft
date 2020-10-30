@@ -29,6 +29,12 @@ GET     /user/delete                           controllers.UserCtrl.delete(login
 GET			/Patients/show/:subAction/    		controllers.PatientCtrl.show(subAction: String, idPArt: Long,request:Request)
 GET			/Patients/restaure/    		controllers.PatientCtrl.restaure(clientPk: Long,request:Request)
 POST    	/Patients/save                        controllers.PatientCtrl.save(request:Request)
+GET			/Patients/MedicalDocView/    		controllers.PatientCtrl.showMedicalDoc(patientPk: Long,request:Request)
+
+#Infos complement Dossier MEdical
+GET			/InfoPAtients/show/:subAction/    		controllers.InfosMedicalCtrl.show(subAction: String, idInfo: Long, idPatient: Long,request:Request)
+POST    	/InfoPAtients/save                        controllers.InfosMedicalCtrl.save(request:Request)
+GET			/Patient-add-Infos-Supplementaire/show    		controllers.PatientCtrl.addInfos(request:Request,idConsult: Long)
 
 #Personnels Ressources
 GET			/personnel/show/:subAction/    		controllers.PersonnelCtrl.show(subAction: String, persoPk: Long,request:Request)

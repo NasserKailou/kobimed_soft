@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VSoins implements Serializable {
 
-    private static final long serialVersionUID = -2009962329;
+    private static final long serialVersionUID = -80342932;
 
     private Long      id;
     private String    libelle;
@@ -42,6 +42,7 @@ public class VSoins implements Serializable {
     private Long      montant;
     private Long      nombre;
     private Long      total;
+    private Long      medecin;
     private String    nomPartenaire;
     private Long      partenaireId;
     private Double    tauxCouverture;
@@ -68,6 +69,7 @@ public class VSoins implements Serializable {
         this.montant = value.montant;
         this.nombre = value.nombre;
         this.total = value.total;
+        this.medecin = value.medecin;
         this.nomPartenaire = value.nomPartenaire;
         this.partenaireId = value.partenaireId;
         this.tauxCouverture = value.tauxCouverture;
@@ -93,6 +95,7 @@ public class VSoins implements Serializable {
         Long      montant,
         Long      nombre,
         Long      total,
+        Long      medecin,
         String    nomPartenaire,
         Long      partenaireId,
         Double    tauxCouverture,
@@ -116,6 +119,7 @@ public class VSoins implements Serializable {
         this.montant = montant;
         this.nombre = nombre;
         this.total = total;
+        this.medecin = medecin;
         this.nomPartenaire = nomPartenaire;
         this.partenaireId = partenaireId;
         this.tauxCouverture = tauxCouverture;
@@ -259,6 +263,14 @@ public class VSoins implements Serializable {
         this.total = total;
     }
 
+    public Long getMedecin() {
+        return this.medecin;
+    }
+
+    public void setMedecin(Long medecin) {
+        this.medecin = medecin;
+    }
+
     public String getNomPartenaire() {
         return this.nomPartenaire;
     }
@@ -320,6 +332,7 @@ public class VSoins implements Serializable {
         sb.append(", ").append(montant);
         sb.append(", ").append(nombre);
         sb.append(", ").append(total);
+        sb.append(", ").append(medecin);
         sb.append(", ").append(nomPartenaire);
         sb.append(", ").append(partenaireId);
         sb.append(", ").append(tauxCouverture);

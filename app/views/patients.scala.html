@@ -176,10 +176,18 @@ function openPopup(target, x, y, w, h) {
 								  <a id="btnReadWrite" class="btn btn-primary" title="Modification"
 									href="@controllers.routes.PatientCtrl.show("EDIT", c.getId()) " ><i class="glyphicon glyphicon-edit"></i></a>
 									
-									@if(request.session().get("droit") == "Admin" || request.session().get("droit") == "Gestionnaire"){		|
+									@if(request.session().get("droit").get() == "Admin" || request.session().get("droit").get() == "Gestionnaire"){		|
                                     <a id="btnDelete" class="btn btn-danger"
                                        title="Supprimer"
-                                       href="@controllers.routes.PatientCtrl.show("DELETE", c.getId())""><i class="glyphicon glyphicon-trash"></i></a>
+									   href="@controllers.routes.PatientCtrl.show("DELETE", c.getId())""><i class="glyphicon glyphicon-trash"></i></a>
+									   |
+							
+									   <a class="btn btn-warning" type="button" title="Completez le dossier du patient" href="@controllers.routes.PatientCtrl.addInfos(c.getId())">
+										<i class="glyphicon glyphicon-tasks"></i> </a>
+										
+										|
+									   <a class="btn btn-success" type="button" title="Consulter le dossier médical du patient" href="@controllers.routes.PatientCtrl.showMedicalDoc(c.getId())">
+										<i class="glyphicon glyphicon-tasks"></i> </a>
 										}
 <!--                                 	| -->
 <!-- 								<a class="btn btn-success" type="button" title="Imprimer le dossier Médical" -->

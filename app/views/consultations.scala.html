@@ -308,7 +308,7 @@ function openPopup(target, x, y, w, h) {
 						                              	<i class="glyphicon glyphicon-tasks"></i> </a>
 								</td>
 								
-								@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Asistant"){
+								@if( request.session.get("droit").get() == "Asistant"){
 								
 								<td>
 								<a class="btn btn-success" type="button" title="Ajouter une Ordonnance à la consultations" href="@controllers.routes.ConsultationCtrl.addOrdonnance(c.getId())">

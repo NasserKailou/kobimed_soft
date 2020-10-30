@@ -34,6 +34,8 @@ import models.public_.tables.VExamens;
 import models.public_.tables.VOrdononce;
 import models.public_.tables.VPatients;
 import models.public_.tables.VSoins;
+import models.public_.tables.VsConsMedecin;
+import models.public_.tables.VsExamMedecin;
 
 import org.jooq.Catalog;
 import org.jooq.Sequence;
@@ -54,7 +56,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -887966816;
+    private static final long serialVersionUID = 1802684016;
 
     /**
      * The reference instance of <code>public</code>
@@ -177,6 +179,16 @@ public class Public extends SchemaImpl {
     public final VSoins V_SOINS = models.public_.tables.VSoins.V_SOINS;
 
     /**
+     * The table <code>public.vs_cons_medecin</code>.
+     */
+    public final VsConsMedecin VS_CONS_MEDECIN = models.public_.tables.VsConsMedecin.VS_CONS_MEDECIN;
+
+    /**
+     * The table <code>public.vs_exam_medecin</code>.
+     */
+    public final VsExamMedecin VS_EXAM_MEDECIN = models.public_.tables.VsExamMedecin.VS_EXAM_MEDECIN;
+
+    /**
      * No further instances allowed
      */
     private Public() {
@@ -249,6 +261,8 @@ public class Public extends SchemaImpl {
             VExamens.V_EXAMENS,
             VOrdononce.V_ORDONONCE,
             VPatients.V_PATIENTS,
-            VSoins.V_SOINS);
+            VSoins.V_SOINS,
+            VsConsMedecin.VS_CONS_MEDECIN,
+            VsExamMedecin.VS_EXAM_MEDECIN);
     }
 }

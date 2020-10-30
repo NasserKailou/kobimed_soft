@@ -1,0 +1,161 @@
+@import java.time.LocalDateTime
+@import helper._
+@import java.util
+@(viewMode:String,  infos: List[models.public_.tables.pojos.InfosMedicale],patient: models.public_.tables.pojos.Patients,
+ info: models.public_.tables.pojos.InfosMedicale)(implicit request: Http.Request)
+
+@main("Clients"){
+
+<hr>
+<div class="card-header" id="titre_header">
+	<div class="row">
+
+	<form  method="POST" name="form" action="@controllers.routes.InfosMedicalCtrl.save() "  class="form-horizontal col-md-12 col-sm-12 col-xs-12" role="form">
+			@helper.CSRF.formField
+			<input value="@viewMode"           name="viewMode" type="hidden">
+			<input value="@patient.getId()" name="patient" type="hidden">
+			<input value="@info.getId()" name="id" type="hidden">
+			<center>
+			<fieldset style=" color:#000; width:98%; background-color:#DDE7E9; border-radius:10px; font-size:14px;"  >
+			<br>
+
+					<h6 style="color:#000;">
+						<strong>
+							<i>Tous les champs avec <font style="color:red;  font-size:14px;">*</font> sont obligatoires</i>
+						</strong>
+					</h6>
+			<div  class="row ">
+			    <div class="col-md-12"><h4><u style="color: red;"><b>Informations Médical</b></u> </h4></div>
+			    @if(patient !=null){
+			     <div class="col-md-12"><h5><u style="color: blue;"><b>Patient @patient.getNomPrenom(), age: @patient.getAge() - Tel: @patient.getTelephone() </b></u> </h5></div>
+				}
+				<div class="col-md-12">
+
+						<br>
+						<div class="form-group row">
+						<label class="col-sm-1 col-form-label" for="nom" ><b>S'agit-il d'un antécedant ?<font style="color:red;  font-size:14px;">:</font></b></label>
+                                        <div class="col-sm-1">
+                                            Non <input type="radio" id="false" name="isAnt" value="false"@if(viewMode.equals("CREATE")){ checked }>
+                                       
+                                            Oui <input type="radio" id="true"  name="isAnt" value="true" >
+                                        </div> 
+						  <label class="col-sm-1 col-form-label" for="libelle" ><b>Désignation<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-4">
+								<input type="text" id="libelle"  name="libelle" value="@info.getLibelle()"
+											placeholder="désignation , exple: Groupe Sanguin" 
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											class="form-control autocomplete"
+											required="required"  />
+						  	</div>
+						  	
+						  	<label class="col-sm-1 col-form-label" for="libelle" ><b>Résultats :<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-4">
+								<input type="text"  name="resultat" value="@info.getResultat()"
+											placeholder="précisez le resultat : expl: A+, positif..." 
+											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											class="form-control" required="required" />
+						  	</div>
+						  	
+						
+						 
+						</div>
+						
+						
+					
+				</div>
+
+			
+				</div>
+			<div class="row" style="color:#000;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+				<button class="btn btn-primary" type="submit"  name="Annuler" value="Retour" onclick="history.go(-1)">Retour</button>
+					@if( viewMode.equals("CREATE")){ 
+					<button class="btn btn-success" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >
+						<i class="glyphicon glyphicon-save"></i> Enregistrer
+					</button> } 
+					@if( viewMode.equals("EDIT")){ 
+					<button class="btn btn-warning" type="submit" id="valider" name="Valider" title="Valider(Modifier les informations)">
+						<i class="glyphicon glyphicon-edit"></i> Modifier
+					</button> } 
+					@if( viewMode.equals("TRAITER")){ 
+					<button class="btn btn-success" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >
+						<i class="glyphicon glyphicon-save"></i> Valider 
+					</button> } 
+					@if( viewMode.equals("DELETE")){ 
+					<button class="btn btn-danger" type="submit" id="valider"
+					 name="Valider" title="Supprimer l'examen"  onclick="return window.confirm('Voulez vous supprimer cet examen?');">
+						<i class="glyphicon glyphicon-edit"></i> Supprimer
+					</button> } 
+					
+<!-- 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 				<button class="btn btn-danger" type="submit"  name="Annuler" value="Annuler">Annuler</button> -->
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<br>
+			</fieldset></center>
+			<br>
+		</form>
+				</div>
+</div>
+<hr>
+<section class="container">
+	
+	<div class="row">
+
+		<div class = "col-md-12 table-responsive">
+		
+				<table class="dta-tbl table table-bordered table-striped text-center" >
+				<center><div class="badged-title"><h4> <b>L</b>istes des Informations médical du patient<br></div></center>
+					<thead>
+						 <tr>
+<!-- 							<th style="text-align: center"><b>#</b></th> -->
+							<th style="text-align: center"><b>Désignation</b></th>
+							<th style="text-align: center"><b>Résultat</b></th>
+							<th style="text-align: center"><b>Antécedant</b></th>
+							<th style="text-align: center"><b>Action</b></th>
+						 </tr>
+					 </thead>
+					 <tbody>
+						@for(c <-infos){
+							 <tr>
+<!-- 							  <td>@c.getId() </td> -->
+								<td>@c.getLibelle() </td>
+							<td>@c.getResultat() </td>
+								<td>@if(c.getIsAnt()){Oui}else{Non}</td>
+								
+								<td>
+								  <a id="btnReadWrite" class="btn btn-primary" title="Modification"
+									href="@controllers.routes.InfosMedicalCtrl.show("EDIT", c.getId(), c.getPatient) " ><i class="glyphicon glyphicon-edit"></i></a>
+							     <a id="btnDelete" class="btn btn-danger"
+                                       title="Supprimer"
+                                       href="@controllers.routes.InfosMedicalCtrl.show("DELETE", c.getId(), c.getPatient)""><i class="glyphicon glyphicon-trash"></i></a>
+                              
+                         
+                                </td>
+							 </tr>
+							}
+					  </tbody>
+				</table>
+				
+	
+		</div>
+	</div>
+  </section>
+  
+  
+}
+
+
+<script >
+function openPopup(target, x, y, w, h) {
+	var win = window.open(target, 'popup', 'height='+h+', width='+w+', top='+y+', left='+x+', toolbar=no, menubar=yes, location=no, resizable=yes, scrollbars=yes, status=no');
+	win.window.focus();
+	return false;
+}
+
+
+
+</script>
+

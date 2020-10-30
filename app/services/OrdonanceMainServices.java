@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import models.public_.Tables;
 import models.public_.tables.daos.OrdonancesDao;
 import models.public_.tables.pojos.Ordonances;
+import models.public_.tables.pojos.VSoins;
 
 /**
  * 
@@ -60,7 +61,7 @@ public class OrdonanceMainServices extends OrdonancesDao {
 	}
 
 	/**
-	 * cette methode renvoie la liste des soins donné a un patiens
+	 * cette methode renvoie la liste des soins donné a un patiens pour une consultations données
 	 * 
 	 * @param idConsultation
 	 * @return
@@ -80,6 +81,19 @@ public class OrdonanceMainServices extends OrdonancesDao {
 		return c;
 	}
 
+	/**
+	 * Renvoi la liste des soins par utilisateurs
+	 * @param idPatient
+	 * @return
+	 */
+	public List<VSoins> findSoinByPatient(Long idPatient) {
+		List<VSoins> c = con.connection().selectFrom(Tables.V_SOINS).where(Tables.V_SOINS.IS_DELETED.isFalse())
+				.and(Tables.V_SOINS.ID_PATIENT.eq(idPatient)).fetchInto(VSoins.class);
+		con.connection().close();
+		return c;
+	}
+
+	
 	public Ordonances findById(Long id) {
 		return super.findById(id);
 	}

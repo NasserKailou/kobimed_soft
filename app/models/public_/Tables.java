@@ -29,6 +29,8 @@ import models.public_.tables.VExamens;
 import models.public_.tables.VOrdononce;
 import models.public_.tables.VPatients;
 import models.public_.tables.VSoins;
+import models.public_.tables.VsConsMedecin;
+import models.public_.tables.VsExamMedecin;
 
 
 /**
@@ -158,4 +160,14 @@ public class Tables {
      * The table <code>public.v_soins</code>.
      */
     public static final VSoins V_SOINS = models.public_.tables.VSoins.V_SOINS;
+
+    /**
+     * The table <code>public.vs_cons_medecin</code>.
+     */
+    public static final VsConsMedecin VS_CONS_MEDECIN = models.public_.tables.VsConsMedecin.VS_CONS_MEDECIN;
+
+    /**
+     * The table <code>public.vs_exam_medecin</code>.
+     */
+    public static final VsExamMedecin VS_EXAM_MEDECIN = models.public_.tables.VsExamMedecin.VS_EXAM_MEDECIN;
 }
