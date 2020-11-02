@@ -19,6 +19,11 @@ import services.UserService;
 import utils.ViewMode;
 import views.html.*;
 
+/**
+ * 
+ * @author nasser
+ *
+ */
 public class AuthenticationCtrl extends Controller {
 
 	private final UserService userService;

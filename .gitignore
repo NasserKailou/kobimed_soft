@@ -1,5 +1,6 @@
 logs
 target
+reports/spool
 /.idea
 /.idea_modules
 /.classpath

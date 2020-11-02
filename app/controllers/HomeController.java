@@ -65,7 +65,7 @@ public class HomeController extends Controller {
 //	}
 
 	public Result acceuil(Request request) {
-		System.out.println("les sessions sont login:" +request.session().get("login") +" droit :"+ request.session().get("droit") +" nonUser :" + request.session().get("nomUser"));
+		//System.out.println("les sessions sont login:" +request.session().get("login") +" droit :"+ request.session().get("droit") +" nonUser :" + request.session().get("nomUser"));
 		if (request.session().get("login") == null) {
 			return ok(views.html.index.render(request));
 		} else {
