@@ -14,6 +14,7 @@ import models.public_.tables.pojos.SConsultations;
 import models.public_.tables.pojos.VConsultations;
 import play.data.Form;
 import play.data.FormFactory;
+import play.db.Database;
 import play.mvc.*;
 import play.mvc.Http.Request;
 import services.ConsultationsMainServices;
@@ -31,6 +32,7 @@ public class HomeController extends Controller {
 	ConsultationsMainServices consultationServices;
 	
 	PartenaireMainServices partenaireService;
+	//Database db;
 	
 	@Inject
 	public HomeController(FormFactory formatFactory, ConsultationsMainServices consultationServices,PartenaireMainServices partenaireService) {
@@ -66,6 +68,8 @@ public class HomeController extends Controller {
 
 	public Result acceuil(Request request) {
 		//System.out.println("les sessions sont login:" +request.session().get("login") +" droit :"+ request.session().get("droit") +" nonUser :" + request.session().get("nomUser"));
+		//System.out.println("Con url:" +db.getUrl() +" Con Name :"+db.getName() +" Con other connexion:" + db.getConnection()+" Con others datasources" + db.getDataSource());
+		
 		if (request.session().get("login") == null) {
 			return ok(views.html.index.render(request));
 		} else {

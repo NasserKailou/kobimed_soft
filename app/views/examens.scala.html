@@ -36,7 +36,7 @@
 						  <label class="col-sm-1 col-form-label" for="libelle" ><b>Désignation<font style="color:red;  font-size:14px;">*:</font></b></label>
 						  	<div class="col-sm-3">
 								<input type="text" id="libelle"  name="libelle" autocomplete="off" value="@examen.getLibelle()"
-											placeholder="désignation de l'examen" 
+											placeholder="désignation de l'examen" @if("Asistant".equals(request.session.get("droit").get()) && viewMode.equals("CREATE")){readonly="readonly"}
 											@if( viewMode.equals("DELETE")){ disabled=disabled}
 											class="form-control autocomplete"
 											required="required"  />
@@ -45,7 +45,7 @@
 						  	<label class="col-sm-1 col-form-label" for="libelle" ><b>Montant :<font style="color:red;  font-size:14px;"></font></b></label>
 						  	<div class="col-sm-3">
 								<input type="number"  name="coutExamen" id="coutExamen" autocomplete="off" value="@examen.getCoutExamen()"
-											placeholder="prix de l'Examen" 
+											placeholder="prix de l'Examen" @if(request.session.get("droit").get() == "Asistant" && viewMode.equals("CREATE")){ readonly="readonly"}
 											@if( viewMode.equals("DELETE")){ disabled=disabled}
 											class="form-control" required="required" />
 						  	</div>
@@ -53,9 +53,9 @@
 						 @if( viewMode.equals("TRAITER")){ 
 						  	<label class="col-sm-1 col-form-label" for="libelle" ><b>Résultats<font style="color:red;  font-size:14px;">*:</font></b></label>
 						  	<div class="col-sm-3">
-								<input type="text"  name="resultat" autocomplete="on" value="@examen.getResultat()"
+								<input type="text"  name="resultat" autocomplete="on" value="@examen.getResultat()" 
 											placeholder="résultat de l'examen" 
-											@if( viewMode.equals("DELETE")){ disabled=disabled}
+											@if(viewMode.equals("DELETE")){ disabled=disabled}
 											class="form-control"
 											required="required"  />
 						  	</div>
@@ -107,7 +107,8 @@
 			</fieldset></center>
 			<br>
 		</form>
-				</div>
+	</div>
+	
 </div>
 <hr>
 <section class="container">
@@ -143,7 +144,7 @@
 						 <tr>
 							<th style="text-align: center"><b>#</b></th>
 							<th style="text-align: center"><b>Désignation</b></th>
-							@if(request.session.get("droit") == "Admin" || request.session.get("droit") == "Laborantain" || request.session.get("droit") == "Medecin"){
+							@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Laboratoire" || request.session.get("droit").get() == "Medecin"){
 							<th style="text-align: center"><b>Résultat</b></th>
 							<th style="text-align: center"><b>Observations</b></th>
 							}
@@ -156,7 +157,7 @@
 							 <tr>
 							  <td>@c.getId() </td>
 								<td>@c.getLibelle() </td>
-								@if(request.session.get("droit") == "Admin" || request.session.get("droit") == "Laboratoire" || request.session.get("droit") == "Medecin"){
+								@if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Laboratoire" || request.session.get("droit").get() == "Medecin"){
 								<td>@c.getResultat() </td>
 								<td>@c.getObservation() </td>
 								}

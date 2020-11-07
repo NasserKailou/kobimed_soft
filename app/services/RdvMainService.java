@@ -1,6 +1,10 @@
 package services;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,7 +50,6 @@ public class RdvMainService extends RendezvousDao {
 		}
 	}
 
-	
 	/**
 	 * retourn la liste des rdv a une date
 	 * 
@@ -77,11 +80,16 @@ public class RdvMainService extends RendezvousDao {
 	}
 
 	public List<Rendezvous> listeRdvAll() {
-		List<Rendezvous> c = con.connection().selectFrom(Tables.RENDEZVOUS).where(Tables.RENDEZVOUS.ON_DELETED.isFalse())
+		Timestamp current = new Timestamp(System.currentTimeMillis());
+		// System.out.println("curent :"+ current);
+		Timestamp curent2 = this.getDateT(String.valueOf(current).substring(0, 10));
+		List<Rendezvous> c = con.connection().selectFrom(Tables.RENDEZVOUS)
+				.where(Tables.RENDEZVOUS.ON_DELETED.isFalse()).and(Tables.RENDEZVOUS.DATE_RDV.greaterThan(curent2))
 				.fetchInto(Rendezvous.class);
 		con.connection().close();
 		return c;
 	}
+
 	/**
 	 * return la liste des rdv supprimer
 	 * 
@@ -94,4 +102,24 @@ public class RdvMainService extends RendezvousDao {
 		return c;
 	}
 
+	public Timestamp getDateT(String d) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.parse(d, formatter);
+		LocalDateTime dateV = null;
+
+		if (null != d && !d.trim().isEmpty()) {
+			try {
+				// System.out.println("la date est :"+dateV+tmpDate);
+
+				dateV = LocalDateTime.of(localDate, LocalTime.of(0, 0));
+
+			} catch (Exception e) {
+				e.getMessage();
+			}
+		}
+
+		return Timestamp.valueOf(dateV);
+
+	}
 }

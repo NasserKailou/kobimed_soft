@@ -117,3 +117,18 @@ CREATE OR REPLACE VIEW public.vs_cons_medecin
         ON DELETE NO ACTION
         NOT VALID
 );
+
+
+CREATE TABLE public.rendezvous
+(
+    id_rdv bigserial NOT NULL,
+    nom_patient character varying COLLATE pg_catalog."default",
+    num_tel character varying COLLATE pg_catalog."default",
+    motif_rdv character varying COLLATE pg_catalog."default",
+    date_rdv timestamp without time zone NOT NULL,
+    who_done character varying COLLATE pg_catalog."default",
+    when_done timestamp without time zone,
+    on_deleted boolean,
+    CONSTRAINT rendezvous_pkey PRIMARY KEY (id_rdv)
+);
+

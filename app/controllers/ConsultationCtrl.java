@@ -12,7 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
 import models.public_.tables.pojos.Consultations;
 import models.public_.tables.pojos.Examens;
 import models.public_.tables.pojos.Ordonances;
@@ -60,7 +59,8 @@ public class ConsultationCtrl extends Controller {
 	@Inject
 	public ConsultationCtrl(FormFactory formFactory, ConsultationsMainServices consultationServices,
 			TypeConsultationsMainServices typeConServices, PatientsMainServices patientService,
-			PartenaireMainServices partServices,RdvMainService rdvService, CallJasperReport jasper, PersonnelMainServices persServices) {
+			PartenaireMainServices partServices, RdvMainService rdvService, CallJasperReport jasper,
+			PersonnelMainServices persServices) {
 		super();
 		this.formFactory = formFactory;
 		this.consultationServices = consultationServices;
@@ -73,9 +73,11 @@ public class ConsultationCtrl extends Controller {
 
 	}
 
-	public Result show(Request request,String subAction, Long idConsul) {
-		//System.out.println("les sessions sont login:" +request.session().get("login") +" droit :"+ request.session().get("droit") +" nonUser :" + request.session().get("nomUser"));
-		
+	public Result show(Request request, String subAction, Long idConsul) {
+		// System.out.println("les sessions sont login:" +request.session().get("login")
+		// +" droit :"+ request.session().get("droit") +" nonUser :" +
+		// request.session().get("nomUser"));
+
 //		if (!isAdmin()) {
 //			return redirect(routes.AuthenticationCtrl.logout());
 //		}
@@ -89,7 +91,8 @@ public class ConsultationCtrl extends Controller {
 		if (String.valueOf(request.session().get("droit").get()).equals("Gestionnaire"))
 			consultations = consultationServices.listeConsultationsByDate();
 		else
-			consultations = consultationServices.listeConsultationsByOwnerToDate(String.valueOf(request.session().get("login").get()));
+			consultations = consultationServices
+					.listeConsultationsByOwnerToDate(String.valueOf(request.session().get("login").get()));
 //List<VConsultations> consultations = consultationServices.listeConsultationsByOwnerToDate(session("login"));
 		List<Personnels> medecins = persServices.listes("Medecin");
 		if (0 == idConsul) {
@@ -107,11 +110,12 @@ public class ConsultationCtrl extends Controller {
 
 		}
 		// System.out.println("la liste des consultations est :"+ consultations);
-		return ok(views.html.consultations.render(viewMode, consultations, typeConServices.findAll(), medecins, c,request));
+		return ok(views.html.consultations.render(viewMode, consultations, typeConServices.findAll(), medecins, c,
+				request));
 
 	}
 
-	public Result restaure(Request request,Long idConsul) {
+	public Result restaure(Request request, Long idConsul) {
 		Consultations c = consultationServices.findById(idConsul);
 		c.setIsDeleted(false);
 		consultationServices.update(c);
@@ -120,7 +124,7 @@ public class ConsultationCtrl extends Controller {
 
 		return ok(views.html.consultationsDeleted.render(ViewMode.VIEW_MODE_CREATE,
 				consultationServices.listeConsultationsDeleted(), typeConServices.findAll(),
-				persServices.listes("Medecin"), cc,request));
+				persServices.listes("Medecin"), cc, request));
 
 	}
 
@@ -129,10 +133,10 @@ public class ConsultationCtrl extends Controller {
 
 		return ok(views.html.consultationsDeleted.render(ViewMode.VIEW_MODE_CREATE,
 				consultationServices.listeConsultationsDeleted(), typeConServices.findAll(),
-				persServices.listes("Medecin"), c,request));
+				persServices.listes("Medecin"), c, request));
 
 	}
-	
+
 	@AddCSRFToken
 	public Result save(Request request) {
 
@@ -196,7 +200,10 @@ public class ConsultationCtrl extends Controller {
 		LocalDateTime dateV = null; // valeur par défaut
 		boolean dateError = false;
 		// System.out.println("le droit est :" +session("droit"));
-		if (viewMode.equals(ViewMode.VIEW_MODE_EDIT) && "Admin".equals(request.session().get("droit").get())) {
+		if ((viewMode.equals(ViewMode.VIEW_MODE_EDIT) && "Admin".equals(request.session().get("droit").get()))
+				|| "Asistant".equals(request.session().get("droit").get())) {
+			// if (viewMode.equals(ViewMode.VIEW_MODE_EDIT) &&
+			// "Asistant".equals(request.session().get("droit").get()) ) {
 
 			String dateRDV = formFactory.form().bindFromRequest(request).get("tmpDate");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -208,7 +215,7 @@ public class ConsultationCtrl extends Controller {
 					// System.out.println("la date est :"+dateV+tmpDate);
 
 					dateV = LocalDateTime.of(localDate, LocalTime.of(0, 0));
-
+					System.out.println("la date est :" + dateV);
 				} catch (Exception e) {
 					dateError = true;
 				}
@@ -243,16 +250,19 @@ public class ConsultationCtrl extends Controller {
 			c.setSommeRemise(c.getSommeRecu() - coutConsultation);
 
 			if (c.getSommeRecu() < coutConsultation) {
-				
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error", "Montant reçu de  " + c.getSommeRecu() + " non suffissant !!! ");
+
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error",
+						"Montant reçu de  " + c.getSommeRecu() + " non suffissant !!! ");
 			}
 			if (consultationServices.saveLogical(c, true).equals("ok")) {
-				
+
 				// System.out.println("Consultations : " + c);
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success", "Une Consultations pour " + c.getNomPrenomPatient() + " a été ajouté avec success");
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success",
+						"Une Consultations pour " + c.getNomPrenomPatient() + " a été ajouté avec success");
 			} else {
-				
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error", "Consultations pour " + c.getNomPrenomPatient() + " non ajouter ");
+
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error",
+						"Consultations pour " + c.getNomPrenomPatient() + " non ajouter ");
 			}
 		} else if (viewMode.equals(ViewMode.VIEW_MODE_EDIT)) {
 			// a.setLogin(login);
@@ -268,7 +278,8 @@ public class ConsultationCtrl extends Controller {
 			// System.out.println("les montant recu et cout : " + c.getSommeRecu() + " - " +
 			// coutConsultation);
 			c.setSommeRemise(c.getSommeRecu() - coutConsultation);
-			if ("Admin".equals(String.valueOf(request.session().get("droit").get())))
+			if ("Admin".equals(String.valueOf(request.session().get("droit").get()))
+					|| "Asistant".equals(String.valueOf(request.session().get("droit").get())))
 				c.setDateRdv(Timestamp.valueOf(dateV));
 			// c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 			String dateModif = formFactory.form().bindFromRequest(request).get("dateTmp3");
@@ -276,22 +287,26 @@ public class ConsultationCtrl extends Controller {
 			c.setWhoDone(String.valueOf(request.session().get("login").get()));
 			c.setIsClosed(false);
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
-				//flash("success", "Consultations  modifier avec success");
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success", "Consultations  modifier avec success");
+				// flash("success", "Consultations modifier avec success");
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success",
+						"Consultations  modifier avec success");
 			} else {
-				//flash("error", "Consultations  non modifier");
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error", "Consultations  non modifier");
+				// flash("error", "Consultations non modifier");
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error",
+						"Consultations  non modifier");
 			}
 		} else if (viewMode.equals(ViewMode.VIEW_MODE_DELETE)) {
 			c.setIsDeleted(true);
 			c.setWhenDone(new Timestamp(System.currentTimeMillis()));
-			c.setWhoDone(String.valueOf(request.session().get("login").get()) );
+			c.setWhoDone(String.valueOf(request.session().get("login").get()));
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
-				//flash("success", "Consultations  Supprimer avec success");
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success", "Consultations  Supprimer avec success");
+				// flash("success", "Consultations Supprimer avec success");
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success",
+						"Consultations  Supprimer avec success");
 			} else {
-				//flash("error", "Consultations  non supprimer");
-				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error", "Consultations  non supprimer");
+				// flash("error", "Consultations non supprimer");
+				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error",
+						"Consultations  non supprimer");
 			}
 		}
 		return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L));
@@ -303,7 +318,7 @@ public class ConsultationCtrl extends Controller {
 	 * @param idConsul
 	 * @return
 	 */
-	public Result addExam(Request request,Long idConsul) {
+	public Result addExam(Request request, Long idConsul) {
 
 		return redirect(routes.ExamenCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L, idConsul));
 
@@ -315,34 +330,36 @@ public class ConsultationCtrl extends Controller {
 	 * @param idConsul
 	 * @return
 	 */
-	public Result addOrdonnance(Request request,Long idConsul) {
+	public Result addOrdonnance(Request request, Long idConsul) {
 		return redirect(routes.OrdonanceCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L, idConsul));
 	}
 
-	public Result addSoin(Request request,Long idConsul) {
+	public Result addSoin(Request request, Long idConsul) {
 		return redirect(routes.SoinCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L, idConsul));
 	}
 
 	/**
 	 * @author nasser methode impression recu
 	 */
-	public Result print(Request request,String numConsultation, String fileName) {
+	public Result print(Request request, String numConsultation, String fileName) {
 
 		// String fileName = "recu";
 		LocalDateTime now = LocalDateTime.now();
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";
 		try {
-			//flash("success", "impression ok");
+			// flash("success", "impression ok");
 
 			jasper.generateReport(fileName, numConsultation);
 
-			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + numConsultation + ".pdf")).flashing("success", "impression ok");
+			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + numConsultation + ".pdf"))
+					.flashing("success", "impression ok");
 
 		} catch (Exception e) {
-			//flash("error", "erreur impression");
+			// flash("error", "erreur impression");
 			// System.out.println(e.getMessage() + "+++++++--**///////++++++++");
-			return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error", "Erreur d'impression");
+			return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error",
+					"Erreur d'impression");
 		}
 	}
 
@@ -350,7 +367,7 @@ public class ConsultationCtrl extends Controller {
 		return ok(views.html.rapports.render(request));
 	}
 
-	public Result rapportJour(Request request)throws IOException{
+	public Result rapportJour(Request request) throws IOException {
 		String dateD = formFactory.form().bindFromRequest(request).get("tmpDate");
 		consultationServices.backup();
 		String fileName = "rapport_journalier";
@@ -358,14 +375,15 @@ public class ConsultationCtrl extends Controller {
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";
 		try {
-			//flash("success", "impression ok");
+			// flash("success", "impression ok");
 
 			jasper.generateReport(fileName, consultationServices.getDateT(dateD));
 
-			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf")).flashing("success", "impression ok");
+			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf"))
+					.flashing("success", "impression ok");
 
 		} catch (Exception e) {
-			//flash("error", "erreur impression");
+			// flash("error", "erreur impression");
 			System.out.println(e.getMessage() + "+++++++--**///////++++++++");
 			return ok(views.html.rapports.render(request)).flashing("error", "erreur impression");
 		}
@@ -381,15 +399,16 @@ public class ConsultationCtrl extends Controller {
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";
 		try {
-			//flash("success", "impression ok");
+			// flash("success", "impression ok");
 
 			jasper.generateReport(fileName, consultationServices.getDateT(dateD1),
 					consultationServices.getDateT(dateD2), idAssurreur.replace(" ", ""));
 
-			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf")).flashing("success", "Impression OK");
+			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf"))
+					.flashing("success", "Impression OK");
 
 		} catch (Exception e) {
-			//flash("error", "erreur impression");
+			// flash("error", "erreur impression");
 			System.out.println(e.getMessage() + "+++++++--**///////++++++++");
 			return ok(views.html.rapports.render(request)).flashing("error", " Erreur d'impression");
 		}
@@ -404,15 +423,16 @@ public class ConsultationCtrl extends Controller {
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";
 		try {
-			//flash("success", "impression ok");
+			// flash("success", "impression ok");
 
 			jasper.generateReport(fileName, consultationServices.getDateT(dateD1),
 					consultationServices.getDateT(dateD2), "");
 
-			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf")).flashing("success", " Impression OK");
+			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf"))
+					.flashing("success", " Impression OK");
 
 		} catch (Exception e) {
-			//flash("error", "erreur impression");
+			// flash("error", "erreur impression");
 			System.out.println(e.getMessage() + "+++++++--**///////++++++++");
 			return ok(views.html.rapports.render(request)).flashing("error", " Erreur d'impression");
 		}
@@ -433,7 +453,7 @@ public class ConsultationCtrl extends Controller {
 					consultationServices.getDateT(dateD2), numTel);
 
 		return ok(views.html.consultations.render(ViewMode.VIEW_MODE_CREATE, vcons, typeConServices.findAll(),
-				persServices.listes("Medecin"), c,request));
+				persServices.listes("Medecin"), c, request));
 	}
 
 	public Result rdv(Request request) {
@@ -446,12 +466,13 @@ public class ConsultationCtrl extends Controller {
 		else
 			vcons = consultationServices.listeRDV(consultationServices.getDateT(dateD2));
 
-		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,rdvService.listeRDV(consultationServices.getDateT(dateD2)),request));
+		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,
+				rdvService.listeRDV(consultationServices.getDateT(dateD2)), request));
 	}
 
 	public Result viewRDV(Request request) {
 		List<VConsultations> vcons = new ArrayList<>();
-		List<Rendezvous> vrdv= new ArrayList<>();
-		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons,vrdv,request));
+		List<Rendezvous> vrdv = new ArrayList<>();
+		return ok(views.html.rdv_consultations.render(ViewMode.VIEW_MODE_CREATE, vcons, vrdv, request));
 	}
 }

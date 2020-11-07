@@ -3,11 +3,11 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4">
-				<img src="@routes.Assets.versioned("images/logo.jpg")" class="logo" style="width: 80px; height: 70px" />
+				<img src="@routes.Assets.versioned("images/logo.png")" class="logo" style="width: 80px; height: 70px" />
 			</div>
 			<div class="col-sm-5">
-<!-- 				<h2 style="color: #fff;">Cabinet Médical Dicko</h2> -->
-<h2 style="color: #fff;">Logiciel de Gestion Médical KobiSoft</h2>
+				<h2 style="color: #fff;">Cabinet Médical Dicko</h2>
+<!-- <h2 style="color: #fff;">Logiciel de Gestion Médical KobiSoft</h2> -->
 			</div>
 			<div class="col-sm-3">
 				<ul class="nav navbar-nav pull-right">
@@ -93,7 +93,9 @@
 					</li>
 			<li><a href="@routes.ConsultationCtrl.show("CREATE",0L)" style="color: #fff;">Consultations</a></li>
 			<li><a href="@routes.PatientCtrl.show("CREATE",0L)" style="color: #fff;">Patients</a></li>
-			<!-- <li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li> -->
+			<li><a href="@routes.ConsultationCtrl.viewRDV()" style="color: #fff;">Rechercher des Rendez-vous</a></li>
+								
+			<li><a href="@routes.ConsultationCtrl.showSituationView()" style="color: #fff;">Situtation</a></li>
           }
 					
 					

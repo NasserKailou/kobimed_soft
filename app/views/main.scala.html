@@ -18,7 +18,7 @@
     <body>
     @header(request)
     
-     <div style="" class="container">
+     <div style="padding-top: 20px" class="container">
 	                        @if(request.flash.get("error").isPresent()) {
 	                            <div id="feedBackArea" style="margin-bottom: 6px !important;" class="alert alert-danger"> @request.flash.get("error").get</div>
 	                        }
