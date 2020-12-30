@@ -49,9 +49,9 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label" for="nom" ><b>Description </b></label>
                                         <div class="col-sm-5">
-                                            <textarea name="description" class="form-control" @if( viewMode.equals("VIEW")){ disabled=disabled}>
+                                            <input name="description"  placeholder="Description du produit" class="form-control" @if( viewMode.equals("VIEW")){ disabled=disabled} />
                                                 @article.getDescription()
-                                            </textarea>
+<!--                                             </textarea> -->
                                         </div>
                                     </div>
 

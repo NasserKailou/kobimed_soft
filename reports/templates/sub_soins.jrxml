@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_consultation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8dc01a95-5b45-4d18-b86d-01ddd0d7e7ed">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dicko/DICKO.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="reports/KERA.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="223"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="771"/>
 	<parameter name="id" class="java.sql.Timestamp"/>
+	<parameter name="user" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT id, libelle, consultation, nom_patient, numero_consul, age, 
 tel_patient, date_consultation, is_deleted, when_done, 
 consultations, who_done, is_soin, montant, nom_partenaire,
 taux_couverture, montant_pris_en_charge, montant_net_a_payer
 	FROM public.v_soins
-where CAST(when_done AS DATE)  =  CAST($P{id} AS DATE)]]>
+where CAST(when_done AS DATE)  =  CAST($P{id} AS DATE) and who_done =  $P{user} ]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -191,10 +192,10 @@ where CAST(when_done AS DATE)  =  CAST($P{id} AS DATE)]]>
 				<reportElement x="468" y="0" width="75" height="20" uuid="947a15a2-3182-4b7d-9048-de5f8b411a62">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb3fd3a5-eadb-4590-a8a5-1c05af04771d"/>
 				</reportElement>
-				<box rightPadding="3">
+				<box leftPadding="4" rightPadding="3">
 					<pen lineWidth="0.3" lineStyle="Solid"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new DecimalFormat("#,##0",new DecimalFormatSymbols(Locale.FRENCH)).format($F{montant_net_a_payer})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -249,10 +250,10 @@ where CAST(when_done AS DATE)  =  CAST($P{id} AS DATE)]]>
 			</textField>
 			<textField>
 				<reportElement x="468" y="0" width="75" height="20" uuid="44fdd28e-ca34-4fa9-82e4-62ac4d7df09d"/>
-				<box rightPadding="4">
+				<box leftPadding="4" rightPadding="4">
 					<pen lineWidth="0.3"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new DecimalFormat("#,##0",new DecimalFormatSymbols(Locale.FRENCH)).format($V{montant_net_a_payer1})]]></textFieldExpression>
 			</textField>
 			<staticText>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="situation_article" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa1f3126-b238-40c5-9de0-e79159b885a4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KERA.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="272"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="721"/>
+	<parameter name="id" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT a.id AS id_article,
+    a.libelle,
+    a.description,
+    a.prix_vente,
+    a.quantite_disponible,
+    m.id AS id_m,
+    m.prix,
+    m.quantite AS quantite_m,
+    m.operation,
+    m.facture_id,
+    f.client,
+    f.when_done AS when_done_f,
+    f.montantlettre,
+    f.montantchiffre,
+    f.when_imprime,
+    m.montant_mouvement,
+    m.is_rejet,
+    f.is_transfert ,
+    f.montant_client,
+    f.montant_client - f.montantchiffre AS montant_remis
+   FROM stock.v_article a,
+    stock.mouvement m,
+    stock.facture f
+  WHERE a.id = m.article_id 
+  AND f.id = m.facture_id
+  AND f.id::character varying =  $P{id} ;]]>
+	</queryString>
+	<field name="id_article" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id_article"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_article"/>
+	</field>
+	<field name="libelle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="libelle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_article"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_article"/>
+	</field>
+	<field name="prix_vente" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="prix_vente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_article"/>
+	</field>
+	<field name="quantite_disponible" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="quantite_disponible"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="v_article"/>
+	</field>
+	<field name="id_m" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id_m"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="prix" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="prix"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="quantite_m" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="quantite_m"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="operation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="operation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="facture_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="facture_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="client" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="client"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="when_done_f" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="when_done_f"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="montantlettre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="montantlettre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="montantchiffre" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="montantchiffre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="when_imprime" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="when_imprime"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="montant_mouvement" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="montant_mouvement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="is_rejet" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_rejet"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mouvement"/>
+	</field>
+	<field name="is_transfert" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_transfert"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="montant_client" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="montant_client"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="facture"/>
+	</field>
+	<field name="montant_remis" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="montant_remis"/>
+	</field>
+	<variable name="montant_mouvement1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{montant_mouvement}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="100" width="276" height="30" uuid="b77df6e5-760a-4eaf-8ab3-144d4450ed19"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{operation}.equals("-"))?"Bon de Sortie"+ " N°"+$F{facture_id}:" Bon d'Entrée" + " N°"+$F{facture_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="100" width="98" height="30" uuid="c4912b49-18dc-4a89-a45c-c715f2a597f0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="810fdca2-4ea0-4c5d-bb24-9d331619e375"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{is_rejet}==false)?"":" (Rejet/Perte) "]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="467" y="59" width="91" height="30" uuid="444f2231-b649-4a50-a663-3c17558c77cc"/>
+				<jr:Codabar xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA[new SimpleDateFormat("ddMMyyyy").format(new java.util.Date())+$F{facture_id}]]></jr:codeExpression>
+				</jr:Codabar>
+			</componentElement>
+			<textField>
+				<reportElement x="318" y="100" width="98" height="30" uuid="052d7056-8e8d-4d56-97c8-113b6ef7b349">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="810fdca2-4ea0-4c5d-bb24-9d331619e375"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{is_transfert}==false)?"":" (Transfert) "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="107" y="3" width="370" height="70" uuid="f3d82c50-70ed-43a0-8c27-5d0889908d1d"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[KERA-TRANSPORT 
+Doucement mais surement!
+BP: 10370 niamey/ NIGER
+Tel: 00227 96291159   Mail: keratransport1@gmail.com
+NIF: 15101/R]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-14" y="-2" width="140" height="80" uuid="7c8906ed-14c1-4738-a9ef-5bf1bfb33b10"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="440" y="105" width="119" height="30" uuid="0bb04307-ecc7-49bb-b0ec-0938d52841ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Le "+new SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="44" y="2" width="113" height="31" backcolor="#F0F0F0" uuid="494888ec-3e16-4a3e-98b7-8f27ebcb3a36">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a902f0-5bb4-4c63-a21f-490854b4e299"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="360" y="2" width="174" height="31" backcolor="#F0F0F0" uuid="5299a190-a0a4-4246-9786-7a44100bc7fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5dd28c8d-6a7f-4387-9ac5-11f570fbf53a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disponible / Solde]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="157" y="2" width="203" height="31" backcolor="#F0F0F0" uuid="952fa8a6-6a2a-4f4c-a6e9-de62e786b9f1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{operation}.equals("-"))?"Quantité Sortie":"Quantité/Montant Receptionné"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField pattern="\n">
+				<reportElement x="44" y="0" width="113" height="29" uuid="4f52359d-aa08-4910-8b9b-af2d8e1c83da">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="78a902f0-5bb4-4c63-a21f-490854b4e299"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libelle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="0" width="203" height="29" uuid="fce2c905-078e-4bbc-a5a0-1242b06aea4a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ce930c3f-a81b-4108-959c-3abc26e73a0d"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{quantite_m})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="174" height="29" uuid="5840c203-a0fa-4d2f-a8d5-4f4dab07afa7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ee77dc4a-0e13-47d7-ba81-385b04fecc9a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{quantite_disponible})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="32" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="3" width="70" height="22" uuid="f4142d27-5cc3-41de-b18f-1285a109c036"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Imprimé le :]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="282" y="5" width="103" height="20" uuid="3a2e8595-9d8c-485d-b3e6-e2de4d616cf6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="9" width="41" height="19" uuid="e6fa7196-4507-4083-9fb0-1c5fd3db7b78"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="448" y="9" width="70" height="20" uuid="c0cc8fd1-4d77-4a62-a84a-6d8c30b72ac4"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" sur " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="4" width="89" height="20" uuid="09fd8459-aa6c-4c30-b1ff-a639abbcada8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KMS-Gestion]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="122" splitType="Stretch">
+			<componentElement>
+				<reportElement x="280" y="49" width="104" height="73" uuid="786e974d-9fe7-4995-a73c-6bc607932679"/>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" margin="1">
+					<jr:codeExpression><![CDATA["Bon N°"+$F{facture_id} + "  KERA-TRANSPORT, NIF: 15101/R, BP: 10370 niamey/ NIGER Tel: +227 96291159  "]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<staticText>
+				<reportElement x="385" y="52" width="174" height="21" uuid="912e1242-bf88-4957-9c93-e6c7986513c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Le Directeur Général]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

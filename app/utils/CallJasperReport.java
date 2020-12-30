@@ -196,4 +196,59 @@ public class CallJasperReport {
 		}
 
 	}
+	
+	public void generateReport(String fileName, Timestamp date1, String user) throws IOException {
+		LocalDateTime now = LocalDateTime.now();
+		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+
+		try {
+			String compileFile = templateDir + fileName + ".jasper";
+
+			// First, compile jrxml file.
+			// JasperReport jasperReport =
+			// JasperCompileManager.compileReport(reportSrcFile);
+
+			Connection conn = ConnectionUtils.getConnection();
+			System.out.println("impression en cours...."+date1);
+			// Parameters for report
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("id", date1);
+			parameters.put("user", user);
+
+			JasperPrint print = JasperFillManager.fillReport(compileFile, parameters, conn);
+			System.out.println("impression en cours....###");
+			// Parameters for report
+			// Make sure the output directory exists.
+			File outDir = new File(reportsDir);
+			outDir.mkdirs();
+
+			// PDF Exportor.
+			JRPdfExporter exporter = new JRPdfExporter();
+
+			ExporterInput exporterInput = new SimpleExporterInput(print);
+			// ExporterInput
+			exporter.setExporterInput(exporterInput);
+
+			// ExporterOutput
+			OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(
+					reportsDir + fileName + "_" + now_string + "_" + "" + ".pdf");
+			// Output
+			exporter.setExporterOutput(exporterOutput);
+
+			//
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
+
+			System.out.print("Done!");
+
+		} catch (JRException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
 }

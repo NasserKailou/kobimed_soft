@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personnels" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="540187c6-9e79-4e6c-bef1-97f388be637c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KERA.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT id, nom_p, prenom_p, categorie, telephone, adresse, is_deleted, when_done
+	FROM public.personnels
+	order by id;]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="nom_p" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nom_p"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="prenom_p" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="prenom_p"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="categorie" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="categorie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="telephone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="adresse" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="adresse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="is_deleted" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_deleted"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<field name="when_done" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="when_done"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="personnels"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="-18" y="0" width="140" height="80" uuid="42715546-d754-4a85-b79f-5ed0e796441a"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
+			<componentElement>
+				<reportElement x="479" y="0" width="80" height="30" uuid="851fc302-23fe-4e69-993a-6b1420fd2f0b"/>
+				<jr:Codabar xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA[new SimpleDateFormat("ddMMyyyy").format(new java.util.Date())+$F{id}]]></jr:codeExpression>
+				</jr:Codabar>
+			</componentElement>
+			<staticText>
+				<reportElement x="110" y="5" width="370" height="70" uuid="2589b581-64cf-43e7-b533-471be38be059"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[KERA-TRANSPORT 
+Doucement mais surement!
+BP: 10370 niamey/ NIGER
+Tel: 00227 96291159   Mail: keratransport1@gmail.com
+NIF: 15101/R]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="170" y="10" width="214" height="30" uuid="9722c921-38fd-42df-9e8c-79c6add7b1bd"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Liste du personnel]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="9" width="50" height="20" backcolor="#9C9C9C" uuid="3ca3a886-6791-4477-b6d1-556b13515e35">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c383b281-8c87-4d95-837a-c58b933f1047"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="9" width="100" height="20" backcolor="#9C9C9C" uuid="be8a5a6d-18b9-4cf6-a272-93b5995465b2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3aa0dc38-18ad-40e2-b77b-0b13e59aa924"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="150" y="9" width="100" height="20" backcolor="#9C9C9C" uuid="b5bf6dcb-9747-42a6-a61f-277d1782fec7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb81c5f4-2899-4fb9-9c36-a1ffc6bd0f53"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prenom]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="250" y="9" width="100" height="20" backcolor="#9C9C9C" uuid="24292f2b-1e7a-4b38-9cec-248952e1c96a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9028fe01-8315-4cac-a8e9-b8ee8b7899fa"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categorie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="9" width="100" height="20" backcolor="#9C9C9C" uuid="b64ffbca-3231-4c7d-86f5-64f89acb0c68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3354ea5-57c8-461e-abd7-93c4fa21f198"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[telephone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="450" y="9" width="100" height="20" backcolor="#9C9C9C" uuid="a9e94d04-889d-43ce-b2eb-a40005d69ae1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="43355752-cd1f-402a-aa43-fa19fed0a513"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[adresse]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="50" height="30" uuid="126f939d-5e09-44fd-aad9-3d2a7ba6a23c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c383b281-8c87-4d95-837a-c58b933f1047"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="100" height="30" uuid="8e7af221-ae8c-4e93-899b-8dd74e8ee37e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3aa0dc38-18ad-40e2-b77b-0b13e59aa924"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nom_p}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="100" height="30" uuid="84125d9a-cdca-4392-9e0a-93710366e0c7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb81c5f4-2899-4fb9-9c36-a1ffc6bd0f53"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prenom_p}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="100" height="30" uuid="0b777902-2c6c-4d55-8136-4e8e54e5b90e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9028fe01-8315-4cac-a8e9-b8ee8b7899fa"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{categorie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="100" height="30" uuid="45780de9-c8c2-46bd-855a-730424d13faf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3354ea5-57c8-461e-abd7-93c4fa21f198"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="100" height="30" uuid="05197708-bac0-4926-9551-1977c14055b6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="43355752-cd1f-402a-aa43-fa19fed0a513"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{adresse}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="4" width="89" height="20" uuid="cbf5198a-9ea5-4a65-9b78-d663d5592a36"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KMS-Gestion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="3" width="70" height="22" uuid="bc7ce030-2ca6-47cc-8a15-f741b1edddc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Imprimé le :]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="282" y="5" width="103" height="20" uuid="4acec3ce-59d9-4346-9a49-ce605f815d11"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="9" width="41" height="19" uuid="2abb78b1-95c3-4e6a-beb4-3f6ed0259379"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="448" y="9" width="70" height="20" uuid="49f19b64-c957-4aeb-a5d3-87d7cad3b0f8"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" sur " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="149" splitType="Stretch">
+			<staticText>
+				<reportElement x="370" y="80" width="174" height="21" uuid="e924d035-52a2-41d2-8cc0-03c4b95ebf9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Le Chef du personels]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="265" y="77" width="103" height="72" uuid="0236282e-0068-49ec-9548-884a08c858fe"/>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" margin="1">
+					<jr:codeExpression><![CDATA["KERA-TRANSPORT, NIF: 15101/R, BP: 10370 niamey/ NIGER Tel: 00227 96291159  "+new SimpleDateFormat("ddMMyyyy").format(new java.util.Date())]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

@@ -6,7 +6,7 @@
 				<img src="@routes.Assets.versioned("images/logo.png")" class="logo" style="width: 80px; height: 70px" />
 			</div>
 			<div class="col-sm-5">
-				<h2 style="color: #fff;">Cabinet Médical Dicko</h2>
+				<h2 style="color: #fff;">Clinique Médical Dicko</h2>
 <!-- <h2 style="color: #fff;">Logiciel de Gestion Médical KobiSoft</h2> -->
 			</div>
 			<div class="col-sm-3">
@@ -111,19 +111,19 @@
 <!-- 					</li> -->
 
 					@if(request.session.get("droit").get() == "Admin") {
-<!-- 					<li class="dropdown"> -->
-<!-- 						<a data-toggle="dropdown" href="#" style="color: #fff;">Stock<b class="caret"></b></a> -->
-<!-- 						<ul class="dropdown-menu"> -->
-<!-- 							<li><a href="@controllers.stock.routes.ArticleCtrl.index()">Accessoirs</a></li> -->
-<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.index("Approvisionnement")">Entrées</a></li> -->
-<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.index("Distribution")">Sorties</a></li> -->
-<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.dispoover()">Seuil</a></li> -->
+					<li class="dropdown">
+						<a data-toggle="dropdown" href="#" style="color: #fff;">Stock<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="@controllers.stock.routes.ArticleCtrl.index()">Accessoirs</a></li>
+							<li><a href="@controllers.stock.routes.MouvementCtrl.index("Approvisionnement")">Entrées</a></li>
+							<li><a href="@controllers.stock.routes.MouvementCtrl.index("Distribution")">Sorties</a></li>
+							<li><a href="@controllers.stock.routes.MouvementCtrl.dispoover()">Seuil</a></li>
 						
-<!-- <!-- 							<li><a href="@controllers.stock.routes.FournisseurController.show("CREATE",0)">Fournisseur</a></li> --> 
-<!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.tindex()">Initialiser Stock</a></li> -->
-<!-- <!-- 							<li><a href="@controllers.stock.routes.MouvementCtrl.getFactures()">Controle</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</li> -->
+							<li><a href="@controllers.stock.routes.FournisseurController.show("CREATE",0)">Fournisseur</a></li> 
+							<li><a href="@controllers.stock.routes.MouvementCtrl.tindex()">Initialiser Stock</a></li>
+							<li><a href="@controllers.stock.routes.MouvementCtrl.getFactures()">Controle</a></li>
+						</ul>
+					</li>
 					}
 					
 <!-- 				<ul class="nav navbar-nav navbar-right"> -->

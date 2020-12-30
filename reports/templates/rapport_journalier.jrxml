@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rapport_journalier" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="07026863-e330-4c42-a3b0-0baccfab2178">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dicko.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="reports/KERA.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -37,10 +37,9 @@
 		</queryString>
 	</subDataset>
 	<parameter name="id" class="java.sql.Timestamp"/>
+	<parameter name="user" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM public.consultations 
-
-]]>
+		<![CDATA[SELECT * FROM public.consultations]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -107,6 +106,9 @@
 					<subreportParameter name="id">
 						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="user">
+						<subreportParameterExpression><![CDATA[$P{user}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["sub_consultations.jasper"]]></subreportExpression>
 				</subreport>
@@ -120,6 +122,9 @@
 					<reportElement x="2" y="0" width="557" height="90" uuid="7d961960-e7bb-4541-88b1-80d3a37c94cd"/>
 					<subreportParameter name="id">
 						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="user">
+						<subreportParameterExpression><![CDATA[$P{user}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["sub_examens.jasper"]]></subreportExpression>
@@ -135,6 +140,9 @@
 					<subreportParameter name="id">
 						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="user">
+						<subreportParameterExpression><![CDATA[$P{user}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["sub_soins.jasper"]]></subreportExpression>
 				</subreport>
@@ -146,36 +154,8 @@
 	</background>
 	<title>
 		<band height="96" splitType="Stretch">
-			<staticText>
-				<reportElement x="104" y="58" width="358" height="20" uuid="685141ea-37bc-48b4-b128-4cf7cdc829b1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Arrêté N° 1188/MSP/SG/DGSP/DOS du 13/11/2019]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="110" y="26" width="358" height="20" uuid="2c4db449-7333-42a4-9cb4-9612d180b81c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[BP: 10201 Niamey-Niger-CUNI-Koira-Kano, Boulevevard Askia Mohamed Rue KK 77]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="110" y="41" width="358" height="20" uuid="6490775d-4e43-4f1d-914e-009290919029"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="false"/>
-				</textElement>
-				<text><![CDATA[TEL : +227 96 11 13 65 / 20 37 18 18, Compte SONIBANK 2511239351-54]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="180" y="-1" width="200" height="20" uuid="72fff120-f0cb-4589-bd40-51bbb65ddb43"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[CABINET MEDICAL DICKO]]></text>
-			</staticText>
-			<image>
-				<reportElement x="0" y="-1" width="90" height="80" uuid="60b5df42-cbf5-4ac2-8a1d-46a5de49b096"/>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="-1" width="559" height="80" uuid="60b5df42-cbf5-4ac2-8a1d-46a5de49b096"/>
 				<imageExpression><![CDATA["logo.png"]]></imageExpression>
 			</image>
 			<staticText>
@@ -190,13 +170,6 @@
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Rapport Journalier de la caisse]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="159" y="14" width="239" height="15" uuid="d37c6862-6ee9-43b3-a4e3-76fa30fd3804"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[RCCM: NE.NIM-01-2020-A 10-00286,NIF : 61817/P]]></text>
 			</staticText>
 		</band>
 	</title>

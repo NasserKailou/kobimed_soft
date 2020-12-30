@@ -377,7 +377,8 @@ public class ConsultationCtrl extends Controller {
 		try {
 			// flash("success", "impression ok");
 
-			jasper.generateReport(fileName, consultationServices.getDateT(dateD));
+			jasper.generateReport(fileName, consultationServices.getDateT(dateD),
+					String.valueOf(request.session().get("login").get()));
 
 			return ok(new java.io.File(templateDir + fileName + "_" + now_string + "_" + "" + ".pdf"))
 					.flashing("success", "impression ok");
