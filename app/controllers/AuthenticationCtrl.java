@@ -51,10 +51,10 @@ public class AuthenticationCtrl extends Controller {
 		Integer a = Integer.valueOf(now_string);
 		// System.out.println(now_string +" + "+a);
 
-		if (a >= 13) {
+		if (a >= 4) {
 			//flash("error", "Connexion Impossible, si ce problème persiste veillez contacter le service Informatique!!!");
-			return redirect(controllers.routes.AuthenticationCtrl.login()).flashing("error", "Connexion Impossible, si ce problème persiste veillez contacter le service Informatique!!!");
-			//return TODO;
+			//return redirect(controllers.routes.AuthenticationCtrl.login()).flashing("error", "Connexion Impossible, si ce problème persiste veillez contacter le service Informatique!!!");
+			return TODO(request);
 		} else {
 			Form<Users> form = formFactory.form(Users.class).bindFromRequest(request);
 
