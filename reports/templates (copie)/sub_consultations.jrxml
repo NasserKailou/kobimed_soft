@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_consultation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8dc01a95-5b45-4d18-b86d-01ddd0d7e7ed">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dicko/DICKO.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="reports/KERA.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="223"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="771"/>
 	<parameter name="id" class="java.sql.Timestamp"/>
+	<parameter name="user" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT id, numero_consul, type_consultation, libelle_type, patient, nom_patient, age, partenaire_id,
  nom_partenaire, taux_couverture, tel_patient,prix_consultation, montant_consultation,montant_en_lettre, somme_recu, 
  somme_remise, montant_pris_en_charge, montant_a_payer, is_closed, is_deleted, when_done,who_done
 	FROM public.v_consultations 
-	where CAST(when_done AS DATE)  =  CAST($P{id} AS DATE) and montant_a_payer <>0
+	where CAST(when_done AS DATE)  =  CAST($P{id} AS DATE) and montant_a_payer <>0 and who_done =  $P{user} 
 	order by id]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
@@ -214,10 +215,10 @@
 				<reportElement x="460" y="0" width="81" height="20" uuid="6e59fde4-87aa-4731-b601-ac6b991ee07a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0cf24a6f-5342-409d-a0eb-4de3a074f4f7"/>
 				</reportElement>
-				<box rightPadding="3">
+				<box leftPadding="5" rightPadding="3">
 					<pen lineWidth="0.3"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($F{montant_a_payer})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -252,7 +253,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($V{prix_consultation1})+" F CFA"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($V{prix_consultation1})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="360" y="0" width="100" height="20" uuid="293a117b-c0b8-4c60-928c-e8f2d2b4cbbb"/>
@@ -278,10 +279,10 @@
 			</staticText>
 			<textField>
 				<reportElement x="460" y="0" width="81" height="20" uuid="81a5bbca-31cc-43f3-9228-23ca925ee399"/>
-				<box>
+				<box leftPadding="5">
 					<pen lineWidth="0.3"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new DecimalFormat("##,###.###",new DecimalFormatSymbols(Locale.FRENCH)).format($V{montant_a_payer1})]]></textFieldExpression>

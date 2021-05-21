@@ -37,6 +37,7 @@
 		</queryString>
 	</subDataset>
 	<parameter name="id" class="java.sql.Timestamp"/>
+	<parameter name="user" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM public.consultations]]>
 	</queryString>
@@ -105,6 +106,9 @@
 					<subreportParameter name="id">
 						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="user">
+						<subreportParameterExpression><![CDATA[$P{user}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["sub_consultations.jasper"]]></subreportExpression>
 				</subreport>
@@ -119,6 +123,9 @@
 					<subreportParameter name="id">
 						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="user">
+						<subreportParameterExpression><![CDATA[$P{user}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["sub_examens.jasper"]]></subreportExpression>
 				</subreport>
@@ -132,6 +139,9 @@
 					<reportElement x="0" y="2" width="559" height="100" uuid="3dda3813-8949-49a7-8a22-ffe95d6abac1"/>
 					<subreportParameter name="id">
 						<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="user">
+						<subreportParameterExpression><![CDATA[$P{user}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["sub_soins.jasper"]]></subreportExpression>
