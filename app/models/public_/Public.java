@@ -16,16 +16,18 @@ import models.public_.tables.BasExamens;
 import models.public_.tables.BasMedicaments;
 import models.public_.tables.BasSoins;
 import models.public_.tables.Consultations;
+import models.public_.tables.ConsultationsOld;
 import models.public_.tables.Examens;
+import models.public_.tables.ExamensOld;
 import models.public_.tables.InfosMedicale;
 import models.public_.tables.MedecinPatient;
 import models.public_.tables.Ordonances;
+import models.public_.tables.OrdonancesOld;
 import models.public_.tables.Params;
 import models.public_.tables.Partenaire;
 import models.public_.tables.Patients;
 import models.public_.tables.Personnels;
 import models.public_.tables.Rendezvous;
-import models.public_.tables.Roles;
 import models.public_.tables.SConsultations;
 import models.public_.tables.TypeConsultation;
 import models.public_.tables.Users;
@@ -56,7 +58,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1802684016;
+    private static final long serialVersionUID = -1917784596;
 
     /**
      * The reference instance of <code>public</code>
@@ -89,9 +91,19 @@ public class Public extends SchemaImpl {
     public final Consultations CONSULTATIONS = models.public_.tables.Consultations.CONSULTATIONS;
 
     /**
+     * The table <code>public.consultations_old</code>.
+     */
+    public final ConsultationsOld CONSULTATIONS_OLD = models.public_.tables.ConsultationsOld.CONSULTATIONS_OLD;
+
+    /**
      * The table <code>public.examens</code>.
      */
     public final Examens EXAMENS = models.public_.tables.Examens.EXAMENS;
+
+    /**
+     * The table <code>public.examens_old</code>.
+     */
+    public final ExamensOld EXAMENS_OLD = models.public_.tables.ExamensOld.EXAMENS_OLD;
 
     /**
      * The table <code>public.infos_medicale</code>.
@@ -107,6 +119,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.ordonances</code>.
      */
     public final Ordonances ORDONANCES = models.public_.tables.Ordonances.ORDONANCES;
+
+    /**
+     * The table <code>public.ordonances_old</code>.
+     */
+    public final OrdonancesOld ORDONANCES_OLD = models.public_.tables.OrdonancesOld.ORDONANCES_OLD;
 
     /**
      * The table <code>public.params</code>.
@@ -132,11 +149,6 @@ public class Public extends SchemaImpl {
      * The table <code>public.rendezvous</code>.
      */
     public final Rendezvous RENDEZVOUS = models.public_.tables.Rendezvous.RENDEZVOUS;
-
-    /**
-     * The table <code>public.roles</code>.
-     */
-    public final Roles ROLES = models.public_.tables.Roles.ROLES;
 
     /**
      * The table <code>public.s_consultations</code>.
@@ -226,7 +238,6 @@ public class Public extends SchemaImpl {
             Sequences.PATIENTS_ID_SEQ,
             Sequences.PERSONNELS_ID_SEQ,
             Sequences.RENDEZVOUS_ID_RDV_SEQ,
-            Sequences.ROLES_ID_ROLE_SEQ,
             Sequences.TYPE_CONSULTATION_ID_SEQ);
     }
 
@@ -244,16 +255,18 @@ public class Public extends SchemaImpl {
             BasMedicaments.BAS_MEDICAMENTS,
             BasSoins.BAS_SOINS,
             Consultations.CONSULTATIONS,
+            ConsultationsOld.CONSULTATIONS_OLD,
             Examens.EXAMENS,
+            ExamensOld.EXAMENS_OLD,
             InfosMedicale.INFOS_MEDICALE,
             MedecinPatient.MEDECIN_PATIENT,
             Ordonances.ORDONANCES,
+            OrdonancesOld.ORDONANCES_OLD,
             Params.PARAMS,
             Partenaire.PARTENAIRE,
             Patients.PATIENTS,
             Personnels.PERSONNELS,
             Rendezvous.RENDEZVOUS,
-            Roles.ROLES,
             SConsultations.S_CONSULTATIONS,
             TypeConsultation.TYPE_CONSULTATION,
             Users.USERS,

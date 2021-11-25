@@ -117,11 +117,18 @@
 				<textFieldExpression><![CDATA["Reçu N° 00"+$F{id}+"/"+new SimpleDateFormat("yyyy").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="360" y="1" width="197" height="20" uuid="8a3a356f-1f66-4da1-896a-464785f90236"/>
+				<reportElement x="390" y="1" width="167" height="20" uuid="8a3a356f-1f66-4da1-896a-464785f90236"/>
 				<textElement textAlignment="Left">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Niamey, Le " + new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Niamey, Le " + new SimpleDateFormat("dd/MM/yyyy").format($F{when_done})]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="10" y="2" width="320" height="20" uuid="15e98e77-0d47-4cb2-bcf5-d730f091d6c6"/>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RCCM: AR 1188/MSP/SG/DGPS/DOS, NIF : 61817/R"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

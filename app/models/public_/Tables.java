@@ -11,16 +11,18 @@ import models.public_.tables.BasExamens;
 import models.public_.tables.BasMedicaments;
 import models.public_.tables.BasSoins;
 import models.public_.tables.Consultations;
+import models.public_.tables.ConsultationsOld;
 import models.public_.tables.Examens;
+import models.public_.tables.ExamensOld;
 import models.public_.tables.InfosMedicale;
 import models.public_.tables.MedecinPatient;
 import models.public_.tables.Ordonances;
+import models.public_.tables.OrdonancesOld;
 import models.public_.tables.Params;
 import models.public_.tables.Partenaire;
 import models.public_.tables.Patients;
 import models.public_.tables.Personnels;
 import models.public_.tables.Rendezvous;
-import models.public_.tables.Roles;
 import models.public_.tables.SConsultations;
 import models.public_.tables.TypeConsultation;
 import models.public_.tables.Users;
@@ -72,9 +74,19 @@ public class Tables {
     public static final Consultations CONSULTATIONS = models.public_.tables.Consultations.CONSULTATIONS;
 
     /**
+     * The table <code>public.consultations_old</code>.
+     */
+    public static final ConsultationsOld CONSULTATIONS_OLD = models.public_.tables.ConsultationsOld.CONSULTATIONS_OLD;
+
+    /**
      * The table <code>public.examens</code>.
      */
     public static final Examens EXAMENS = models.public_.tables.Examens.EXAMENS;
+
+    /**
+     * The table <code>public.examens_old</code>.
+     */
+    public static final ExamensOld EXAMENS_OLD = models.public_.tables.ExamensOld.EXAMENS_OLD;
 
     /**
      * The table <code>public.infos_medicale</code>.
@@ -90,6 +102,11 @@ public class Tables {
      * The table <code>public.ordonances</code>.
      */
     public static final Ordonances ORDONANCES = models.public_.tables.Ordonances.ORDONANCES;
+
+    /**
+     * The table <code>public.ordonances_old</code>.
+     */
+    public static final OrdonancesOld ORDONANCES_OLD = models.public_.tables.OrdonancesOld.ORDONANCES_OLD;
 
     /**
      * The table <code>public.params</code>.
@@ -115,11 +132,6 @@ public class Tables {
      * The table <code>public.rendezvous</code>.
      */
     public static final Rendezvous RENDEZVOUS = models.public_.tables.Rendezvous.RENDEZVOUS;
-
-    /**
-     * The table <code>public.roles</code>.
-     */
-    public static final Roles ROLES = models.public_.tables.Roles.ROLES;
 
     /**
      * The table <code>public.s_consultations</code>.

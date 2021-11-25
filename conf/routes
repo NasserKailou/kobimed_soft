@@ -53,9 +53,9 @@ GET			/TypeConsultations/restaure/    		       controllers.TypeConsultationCtrl.
 POST    	/TypeConsultations/save                        controllers.TypeConsultationCtrl.save(request:Request)
 
 #Type Examens Ressources
-GET			/Examens/show/:subAction/    		   controllers.BaseExamenCtrl.show(subAction: String, idTypeConsul: Long,request:Request)
-GET			/Examens/restaure/    		       controllers.BaseExamenCtrl.restaure(idTypeConsul: Long,request:Request)
-POST    	/Examens/save                        controllers.BaseExamenCtrl.save(request:Request)
+GET			/BaseExamens/show/:subAction/    		   controllers.BaseExamenCtrl.show(subAction: String, idTypeConsul: Long,request:Request)
+GET			/BaseExamens/restaure/    		       controllers.BaseExamenCtrl.restaure(idTypeConsul: Long,request:Request)
+POST    	/BaseExamens/save                        controllers.BaseExamenCtrl.save(request:Request)
 
 #Consultations Ressources
 GET			/Consultations/show/:subAction/    		controllers.ConsultationCtrl.show(request:Request,subAction: String, idConsult: Long)
