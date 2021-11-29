@@ -74,15 +74,17 @@ public class ConsultationCtrl extends Controller {
 	}
 
 	public Result show(Request request, String subAction, Long idConsul) {
-		// System.out.println("les sessions sont login:" +request.session().get("login")
+		// System.out.println("les sessions sont login:"
+		// +request.session().get("login")
 		// +" droit :"+ request.session().get("droit") +" nonUser :" +
 		// request.session().get("nomUser"));
 
-//		if (!isAdmin()) {
-//			return redirect(routes.AuthenticationCtrl.logout());
-//		}
-//		System.out.println("la liste des consultation du jour sont :"
-//				+ consultationServices.listeConsultationsByOwnerToDate(session("login")));
+		// if (!isAdmin()) {
+		// return redirect(routes.AuthenticationCtrl.logout());
+		// }
+		// System.out.println("la liste des consultation du jour sont :"
+		// +
+		// consultationServices.listeConsultationsByOwnerToDate(session("login")));
 		String viewMode;
 		// Consultations c;
 		VConsultations c;
@@ -93,7 +95,8 @@ public class ConsultationCtrl extends Controller {
 		else
 			consultations = consultationServices
 					.listeConsultationsByOwnerToDate(String.valueOf(request.session().get("login").get()));
-//List<VConsultations> consultations = consultationServices.listeConsultationsByOwnerToDate(session("login"));
+		// List<VConsultations> consultations =
+		// consultationServices.listeConsultationsByOwnerToDate(session("login"));
 		List<Personnels> medecins = persServices.listes("Medecin");
 		if (0 == idConsul) {
 			c = new VConsultations();
@@ -109,7 +112,8 @@ public class ConsultationCtrl extends Controller {
 			c = consultationServices.findVById(idConsul);
 
 		}
-		// System.out.println("la liste des consultations est :"+ consultations);
+		// System.out.println("la liste des consultations est :"+
+		// consultations);
 		return ok(views.html.consultations.render(viewMode, consultations, typeConServices.findAll(), medecins, c,
 				request));
 
@@ -181,7 +185,8 @@ public class ConsultationCtrl extends Controller {
 			else
 				p.setPartenaire(Long.valueOf(idAssurreur.replace(" ", "")));
 
-			// System.out.println("les variables envoyés sont tel:"+ telPatient +"age
+			// System.out.println("les variables envoyés sont tel:"+ telPatient
+			// +"age
 			// :"+agePatient);
 			p.setTelephone(telPatient);
 			p.setAge(Long.valueOf(agePatient.replace(" ", "")));
@@ -233,9 +238,10 @@ public class ConsultationCtrl extends Controller {
 			c.setWhoDone(String.valueOf(request.session().get("login").get()));
 			c.setIsClosed(false);
 
-//			coutConsultation = (long) (typeConServices.findById(c.getTypeConsultation()).getPrix()
-//					- (typeConServices.findById(c.getTypeConsultation()).getPrix()
-//							* partServices.findById(p.getPartenaire()).getTauxCouverture()));
+			// coutConsultation = (long)
+			// (typeConServices.findById(c.getTypeConsultation()).getPrix()
+			// - (typeConServices.findById(c.getTypeConsultation()).getPrix()
+			// * partServices.findById(p.getPartenaire()).getTauxCouverture()));
 			if (c.getTauxCouverture() == null) {
 				coutConsultation = (long) (typeConServices.findById(c.getTypeConsultation()).getPrix());
 				c.setTauxCouverture(0.00);
@@ -245,7 +251,8 @@ public class ConsultationCtrl extends Controller {
 
 			c.setCout(coutConsultation);
 			c.setMontantEnLettre(consultationServices.getMontantLettre(coutConsultation));
-			// System.out.println("les montant recu et cout : " + c.getSommeRecu() + " - " +
+			// System.out.println("les montant recu et cout : " +
+			// c.getSommeRecu() + " - " +
 			// coutConsultation);
 			c.setSommeRemise(c.getSommeRecu() - coutConsultation);
 
@@ -275,7 +282,8 @@ public class ConsultationCtrl extends Controller {
 
 			c.setCout(coutConsultation);
 			c.setMontantEnLettre(consultationServices.getMontantLettre(coutConsultation));
-			// System.out.println("les montant recu et cout : " + c.getSommeRecu() + " - " +
+			// System.out.println("les montant recu et cout : " +
+			// c.getSommeRecu() + " - " +
 			// coutConsultation);
 			c.setSommeRemise(c.getSommeRecu() - coutConsultation);
 			if ("Admin".equals(String.valueOf(request.session().get("droit").get()))
@@ -341,14 +349,18 @@ public class ConsultationCtrl extends Controller {
 	/**
 	 * @author nasser methode impression recu
 	 */
-	public Result print(Request request, String numConsultation, String fileName) throws IOException,InterruptedException {
+	public Result print(Request request, String numConsultation, String fileName)
+			throws IOException, InterruptedException {
 
 		// envoyer les données de la facture pour certification
-			consultationServices.sendInfoCertification(numConsultation,fileName);
+		// Controller si la facture n'est pas deja certifier pour ne pas la
+		// certifier deux fois
+		if (consultationServices.findByNumConsultation(numConsultation).getRSignatureFact() == null || consultationServices.findByNumConsultation(numConsultation).getRSignatureFact().isEmpty()) {
+			consultationServices.sendInfoCertification(numConsultation, fileName);
 			Thread.sleep(6000);
 			consultationServices.getInfosCertification(numConsultation);
-		//recevoir les données de reponses via le MCF
-		
+			// recevoir les données de reponses via le MCF
+		}
 		LocalDateTime now = LocalDateTime.now();
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";
@@ -362,7 +374,8 @@ public class ConsultationCtrl extends Controller {
 
 		} catch (Exception e) {
 			// flash("error", "erreur impression");
-			// System.out.println(e.getMessage() + "+++++++--**///////++++++++");
+			// System.out.println(e.getMessage() +
+			// "+++++++--**///////++++++++");
 			return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("error",
 					"Erreur d'impression");
 		}

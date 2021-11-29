@@ -351,6 +351,14 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			}
 			fr.close();
 			Consultations c = this.findByNumConsultation(num);
+			c.setRNbrFact(extraireDonnees(sb.toString())[0]);
+			c.setRNbrTotal(extraireDonnees(sb.toString())[1]);
+			c.setRTypeFact(extraireDonnees(sb.toString())[2]);
+			c.setRDateFact(extraireDonnees(sb.toString())[3]);
+			c.setRNumDispositifFact(extraireDonnees(sb.toString())[4]);
+			c.setRNifFact(extraireDonnees(sb.toString())[5]);
+			c.setRSignatureFact(extraireDonnees(sb.toString())[6]);
+			this.saveLogical(c, false);
 			
 			System.out.println("Contenu du fichier: ");
 
