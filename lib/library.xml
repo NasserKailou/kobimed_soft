@@ -10,7 +10,7 @@
     <password>admin</password>
   </jdbc>
 
-  <generator>p
+  <generator>
     <!-- The default code generator. You can override this one, to generate your own code style.
          Supported generators:
          - org.jooq.util.JavaGenerator
@@ -59,7 +59,7 @@
 
       <!-- The destination directory of your generated classes. Using Maven directory layout here -->
 
-      <directory>/home/nasser/workspace/dicko_2.8/app/</directory>
+      <directory>C:\Users\ABOUL-NASSER\workspace-nasser\dicko_2.8\app\</directory>
 
     </target>
     <generate>

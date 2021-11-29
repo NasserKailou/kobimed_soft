@@ -341,9 +341,14 @@ public class ConsultationCtrl extends Controller {
 	/**
 	 * @author nasser methode impression recu
 	 */
-	public Result print(Request request, String numConsultation, String fileName) {
+	public Result print(Request request, String numConsultation, String fileName) throws IOException,InterruptedException {
 
-		// String fileName = "recu";
+		// envoyer les données de la facture pour certification
+			consultationServices.sendInfoCertification(numConsultation,fileName);
+			Thread.sleep(6000);
+			consultationServices.getInfosCertification(numConsultation);
+		//recevoir les données de reponses via le MCF
+		
 		LocalDateTime now = LocalDateTime.now();
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";

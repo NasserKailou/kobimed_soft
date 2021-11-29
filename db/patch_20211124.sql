@@ -1,3 +1,58 @@
+alter table consultations add column r_nbr_fact character varying(15);
+alter table consultations add column r_nbr_total character varying(15);
+alter table consultations add column r_type_fact character varying(5);
+alter table consultations add column r_date_fact character varying(30);
+alter table consultations add column r_num_dispositif_fact character varying(50);
+alter table consultations add column r_nif_fact character varying(20);
+alter table consultations add column r_signature_fact character varying(100);
+
+
+CREATE OR REPLACE VIEW public.v_consultations
+ AS
+ SELECT cons.id,
+    cons.numero_consul,
+    cons.type_consultation,
+    typ.libelle AS libelle_type,
+    cons.patient,
+    pat.id AS id_patient,
+    pat.nom_prenom AS nom_patient,
+    pat.age,
+    part.id AS partenaire_id,
+    part.libelle AS nom_partenaire,
+    cons.structure_patient,
+    cons.taux_couverture,
+    cons.tel_patient,
+    cons.medecin_traitrant,
+    pers.nom_p AS medecin,
+    get_montant(cons.taux_couverture, typ.id) AS prix_consultation,
+    cons.cout AS montant_consultation,
+    cons.montant_en_lettre,
+    cons.somme_recu,
+    cons.somme_remise,
+    cons.taux_couverture * get_montant(cons.taux_couverture, typ.id)::double precision AS montant_pris_en_charge,
+    get_montant(cons.taux_couverture, typ.id)::double precision - cons.taux_couverture * get_montant(cons.taux_couverture, typ.id)::double precision AS montant_a_payer,
+    cons.observation,
+    cons.date_rdv,
+    cons.is_closed,
+    cons.is_deleted,
+    cons.when_done,
+    cons.who_done,
+	cons.r_nbr_fact,
+	cons.r_nbr_total,
+	cons.r_type_fact,
+	cons.r_date_fact,
+	cons.r_num_dispositif_fact,
+	cons.r_nif_fact,
+	cons.r_signature_fact
+   FROM consultations cons,
+    patients pat,
+    partenaire part,
+    type_consultation typ,
+    personnels pers
+  WHERE pat.id = cons.patient AND pers.id = cons.medecin_traitrant AND part.id = pat.partenaire AND typ.id = cons.type_consultation
+  ORDER BY cons.id DESC;
+  
+
 DROP VIEW public.v_examens;
 
 CREATE OR REPLACE VIEW public.v_examens

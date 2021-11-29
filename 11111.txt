@@ -1,0 +1,8 @@
+@1Operator Kobi Multi-Services
+#NIF45292
+#RTFV
+#VTTTC
+#ISFED020000571
+#FN1234312
+%Consultation-Gynecologie^B19.00%^5000^1^5000
+#EE0

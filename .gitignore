@@ -7,3 +7,8 @@ reports/spool
 /.project
 /.settings
 /RUNNING_PID
+conf/application.conf
+conf/jooq-persistence.properties
+Niger_Driver
+Niger_Driver/*
+lib/library.xml
