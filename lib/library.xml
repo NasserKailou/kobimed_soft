@@ -59,7 +59,7 @@
 
       <!-- The destination directory of your generated classes. Using Maven directory layout here -->
 
-      <directory>C:\Users\ABOUL-NASSER\workspace-nasser\dicko_2.8\app\</directory>
+      <directory>/home/nasser/workspace/dicko_2.8/app/</directory>
 
     </target>
     <generate>
