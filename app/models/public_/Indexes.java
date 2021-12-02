@@ -12,6 +12,8 @@ import models.public_.tables.BasMedicaments;
 import models.public_.tables.BasSoins;
 import models.public_.tables.Consultations;
 import models.public_.tables.Examens;
+import models.public_.tables.Factures;
+import models.public_.tables.FacturesDetails;
 import models.public_.tables.InfosMedicale;
 import models.public_.tables.MedecinPatient;
 import models.public_.tables.Ordonances;
@@ -51,6 +53,9 @@ public class Indexes {
     public static final Index BAS_SOIN_PK = Indexes0.BAS_SOIN_PK;
     public static final Index CONSULTATIONS_PKEY = Indexes0.CONSULTATIONS_PKEY;
     public static final Index EXAMENS_PKEY = Indexes0.EXAMENS_PKEY;
+    public static final Index FACTURES_PKEY = Indexes0.FACTURES_PKEY;
+    public static final Index NUM_FACT_UNIQUE = Indexes0.NUM_FACT_UNIQUE;
+    public static final Index FACTURES_DETAILS_PKEY = Indexes0.FACTURES_DETAILS_PKEY;
     public static final Index INFOS_MEDICALE_PKEY = Indexes0.INFOS_MEDICALE_PKEY;
     public static final Index MEDECIN_PATIENT_PKEY = Indexes0.MEDECIN_PATIENT_PKEY;
     public static final Index ORDONANCES_PKEY = Indexes0.ORDONANCES_PKEY;
@@ -73,6 +78,9 @@ public class Indexes {
         public static Index BAS_SOIN_PK = createIndex("bas_soin_pk", BasSoins.BAS_SOINS, new OrderField[] { BasSoins.BAS_SOINS.ID }, true);
         public static Index CONSULTATIONS_PKEY = createIndex("consultations_pkey", Consultations.CONSULTATIONS, new OrderField[] { Consultations.CONSULTATIONS.ID }, true);
         public static Index EXAMENS_PKEY = createIndex("examens_pkey", Examens.EXAMENS, new OrderField[] { Examens.EXAMENS.ID }, true);
+        public static Index FACTURES_PKEY = createIndex("factures_pkey", Factures.FACTURES, new OrderField[] { Factures.FACTURES.ID }, true);
+        public static Index NUM_FACT_UNIQUE = createIndex("num_fact_unique", Factures.FACTURES, new OrderField[] { Factures.FACTURES.NUM_FACT }, true);
+        public static Index FACTURES_DETAILS_PKEY = createIndex("factures_details_pkey", FacturesDetails.FACTURES_DETAILS, new OrderField[] { FacturesDetails.FACTURES_DETAILS.ID }, true);
         public static Index INFOS_MEDICALE_PKEY = createIndex("infos_medicale_pkey", InfosMedicale.INFOS_MEDICALE, new OrderField[] { InfosMedicale.INFOS_MEDICALE.ID }, true);
         public static Index MEDECIN_PATIENT_PKEY = createIndex("medecin_patient_pkey", MedecinPatient.MEDECIN_PATIENT, new OrderField[] { MedecinPatient.MEDECIN_PATIENT.ID }, true);
         public static Index ORDONANCES_PKEY = createIndex("ordonances_pkey", Ordonances.ORDONANCES, new OrderField[] { Ordonances.ORDONANCES.ID }, true);

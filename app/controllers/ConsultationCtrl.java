@@ -142,7 +142,7 @@ public class ConsultationCtrl extends Controller {
 	}
 
 	@AddCSRFToken
-	public Result save(Request request) {
+	public Result save(Request request) throws IOException, InterruptedException{
 
 		final String viewMode = formFactory.form().bindFromRequest(request).get("viewMode");
 
@@ -304,11 +304,19 @@ public class ConsultationCtrl extends Controller {
 						"Consultations  non modifier");
 			}
 		} else if (viewMode.equals(ViewMode.VIEW_MODE_DELETE)) {
+//			c.setCout(-c.getCout());
+//			c.setMontantEnLettre("Moins "+consultationServices.getMontantLettre(coutConsultation));
 			c.setIsDeleted(true);
 			c.setWhenDone(new Timestamp(System.currentTimeMillis()));
 			c.setWhoDone(String.valueOf(request.session().get("login").get()));
+			System.out.println("Numero consul :"+c.getNumeroConsul() +"############");
+			
+			
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
 				// flash("success", "Consultations Supprimer avec success");
+//				consultationServices.sendInfoCertification(c.getNumeroConsul(), "recu");
+//				Thread.sleep(6000);
+//				consultationServices.getInfosCertification(c.getNumeroConsul());
 				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success",
 						"Consultations  Supprimer avec success");
 			} else {
@@ -356,7 +364,7 @@ public class ConsultationCtrl extends Controller {
 		// Controller si la facture n'est pas deja certifier pour ne pas la
 		// certifier deux fois
 		if (consultationServices.findByNumConsultation(numConsultation).getRSignatureFact() == null || consultationServices.findByNumConsultation(numConsultation).getRSignatureFact().isEmpty()) {
-			consultationServices.sendInfoCertification(numConsultation, fileName);
+			consultationServices.sendInfoCertification(numConsultation, fileName,"VENTE");
 			Thread.sleep(6000);
 			consultationServices.getInfosCertification(numConsultation);
 			// recevoir les données de reponses via le MCF

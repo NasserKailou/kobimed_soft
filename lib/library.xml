@@ -4,7 +4,7 @@
   <jdbc>
     <driver>org.postgresql.Driver</driver>
 
-    <url>jdbc:postgresql://localhost:5432/dicko_20211124</url>
+    <url>jdbc:postgresql://localhost:5433/dicko_20211124</url>
 
     <user>postgres</user>
     <password>admin</password>
@@ -59,7 +59,7 @@
 
       <!-- The destination directory of your generated classes. Using Maven directory layout here -->
 
-      <directory>/home/nasser/workspace/dicko_2.8/app/</directory>
+      <directory>C:\Users\ABOUL-NASSER\workspace-nasser\dicko_2.8\app\</directory>
 
     </target>
     <generate>

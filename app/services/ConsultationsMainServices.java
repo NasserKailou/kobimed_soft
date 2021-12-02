@@ -25,6 +25,8 @@ import models.public_.Tables;
 import models.public_.tables.daos.ConsultationsDao;
 import models.public_.tables.pojos.Consultations;
 import models.public_.tables.pojos.Examens;
+import models.public_.tables.pojos.Factures;
+import models.public_.tables.pojos.FacturesDetails;
 import models.public_.tables.pojos.Ordonances;
 import models.public_.tables.pojos.VConsultations;
 
@@ -40,15 +42,22 @@ public class ConsultationsMainServices extends ConsultationsDao {
 	private String fileDirReponse = new File("").getAbsolutePath() + "/Niger_Driver/Niger_Driver/mcf/get_info.txt";
 	ExamenMainServices examServices;
 	OrdonanceMainServices ordServices;
+	FacturesMainServices facturesServices;
+	FacturesDetailsMainServices factDetailsServices;
 
 	@Inject
-	public ConsultationsMainServices(ConnectionHelper con, ExamenMainServices examServices,
-			OrdonanceMainServices ordServices) {
+	public ConsultationsMainServices(ConnectionHelper con, String fileDir, String fileDirReponse,
+			ExamenMainServices examServices, OrdonanceMainServices ordServices, FacturesMainServices facturesServices,
+			FacturesDetailsMainServices factDetailsServices) {
 		super();
 		this.con = con;
 		setConfiguration(con.connection().configuration());
+		this.fileDir = fileDir;
+		this.fileDirReponse = fileDirReponse;
 		this.examServices = examServices;
 		this.ordServices = ordServices;
+		this.facturesServices = facturesServices;
+		this.factDetailsServices = factDetailsServices;
 	}
 
 	public String saveLogical(Consultations consultation, boolean b) {
@@ -284,19 +293,46 @@ public class ConsultationsMainServices extends ConsultationsDao {
 
 	}
 
-	public String sendInfoCertification(String numConsultation, String fileName) throws IOException {
+	public String sendInfoCertification(String numConsultation, String fileName, String typeFact) throws IOException {
 		File file = new File(fileDir + findByNumVConsultation(numConsultation).getId() + ".txt");
 
 		// créer le fichier s'il n'existe pas
 		if (!file.exists()) {
 			file.createNewFile();
 		}
+		Factures facture = new Factures();
+		FacturesDetails factDetails = new FacturesDetails();
+		String typeFacture,numm;
+		numm =String.valueOf((new Timestamp(System.currentTimeMillis())).getTime());
+		if (typeFact.equals("VENTE")) {
+			typeFacture = "FV";
+			facture.setNumFact(numConsultation);
+
+		} else {
+			typeFacture = "FA";
+			
+			facture.setNumFact(numm);
+		}
+		Long total = 0L;
+		// renseigne les informations de la factures
+		facture.setDateEdition(findByNumVConsultation(numConsultation).getWhenDone());
+		facture.setTypeFacture(typeFact);
+		facture.setDoit(findByNumVConsultation(numConsultation).getNomPatient() + " - "
+				+ findByNumVConsultation(numConsultation).getTelPatient());
+		facture.setIsDeleted(false);
+		facture.setWhenDone(new Timestamp(System.currentTimeMillis()));
+		facture.setWhoDone("");
 
 		FileWriter fw = new FileWriter(file.getAbsoluteFile());
 		BufferedWriter bw = new BufferedWriter(fw);
 		bw.write("@1Operator Kobi Multi-Services\n");
 		bw.write("#NIF45292\n");
-		bw.write("#RTFV\n");
+		bw.write("#RT" + typeFacture + "\n");
+		// pour les facture de remboursement
+		if (typeFact.equals("AVOIR"))
+			bw.write("#RFED020000571" + "-" + findByNumVConsultation(numConsultation).getRNbrFact() + "-"
+					+ findByNumVConsultation(numConsultation).getRNbrTotal() + "\n");
+
 		bw.write("#VTTTC\n");
 		bw.write("#ISFED020000571\n");
 		bw.write("#FN" + findByNumVConsultation(numConsultation).getId() + "\n");
@@ -305,6 +341,9 @@ public class ConsultationsMainServices extends ConsultationsDao {
 		// bw.write("#VTHT \n");
 		// bw.write("#ISF -ED............ \n");
 		if (fileName.equals("recu")) {
+			facture.setMontantTotal(findByNumVConsultation(numConsultation).getPrixConsultation());
+			facture.setMontantLettre(findByNumVConsultation(numConsultation).getMontantEnLettre());
+
 			bw.write("%" + findByNumVConsultation(numConsultation).getLibelleType() + "^" + "B19.00%" + "^"
 					+ findByNumVConsultation(numConsultation).getPrixConsultation() + "^" + "1" + "^"
 					+ findByNumVConsultation(numConsultation).getPrixConsultation() + "\n");
@@ -314,6 +353,19 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			for (Examens e : exs) {
 				bw.write("%" + e.getLibelle() + "^" + "B19.00%" + "^" + e.getCoutExamen() + "^" + "1" + "^"
 						+ e.getCoutExamen() + "\n");
+				total += e.getCoutExamen();
+				//numFacture en fonction du type de facture
+				if (typeFact.equals("VENTE")) 
+					factDetails.setFacture(numConsultation);
+				else 
+					factDetails.setFacture(numm);
+				
+				factDetails.setLibelle(e.getLibelle());
+				factDetails.setPrixUnitaire(e.getCoutExamen());
+				factDetails.setQuantie(1L);
+				factDetails.setTotalTtc(e.getCoutExamen());
+				factDetails.setTauxTva(19L);
+
 			}
 		}
 		if (fileName.equals("etat_soin")) {
@@ -321,8 +373,28 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			for (Ordonances o : ods) {
 				bw.write("%" + o.getLibelle() + "^" + "B19.00%" + "^" + o.getMontant() * o.getNombre() + "^"
 						+ o.getNombre() + "^" + o.getMontant() + "\n");
+
+				total += o.getMontant() * o.getNombre();
+
+				//numFacture en fonction du type de facture
+				if (typeFact.equals("VENTE")) 
+					factDetails.setFacture(numConsultation);
+				else 
+					factDetails.setFacture(numm);
+				
+				factDetails.setLibelle(o.getLibelle());
+				factDetails.setPrixUnitaire(o.getMontant());
+				factDetails.setQuantie(o.getNombre());
+				factDetails.setTotalTtc(o.getMontant() * o.getNombre());
+				factDetails.setTauxTva(19L);
 			}
 		}
+
+		if (fileName.equals("etat_soin") || fileName.equals("bulletin_exam")) {
+			facture.setMontantTotal(total);
+			facture.setMontantLettre(getMontantLettre(total));
+		}
+
 		bw.write("#EE0\n");
 		bw.close();
 		return "ok";
@@ -330,7 +402,7 @@ public class ConsultationsMainServices extends ConsultationsDao {
 
 	public String getInfosCertification(String num) throws InterruptedException {
 		// Facture f = new Facture();
-		System.out.println("############# "+fileDir + findByNumVConsultation(num).getId() + ".rep");
+		System.out.println("############# " + fileDir + findByNumVConsultation(num).getId() + ".rep");
 		try {
 			// Le fichier d'entrée
 			File file = new File(fileDir + findByNumVConsultation(num).getId() + ".rep");
@@ -351,15 +423,30 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			}
 			fr.close();
 			Consultations c = this.findByNumConsultation(num);
-			c.setRNbrFact(extraireDonnees(sb.toString())[0]);
-			c.setRNbrTotal(extraireDonnees(sb.toString())[1]);
-			c.setRTypeFact(extraireDonnees(sb.toString())[2]);
-			c.setRDateFact(extraireDonnees(sb.toString())[3]);
-			c.setRNumDispositifFact(extraireDonnees(sb.toString())[4]);
-			c.setRNifFact(extraireDonnees(sb.toString())[5]);
-			c.setRSignatureFact(extraireDonnees(sb.toString())[6]);
-			this.saveLogical(c, false);
-			
+			Factures facture = facturesServices.findByNumFact(num);
+			// renseigner consultation
+			if (this.findByNumConsultation(num).getRSignatureFact() == null
+					|| this.findByNumConsultation(num).getRSignatureFact().isEmpty()) {
+
+				c.setRNbrFact(extraireDonnees(sb.toString())[0]);
+				c.setRNbrTotal(extraireDonnees(sb.toString())[1]);
+				c.setRTypeFact(extraireDonnees(sb.toString())[2]);
+				c.setRDateFact(extraireDonnees(sb.toString())[3]);
+				c.setRNumDispositifFact(extraireDonnees(sb.toString())[4]);
+				c.setRNifFact(extraireDonnees(sb.toString())[5]);
+				c.setRSignatureFact(extraireDonnees(sb.toString())[6]);
+				this.saveLogical(c, false);
+			}
+			// renseigner facture
+			facture.setRNbrFact(extraireDonnees(sb.toString())[0]);
+			facture.setRNbrTotal(extraireDonnees(sb.toString())[1]);
+			facture.setRTypeFact(extraireDonnees(sb.toString())[2]);
+			facture.setRDateFact(extraireDonnees(sb.toString())[3]);
+			facture.setRNumDispositifFact(extraireDonnees(sb.toString())[4]);
+			facture.setRNifFact(extraireDonnees(sb.toString())[5]);
+			facture.setRSignatureFact(extraireDonnees(sb.toString())[6]);
+			facturesServices.saveLogical(facture, false);
+
 			System.out.println("Contenu du fichier: ");
 
 			System.out.println(sb.toString());
@@ -373,9 +460,7 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			System.out.println("dispositif mcf :" + extraireDonnees(sb.toString())[4]);
 			System.out.println("nif :" + extraireDonnees(sb.toString())[5]);
 			System.out.println("signature numerique :" + extraireDonnees(sb.toString())[6]);
-			
 
-			
 			return "ok";
 		} catch (IOException e) {
 			System.out.println("erreur survenu :" + e.getMessage());

@@ -7,6 +7,50 @@ alter table consultations add column r_nif_fact character varying(20);
 alter table consultations add column r_signature_fact character varying(100);
 
 
+CREATE TABLE IF NOT EXISTS public.factures
+(
+    id bigint NOT NULL DEFAULT nextval('factures_id_seq'::regclass),
+    num_fact character varying COLLATE pg_catalog."default" NOT NULL,
+    date_edition timestamp without time zone,
+    doit character varying COLLATE pg_catalog."default",
+    montant_total bigint,
+    montant_lettre character varying COLLATE pg_catalog."default",
+    who_done character varying COLLATE pg_catalog."default",
+    when_done timestamp without time zone,
+    is_deleted boolean,
+    type_facture character varying COLLATE pg_catalog."default",
+    r_nbr_fact character varying(15) COLLATE pg_catalog."default",
+    r_nbr_total character varying(15) COLLATE pg_catalog."default",
+    r_type_fact character varying(5) COLLATE pg_catalog."default",
+    r_date_fact character varying(30) COLLATE pg_catalog."default",
+    r_num_dispositif_fact character varying(50) COLLATE pg_catalog."default",
+    r_nif_fact character varying(20) COLLATE pg_catalog."default",
+    r_signature_fact character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT factures_pkey PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS public.factures_details
+(
+    id bigint NOT NULL DEFAULT nextval('factures_details_id_seq'::regclass),
+    facture bigint,
+    libelle character varying COLLATE pg_catalog."default",
+    quantie bigint,
+    prix_unitaire bigint,
+    taux_tva bigint,
+    total_ttc bigint,
+    who_done character varying COLLATE pg_catalog."default",
+    when_done timestamp without time zone,
+    is_deleted boolean,
+    CONSTRAINT factures_details_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_facture FOREIGN KEY (facture)
+        REFERENCES public.factures (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+
+
 CREATE OR REPLACE VIEW public.v_consultations
  AS
  SELECT cons.id,

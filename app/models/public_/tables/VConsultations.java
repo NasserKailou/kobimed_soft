@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VConsultations extends TableImpl<VConsultationsRecord> {
 
-    private static final long serialVersionUID = 1066728553;
+    private static final long serialVersionUID = 621269856;
 
     /**
      * The reference instance of <code>public.v_consultations</code>
@@ -191,7 +191,7 @@ public class VConsultations extends TableImpl<VConsultationsRecord> {
     /**
      * The column <code>public.v_consultations.r_nbr_fact</code>.
      */
-    public final TableField<VConsultationsRecord, String> R_NBR_FACT = createField("r_nbr_fact", org.jooq.impl.SQLDataType.VARCHAR(15), this, "");
+    public final TableField<VConsultationsRecord, String> R_NBR_FACT = createField("r_nbr_fact", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>public.v_consultations.r_nbr_total</code>.
