@@ -314,9 +314,10 @@ public class ConsultationCtrl extends Controller {
 			
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
 				// flash("success", "Consultations Supprimer avec success");
-//				consultationServices.sendInfoCertification(c.getNumeroConsul(), "recu");
+				
+				consultationServices.sendInfoCertification(c.getNumeroConsul(), "recu","AVOIR");
 //				Thread.sleep(6000);
-//				consultationServices.getInfosCertification(c.getNumeroConsul());
+				consultationServices.getInfosCertification(c.getNumeroConsul());
 				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success",
 						"Consultations  Supprimer avec success");
 			} else {

@@ -32,7 +32,7 @@ public class FacturesDetailsMainServices extends FacturesDetailsDao {
 		}
 	}
 
-	public List<FacturesDetails> findAllByFacture(Long num_fact) {
+	public List<FacturesDetails> findAllByFacture(String num_fact) {
 		List<FacturesDetails> c = con.connection().selectFrom(Tables.FACTURES_DETAILS)
 				.where(Tables.FACTURES_DETAILS.IS_DELETED.isFalse()).and(Tables.FACTURES_DETAILS.FACTURE.eq(num_fact))
 				.fetchInto(FacturesDetails.class);

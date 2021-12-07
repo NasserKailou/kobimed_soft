@@ -38,6 +38,7 @@ import models.public_.tables.pojos.VConsultations;
 public class ConsultationsMainServices extends ConsultationsDao {
 
 	private final ConnectionHelper con;
+	
 	private String fileDir = new File("").getAbsolutePath() + "/Niger_Driver/Niger_Driver/mcf/";
 	private String fileDirReponse = new File("").getAbsolutePath() + "/Niger_Driver/Niger_Driver/mcf/get_info.txt";
 	ExamenMainServices examServices;
@@ -46,14 +47,13 @@ public class ConsultationsMainServices extends ConsultationsDao {
 	FacturesDetailsMainServices factDetailsServices;
 
 	@Inject
-	public ConsultationsMainServices(ConnectionHelper con, String fileDir, String fileDirReponse,
-			ExamenMainServices examServices, OrdonanceMainServices ordServices, FacturesMainServices facturesServices,
+	public ConsultationsMainServices(ConnectionHelper con, ExamenMainServices examServices,
+			OrdonanceMainServices ordServices, FacturesMainServices facturesServices,
 			FacturesDetailsMainServices factDetailsServices) {
 		super();
 		this.con = con;
 		setConfiguration(con.connection().configuration());
-		this.fileDir = fileDir;
-		this.fileDirReponse = fileDirReponse;
+
 		this.examServices = examServices;
 		this.ordServices = ordServices;
 		this.facturesServices = facturesServices;
@@ -294,23 +294,25 @@ public class ConsultationsMainServices extends ConsultationsDao {
 	}
 
 	public String sendInfoCertification(String numConsultation, String fileName, String typeFact) throws IOException {
+
 		File file = new File(fileDir + findByNumVConsultation(numConsultation).getId() + ".txt");
 
 		// créer le fichier s'il n'existe pas
 		if (!file.exists()) {
+			System.out.println("Creation fichier");
 			file.createNewFile();
 		}
 		Factures facture = new Factures();
 		FacturesDetails factDetails = new FacturesDetails();
-		String typeFacture,numm;
-		numm =String.valueOf((new Timestamp(System.currentTimeMillis())).getTime());
+		String typeFacture, numm;
+		numm = String.valueOf((new Timestamp(System.currentTimeMillis())).getTime());
 		if (typeFact.equals("VENTE")) {
 			typeFacture = "FV";
 			facture.setNumFact(numConsultation);
 
 		} else {
 			typeFacture = "FA";
-			
+
 			facture.setNumFact(numm);
 		}
 		Long total = 0L;
@@ -341,9 +343,17 @@ public class ConsultationsMainServices extends ConsultationsDao {
 		// bw.write("#VTHT \n");
 		// bw.write("#ISF -ED............ \n");
 		if (fileName.equals("recu")) {
+			
+			
 			facture.setMontantTotal(findByNumVConsultation(numConsultation).getPrixConsultation());
 			facture.setMontantLettre(findByNumVConsultation(numConsultation).getMontantEnLettre());
 
+			factDetails.setLibelle(findByNumVConsultation(numConsultation).getLibelleType());
+			factDetails.setPrixUnitaire(findByNumVConsultation(numConsultation).getPrixConsultation());
+			factDetails.setQuantie(1L);
+			factDetails.setTotalTtc(findByNumVConsultation(numConsultation).getPrixConsultation());
+			factDetails.setTauxTva(19L);
+			factDetailsServices.saveLogical(factDetails, true);
 			bw.write("%" + findByNumVConsultation(numConsultation).getLibelleType() + "^" + "B19.00%" + "^"
 					+ findByNumVConsultation(numConsultation).getPrixConsultation() + "^" + "1" + "^"
 					+ findByNumVConsultation(numConsultation).getPrixConsultation() + "\n");
@@ -354,17 +364,18 @@ public class ConsultationsMainServices extends ConsultationsDao {
 				bw.write("%" + e.getLibelle() + "^" + "B19.00%" + "^" + e.getCoutExamen() + "^" + "1" + "^"
 						+ e.getCoutExamen() + "\n");
 				total += e.getCoutExamen();
-				//numFacture en fonction du type de facture
-				if (typeFact.equals("VENTE")) 
+				// numFacture en fonction du type de facture
+				if (typeFact.equals("VENTE"))
 					factDetails.setFacture(numConsultation);
-				else 
+				else
 					factDetails.setFacture(numm);
-				
+
 				factDetails.setLibelle(e.getLibelle());
 				factDetails.setPrixUnitaire(e.getCoutExamen());
 				factDetails.setQuantie(1L);
 				factDetails.setTotalTtc(e.getCoutExamen());
 				factDetails.setTauxTva(19L);
+				factDetailsServices.saveLogical(factDetails, true);
 
 			}
 		}
@@ -376,17 +387,18 @@ public class ConsultationsMainServices extends ConsultationsDao {
 
 				total += o.getMontant() * o.getNombre();
 
-				//numFacture en fonction du type de facture
-				if (typeFact.equals("VENTE")) 
+				// numFacture en fonction du type de facture
+				if (typeFact.equals("VENTE"))
 					factDetails.setFacture(numConsultation);
-				else 
+				else
 					factDetails.setFacture(numm);
-				
+
 				factDetails.setLibelle(o.getLibelle());
 				factDetails.setPrixUnitaire(o.getMontant());
 				factDetails.setQuantie(o.getNombre());
 				factDetails.setTotalTtc(o.getMontant() * o.getNombre());
 				factDetails.setTauxTva(19L);
+				factDetailsServices.saveLogical(factDetails, true);
 			}
 		}
 
@@ -394,7 +406,12 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			facture.setMontantTotal(total);
 			facture.setMontantLettre(getMontantLettre(total));
 		}
-
+		
+		//enregistrer la facture 
+		facturesServices.saveLogical(facture, true);
+		
+		
+		System.out.println("############# FIN ###########");
 		bw.write("#EE0\n");
 		bw.close();
 		return "ok";
@@ -427,7 +444,7 @@ public class ConsultationsMainServices extends ConsultationsDao {
 			// renseigner consultation
 			if (this.findByNumConsultation(num).getRSignatureFact() == null
 					|| this.findByNumConsultation(num).getRSignatureFact().isEmpty()) {
-
+				//renseigner la consultation 
 				c.setRNbrFact(extraireDonnees(sb.toString())[0]);
 				c.setRNbrTotal(extraireDonnees(sb.toString())[1]);
 				c.setRTypeFact(extraireDonnees(sb.toString())[2]);
