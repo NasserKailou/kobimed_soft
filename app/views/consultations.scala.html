@@ -551,9 +551,11 @@ function openPopup(target, x, y, w, h) {
                                @if(request.session.get("droit").get() == "Admin" || request.session.get("droit").get() == "Medecin" || request.session.get("droit").get() == "Caissier"){
 							
                                 <td>
+                                @if(c.getPrixConsultation()!=0){
 								<a class="btn btn-success" type="button" title="Imprimer le réçu"
 								 href="@controllers.routes.ConsultationCtrl.print(c.getNumeroConsul(),"recu")" onclick="return(openPopup(this.href, 600, 600, 600, 600));">
 						                              	<i class="glyphicon glyphicon-print"></i> </a>
+								}
 								</td>
 								}
 							 </tr>

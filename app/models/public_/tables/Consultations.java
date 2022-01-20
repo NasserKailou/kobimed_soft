@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.ConsultationsRecord;
@@ -18,7 +17,6 @@ import models.public_.tables.records.ConsultationsRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -41,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Consultations extends TableImpl<ConsultationsRecord> {
 
-    private static final long serialVersionUID = -1569264671;
+    private static final long serialVersionUID = 1146103918;
 
     /**
      * The reference instance of <code>public.consultations</code>
@@ -152,41 +150,6 @@ public class Consultations extends TableImpl<ConsultationsRecord> {
     public final TableField<ConsultationsRecord, String> STRUCTURE_PATIENT = createField("structure_patient", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
-     * The column <code>public.consultations.r_nbr_fact</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_NBR_FACT = createField("r_nbr_fact", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>public.consultations.r_nbr_total</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_NBR_TOTAL = createField("r_nbr_total", org.jooq.impl.SQLDataType.VARCHAR(15), this, "");
-
-    /**
-     * The column <code>public.consultations.r_type_fact</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_TYPE_FACT = createField("r_type_fact", org.jooq.impl.SQLDataType.VARCHAR(5), this, "");
-
-    /**
-     * The column <code>public.consultations.r_date_fact</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_DATE_FACT = createField("r_date_fact", org.jooq.impl.SQLDataType.VARCHAR(30), this, "");
-
-    /**
-     * The column <code>public.consultations.r_num_dispositif_fact</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_NUM_DISPOSITIF_FACT = createField("r_num_dispositif_fact", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>public.consultations.r_nif_fact</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_NIF_FACT = createField("r_nif_fact", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
-
-    /**
-     * The column <code>public.consultations.r_signature_fact</code>.
-     */
-    public final TableField<ConsultationsRecord, String> R_SIGNATURE_FACT = createField("r_signature_fact", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
      * Create a <code>public.consultations</code> table reference
      */
     public Consultations() {
@@ -221,14 +184,6 @@ public class Consultations extends TableImpl<ConsultationsRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.CONSULTATIONS_PKEY);
     }
 
     /**

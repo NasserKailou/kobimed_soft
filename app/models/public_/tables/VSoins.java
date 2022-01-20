@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VSoins extends TableImpl<VSoinsRecord> {
 
-    private static final long serialVersionUID = -696834669;
+    private static final long serialVersionUID = 1475904255;
 
     /**
      * The reference instance of <code>public.v_soins</code>
@@ -132,11 +132,6 @@ public class VSoins extends TableImpl<VSoinsRecord> {
      * The column <code>public.v_soins.total</code>.
      */
     public final TableField<VSoinsRecord, Long> TOTAL = createField("total", org.jooq.impl.SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.v_soins.medecin</code>.
-     */
-    public final TableField<VSoinsRecord, Long> MEDECIN = createField("medecin", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.v_soins.nom_partenaire</code>.

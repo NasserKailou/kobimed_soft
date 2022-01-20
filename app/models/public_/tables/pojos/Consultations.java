@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Consultations implements Serializable {
 
-    private static final long serialVersionUID = -715920458;
+    private static final long serialVersionUID = 1969266693;
 
     private Long      id;
     private Long      typeConsultation;
@@ -44,13 +44,6 @@ public class Consultations implements Serializable {
     private Double    tauxCouverture;
     private Long      medecinTraitrant;
     private String    structurePatient;
-    private String    rNbrFact;
-    private String    rNbrTotal;
-    private String    rTypeFact;
-    private String    rDateFact;
-    private String    rNumDispositifFact;
-    private String    rNifFact;
-    private String    rSignatureFact;
 
     public Consultations() {}
 
@@ -74,13 +67,6 @@ public class Consultations implements Serializable {
         this.tauxCouverture = value.tauxCouverture;
         this.medecinTraitrant = value.medecinTraitrant;
         this.structurePatient = value.structurePatient;
-        this.rNbrFact = value.rNbrFact;
-        this.rNbrTotal = value.rNbrTotal;
-        this.rTypeFact = value.rTypeFact;
-        this.rDateFact = value.rDateFact;
-        this.rNumDispositifFact = value.rNumDispositifFact;
-        this.rNifFact = value.rNifFact;
-        this.rSignatureFact = value.rSignatureFact;
     }
 
     public Consultations(
@@ -102,14 +88,7 @@ public class Consultations implements Serializable {
         Timestamp dateRdv,
         Double    tauxCouverture,
         Long      medecinTraitrant,
-        String    structurePatient,
-        String    rNbrFact,
-        String    rNbrTotal,
-        String    rTypeFact,
-        String    rDateFact,
-        String    rNumDispositifFact,
-        String    rNifFact,
-        String    rSignatureFact
+        String    structurePatient
     ) {
         this.id = id;
         this.typeConsultation = typeConsultation;
@@ -130,13 +109,6 @@ public class Consultations implements Serializable {
         this.tauxCouverture = tauxCouverture;
         this.medecinTraitrant = medecinTraitrant;
         this.structurePatient = structurePatient;
-        this.rNbrFact = rNbrFact;
-        this.rNbrTotal = rNbrTotal;
-        this.rTypeFact = rTypeFact;
-        this.rDateFact = rDateFact;
-        this.rNumDispositifFact = rNumDispositifFact;
-        this.rNifFact = rNifFact;
-        this.rSignatureFact = rSignatureFact;
     }
 
     public Long getId() {
@@ -291,62 +263,6 @@ public class Consultations implements Serializable {
         this.structurePatient = structurePatient;
     }
 
-    public String getRNbrFact() {
-        return this.rNbrFact;
-    }
-
-    public void setRNbrFact(String rNbrFact) {
-        this.rNbrFact = rNbrFact;
-    }
-
-    public String getRNbrTotal() {
-        return this.rNbrTotal;
-    }
-
-    public void setRNbrTotal(String rNbrTotal) {
-        this.rNbrTotal = rNbrTotal;
-    }
-
-    public String getRTypeFact() {
-        return this.rTypeFact;
-    }
-
-    public void setRTypeFact(String rTypeFact) {
-        this.rTypeFact = rTypeFact;
-    }
-
-    public String getRDateFact() {
-        return this.rDateFact;
-    }
-
-    public void setRDateFact(String rDateFact) {
-        this.rDateFact = rDateFact;
-    }
-
-    public String getRNumDispositifFact() {
-        return this.rNumDispositifFact;
-    }
-
-    public void setRNumDispositifFact(String rNumDispositifFact) {
-        this.rNumDispositifFact = rNumDispositifFact;
-    }
-
-    public String getRNifFact() {
-        return this.rNifFact;
-    }
-
-    public void setRNifFact(String rNifFact) {
-        this.rNifFact = rNifFact;
-    }
-
-    public String getRSignatureFact() {
-        return this.rSignatureFact;
-    }
-
-    public void setRSignatureFact(String rSignatureFact) {
-        this.rSignatureFact = rSignatureFact;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Consultations (");
@@ -370,13 +286,6 @@ public class Consultations implements Serializable {
         sb.append(", ").append(tauxCouverture);
         sb.append(", ").append(medecinTraitrant);
         sb.append(", ").append(structurePatient);
-        sb.append(", ").append(rNbrFact);
-        sb.append(", ").append(rNbrTotal);
-        sb.append(", ").append(rTypeFact);
-        sb.append(", ").append(rDateFact);
-        sb.append(", ").append(rNumDispositifFact);
-        sb.append(", ").append(rNifFact);
-        sb.append(", ").append(rSignatureFact);
 
         sb.append(")");
         return sb.toString();

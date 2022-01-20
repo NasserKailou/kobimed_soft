@@ -19,8 +19,6 @@ import models.public_.tables.Consultations;
 import models.public_.tables.ConsultationsOld;
 import models.public_.tables.Examens;
 import models.public_.tables.ExamensOld;
-import models.public_.tables.Factures;
-import models.public_.tables.FacturesDetails;
 import models.public_.tables.InfosMedicale;
 import models.public_.tables.MedecinPatient;
 import models.public_.tables.Ordonances;
@@ -38,8 +36,6 @@ import models.public_.tables.VExamens;
 import models.public_.tables.VOrdononce;
 import models.public_.tables.VPatients;
 import models.public_.tables.VSoins;
-import models.public_.tables.VsConsMedecin;
-import models.public_.tables.VsExamMedecin;
 
 import org.jooq.Catalog;
 import org.jooq.Sequence;
@@ -60,7 +56,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -1023072693;
+    private static final long serialVersionUID = -821935648;
 
     /**
      * The reference instance of <code>public</code>
@@ -106,16 +102,6 @@ public class Public extends SchemaImpl {
      * The table <code>public.examens_old</code>.
      */
     public final ExamensOld EXAMENS_OLD = models.public_.tables.ExamensOld.EXAMENS_OLD;
-
-    /**
-     * The table <code>public.factures</code>.
-     */
-    public final Factures FACTURES = models.public_.tables.Factures.FACTURES;
-
-    /**
-     * The table <code>public.factures_details</code>.
-     */
-    public final FacturesDetails FACTURES_DETAILS = models.public_.tables.FacturesDetails.FACTURES_DETAILS;
 
     /**
      * The table <code>public.infos_medicale</code>.
@@ -203,16 +189,6 @@ public class Public extends SchemaImpl {
     public final VSoins V_SOINS = models.public_.tables.VSoins.V_SOINS;
 
     /**
-     * The table <code>public.vs_cons_medecin</code>.
-     */
-    public final VsConsMedecin VS_CONS_MEDECIN = models.public_.tables.VsConsMedecin.VS_CONS_MEDECIN;
-
-    /**
-     * The table <code>public.vs_exam_medecin</code>.
-     */
-    public final VsExamMedecin VS_EXAM_MEDECIN = models.public_.tables.VsExamMedecin.VS_EXAM_MEDECIN;
-
-    /**
      * No further instances allowed
      */
     private Public() {
@@ -242,8 +218,6 @@ public class Public extends SchemaImpl {
             Sequences.BAS_MEDICAMENTS_ID_SEQ,
             Sequences.CONSULTATIONS_ID_SEQ,
             Sequences.EXAMENS_ID_SEQ,
-            Sequences.FACTURES_DETAILS_ID_SEQ,
-            Sequences.FACTURES_ID_SEQ,
             Sequences.INFOS_MEDICALE_ID_SEQ,
             Sequences.MEDECIN_PATIENT_ID_SEQ,
             Sequences.ORDONANCES_ID_SEQ,
@@ -272,8 +246,6 @@ public class Public extends SchemaImpl {
             ConsultationsOld.CONSULTATIONS_OLD,
             Examens.EXAMENS,
             ExamensOld.EXAMENS_OLD,
-            Factures.FACTURES,
-            FacturesDetails.FACTURES_DETAILS,
             InfosMedicale.INFOS_MEDICALE,
             MedecinPatient.MEDECIN_PATIENT,
             Ordonances.ORDONANCES,
@@ -290,8 +262,6 @@ public class Public extends SchemaImpl {
             VExamens.V_EXAMENS,
             VOrdononce.V_ORDONONCE,
             VPatients.V_PATIENTS,
-            VSoins.V_SOINS,
-            VsConsMedecin.VS_CONS_MEDECIN,
-            VsExamMedecin.VS_EXAM_MEDECIN);
+            VSoins.V_SOINS);
     }
 }

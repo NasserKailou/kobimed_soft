@@ -4,7 +4,7 @@
   <jdbc>
     <driver>org.postgresql.Driver</driver>
 
-    <url>jdbc:postgresql://localhost:5433/dicko_20211124</url>
+    <url>jdbc:postgresql://localhost:5433/dicko_20220114</url>
 
     <user>postgres</user>
     <password>admin</password>

@@ -26,7 +26,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VConsultationsRecord extends TableRecordImpl<VConsultationsRecord> {
 
-    private static final long serialVersionUID = -212473935;
+    private static final long serialVersionUID = -1650887428;
 
     /**
      * Setter for <code>public.v_consultations.id</code>.
@@ -420,104 +420,6 @@ public class VConsultationsRecord extends TableRecordImpl<VConsultationsRecord> 
         return (String) get(27);
     }
 
-    /**
-     * Setter for <code>public.v_consultations.r_nbr_fact</code>.
-     */
-    public void setRNbrFact(String value) {
-        set(28, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_nbr_fact</code>.
-     */
-    public String getRNbrFact() {
-        return (String) get(28);
-    }
-
-    /**
-     * Setter for <code>public.v_consultations.r_nbr_total</code>.
-     */
-    public void setRNbrTotal(String value) {
-        set(29, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_nbr_total</code>.
-     */
-    public String getRNbrTotal() {
-        return (String) get(29);
-    }
-
-    /**
-     * Setter for <code>public.v_consultations.r_type_fact</code>.
-     */
-    public void setRTypeFact(String value) {
-        set(30, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_type_fact</code>.
-     */
-    public String getRTypeFact() {
-        return (String) get(30);
-    }
-
-    /**
-     * Setter for <code>public.v_consultations.r_date_fact</code>.
-     */
-    public void setRDateFact(String value) {
-        set(31, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_date_fact</code>.
-     */
-    public String getRDateFact() {
-        return (String) get(31);
-    }
-
-    /**
-     * Setter for <code>public.v_consultations.r_num_dispositif_fact</code>.
-     */
-    public void setRNumDispositifFact(String value) {
-        set(32, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_num_dispositif_fact</code>.
-     */
-    public String getRNumDispositifFact() {
-        return (String) get(32);
-    }
-
-    /**
-     * Setter for <code>public.v_consultations.r_nif_fact</code>.
-     */
-    public void setRNifFact(String value) {
-        set(33, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_nif_fact</code>.
-     */
-    public String getRNifFact() {
-        return (String) get(33);
-    }
-
-    /**
-     * Setter for <code>public.v_consultations.r_signature_fact</code>.
-     */
-    public void setRSignatureFact(String value) {
-        set(34, value);
-    }
-
-    /**
-     * Getter for <code>public.v_consultations.r_signature_fact</code>.
-     */
-    public String getRSignatureFact() {
-        return (String) get(34);
-    }
-
     // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
@@ -532,7 +434,7 @@ public class VConsultationsRecord extends TableRecordImpl<VConsultationsRecord> 
     /**
      * Create a detached, initialised VConsultationsRecord
      */
-    public VConsultationsRecord(Long id, String numeroConsul, Long typeConsultation, String libelleType, Long patient, Long idPatient, String nomPatient, Long age, Long partenaireId, String nomPartenaire, String structurePatient, Double tauxCouverture, String telPatient, Long medecinTraitrant, String medecin, Long prixConsultation, Long montantConsultation, String montantEnLettre, Long sommeRecu, Long sommeRemise, Double montantPrisEnCharge, Double montantAPayer, String observation, Timestamp dateRdv, Boolean isClosed, Boolean isDeleted, Timestamp whenDone, String whoDone, String rNbrFact, String rNbrTotal, String rTypeFact, String rDateFact, String rNumDispositifFact, String rNifFact, String rSignatureFact) {
+    public VConsultationsRecord(Long id, String numeroConsul, Long typeConsultation, String libelleType, Long patient, Long idPatient, String nomPatient, Long age, Long partenaireId, String nomPartenaire, String structurePatient, Double tauxCouverture, String telPatient, Long medecinTraitrant, String medecin, Long prixConsultation, Long montantConsultation, String montantEnLettre, Long sommeRecu, Long sommeRemise, Double montantPrisEnCharge, Double montantAPayer, String observation, Timestamp dateRdv, Boolean isClosed, Boolean isDeleted, Timestamp whenDone, String whoDone) {
         super(VConsultations.V_CONSULTATIONS);
 
         set(0, id);
@@ -563,12 +465,5 @@ public class VConsultationsRecord extends TableRecordImpl<VConsultationsRecord> 
         set(25, isDeleted);
         set(26, whenDone);
         set(27, whoDone);
-        set(28, rNbrFact);
-        set(29, rNbrTotal);
-        set(30, rTypeFact);
-        set(31, rDateFact);
-        set(32, rNumDispositifFact);
-        set(33, rNifFact);
-        set(34, rSignatureFact);
     }
 }

@@ -315,9 +315,6 @@ public class ConsultationCtrl extends Controller {
 			if (consultationServices.saveLogical(c, false).equals("ok")) {
 				// flash("success", "Consultations Supprimer avec success");
 				
-				consultationServices.sendInfoCertification(c.getNumeroConsul(), "recu","AVOIR");
-//				Thread.sleep(6000);
-				consultationServices.getInfosCertification(c.getNumeroConsul());
 				return redirect(routes.ConsultationCtrl.show(ViewMode.VIEW_MODE_CREATE, 0L)).flashing("success",
 						"Consultations  Supprimer avec success");
 			} else {
@@ -364,12 +361,7 @@ public class ConsultationCtrl extends Controller {
 		// envoyer les données de la facture pour certification
 		// Controller si la facture n'est pas deja certifier pour ne pas la
 		// certifier deux fois
-		if (consultationServices.findByNumConsultation(numConsultation).getRSignatureFact() == null || consultationServices.findByNumConsultation(numConsultation).getRSignatureFact().isEmpty()) {
-			consultationServices.sendInfoCertification(numConsultation, fileName,"VENTE");
-			Thread.sleep(6000);
-			consultationServices.getInfosCertification(numConsultation);
-			// recevoir les données de reponses via le MCF
-		}
+		
 		LocalDateTime now = LocalDateTime.now();
 		String now_string = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm"));
 		String templateDir = new File("").getAbsolutePath() + "/reports/spool/";

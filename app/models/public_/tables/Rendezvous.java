@@ -10,14 +10,12 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.RendezvousRecord;
 
 import org.jooq.Field;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -40,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Rendezvous extends TableImpl<RendezvousRecord> {
 
-    private static final long serialVersionUID = 1926739009;
+    private static final long serialVersionUID = -1049531002;
 
     /**
      * The reference instance of <code>public.rendezvous</code>
@@ -130,14 +128,6 @@ public class Rendezvous extends TableImpl<RendezvousRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.RENDEZVOUS_PKEY);
     }
 
     /**

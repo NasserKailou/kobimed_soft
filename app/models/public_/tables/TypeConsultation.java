@@ -10,14 +10,12 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.TypeConsultationRecord;
 
 import org.jooq.Field;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -40,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypeConsultation extends TableImpl<TypeConsultationRecord> {
 
-    private static final long serialVersionUID = 1724314744;
+    private static final long serialVersionUID = 600480406;
 
     /**
      * The reference instance of <code>public.type_consultation</code>
@@ -125,14 +123,6 @@ public class TypeConsultation extends TableImpl<TypeConsultationRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.TYPE_CONSULTATION_PKEY);
     }
 
     /**

@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.stock.Indexes;
 import models.stock.Keys;
 import models.stock.Stock;
 import models.stock.tables.records.FactureRecord;
@@ -18,7 +17,6 @@ import models.stock.tables.records.FactureRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -41,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Facture extends TableImpl<FactureRecord> {
 
-    private static final long serialVersionUID = 1066776038;
+    private static final long serialVersionUID = -151466243;
 
     /**
      * The reference instance of <code>stock.facture</code>
@@ -141,14 +139,6 @@ public class Facture extends TableImpl<FactureRecord> {
     @Override
     public Schema getSchema() {
         return Stock.STOCK;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FACTURES_PKEY);
     }
 
     /**

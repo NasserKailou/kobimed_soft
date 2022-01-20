@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VConsultations implements Serializable {
 
-    private static final long serialVersionUID = 370392511;
+    private static final long serialVersionUID = 1323734618;
 
     private Long      id;
     private String    numeroConsul;
@@ -53,13 +53,6 @@ public class VConsultations implements Serializable {
     private Boolean   isDeleted;
     private Timestamp whenDone;
     private String    whoDone;
-    private String    rNbrFact;
-    private String    rNbrTotal;
-    private String    rTypeFact;
-    private String    rDateFact;
-    private String    rNumDispositifFact;
-    private String    rNifFact;
-    private String    rSignatureFact;
 
     public VConsultations() {}
 
@@ -92,13 +85,6 @@ public class VConsultations implements Serializable {
         this.isDeleted = value.isDeleted;
         this.whenDone = value.whenDone;
         this.whoDone = value.whoDone;
-        this.rNbrFact = value.rNbrFact;
-        this.rNbrTotal = value.rNbrTotal;
-        this.rTypeFact = value.rTypeFact;
-        this.rDateFact = value.rDateFact;
-        this.rNumDispositifFact = value.rNumDispositifFact;
-        this.rNifFact = value.rNifFact;
-        this.rSignatureFact = value.rSignatureFact;
     }
 
     public VConsultations(
@@ -129,14 +115,7 @@ public class VConsultations implements Serializable {
         Boolean   isClosed,
         Boolean   isDeleted,
         Timestamp whenDone,
-        String    whoDone,
-        String    rNbrFact,
-        String    rNbrTotal,
-        String    rTypeFact,
-        String    rDateFact,
-        String    rNumDispositifFact,
-        String    rNifFact,
-        String    rSignatureFact
+        String    whoDone
     ) {
         this.id = id;
         this.numeroConsul = numeroConsul;
@@ -166,13 +145,6 @@ public class VConsultations implements Serializable {
         this.isDeleted = isDeleted;
         this.whenDone = whenDone;
         this.whoDone = whoDone;
-        this.rNbrFact = rNbrFact;
-        this.rNbrTotal = rNbrTotal;
-        this.rTypeFact = rTypeFact;
-        this.rDateFact = rDateFact;
-        this.rNumDispositifFact = rNumDispositifFact;
-        this.rNifFact = rNifFact;
-        this.rSignatureFact = rSignatureFact;
     }
 
     public Long getId() {
@@ -399,62 +371,6 @@ public class VConsultations implements Serializable {
         this.whoDone = whoDone;
     }
 
-    public String getRNbrFact() {
-        return this.rNbrFact;
-    }
-
-    public void setRNbrFact(String rNbrFact) {
-        this.rNbrFact = rNbrFact;
-    }
-
-    public String getRNbrTotal() {
-        return this.rNbrTotal;
-    }
-
-    public void setRNbrTotal(String rNbrTotal) {
-        this.rNbrTotal = rNbrTotal;
-    }
-
-    public String getRTypeFact() {
-        return this.rTypeFact;
-    }
-
-    public void setRTypeFact(String rTypeFact) {
-        this.rTypeFact = rTypeFact;
-    }
-
-    public String getRDateFact() {
-        return this.rDateFact;
-    }
-
-    public void setRDateFact(String rDateFact) {
-        this.rDateFact = rDateFact;
-    }
-
-    public String getRNumDispositifFact() {
-        return this.rNumDispositifFact;
-    }
-
-    public void setRNumDispositifFact(String rNumDispositifFact) {
-        this.rNumDispositifFact = rNumDispositifFact;
-    }
-
-    public String getRNifFact() {
-        return this.rNifFact;
-    }
-
-    public void setRNifFact(String rNifFact) {
-        this.rNifFact = rNifFact;
-    }
-
-    public String getRSignatureFact() {
-        return this.rSignatureFact;
-    }
-
-    public void setRSignatureFact(String rSignatureFact) {
-        this.rSignatureFact = rSignatureFact;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("VConsultations (");
@@ -487,13 +403,6 @@ public class VConsultations implements Serializable {
         sb.append(", ").append(isDeleted);
         sb.append(", ").append(whenDone);
         sb.append(", ").append(whoDone);
-        sb.append(", ").append(rNbrFact);
-        sb.append(", ").append(rNbrTotal);
-        sb.append(", ").append(rTypeFact);
-        sb.append(", ").append(rDateFact);
-        sb.append(", ").append(rNumDispositifFact);
-        sb.append(", ").append(rNifFact);
-        sb.append(", ").append(rSignatureFact);
 
         sb.append(")");
         return sb.toString();

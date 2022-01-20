@@ -10,14 +10,12 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.BasSoinsRecord;
 
 import org.jooq.Field;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -40,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BasSoins extends TableImpl<BasSoinsRecord> {
 
-    private static final long serialVersionUID = 1049254261;
+    private static final long serialVersionUID = 2049385829;
 
     /**
      * The reference instance of <code>public.bas_soins</code>
@@ -131,14 +129,6 @@ public class BasSoins extends TableImpl<BasSoinsRecord> {
      * {@inheritDoc}
      */
     @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.BAS_SOIN_PK);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Identity<BasSoinsRecord, Long> getIdentity() {
         return Keys.IDENTITY_BAS_SOINS;
     }
@@ -148,7 +138,7 @@ public class BasSoins extends TableImpl<BasSoinsRecord> {
      */
     @Override
     public UniqueKey<BasSoinsRecord> getPrimaryKey() {
-        return Keys.BAS_SOIN_PK;
+        return Keys.PK_BAS_SOINS;
     }
 
     /**
@@ -156,7 +146,7 @@ public class BasSoins extends TableImpl<BasSoinsRecord> {
      */
     @Override
     public List<UniqueKey<BasSoinsRecord>> getKeys() {
-        return Arrays.<UniqueKey<BasSoinsRecord>>asList(Keys.BAS_SOIN_PK);
+        return Arrays.<UniqueKey<BasSoinsRecord>>asList(Keys.PK_BAS_SOINS);
     }
 
     /**

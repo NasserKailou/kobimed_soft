@@ -9,14 +9,12 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.ParamsRecord;
 
 import org.jooq.Field;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -39,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Params extends TableImpl<ParamsRecord> {
 
-    private static final long serialVersionUID = -1430505708;
+    private static final long serialVersionUID = 394051784;
 
     /**
      * The reference instance of <code>public.params</code>
@@ -124,14 +122,6 @@ public class Params extends TableImpl<ParamsRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PARAMS_PKEY);
     }
 
     /**

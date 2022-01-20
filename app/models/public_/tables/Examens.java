@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.ExamensRecord;
@@ -18,7 +17,6 @@ import models.public_.tables.records.ExamensRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -41,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Examens extends TableImpl<ExamensRecord> {
 
-    private static final long serialVersionUID = 1309061732;
+    private static final long serialVersionUID = -1799533635;
 
     /**
      * The reference instance of <code>public.examens</code>
@@ -136,14 +134,6 @@ public class Examens extends TableImpl<ExamensRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.EXAMENS_PKEY);
     }
 
     /**

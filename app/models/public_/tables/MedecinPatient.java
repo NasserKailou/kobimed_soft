@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.MedecinPatientRecord;
@@ -17,7 +16,6 @@ import models.public_.tables.records.MedecinPatientRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -40,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MedecinPatient extends TableImpl<MedecinPatientRecord> {
 
-    private static final long serialVersionUID = 752385143;
+    private static final long serialVersionUID = 1973072754;
 
     /**
      * The reference instance of <code>public.medecin_patient</code>
@@ -105,14 +103,6 @@ public class MedecinPatient extends TableImpl<MedecinPatientRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.MEDECIN_PATIENT_PKEY);
     }
 
     /**

@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.stock.Indexes;
 import models.stock.Keys;
 import models.stock.Stock;
 import models.stock.tables.records.ArticleRecord;
@@ -18,7 +17,6 @@ import models.stock.tables.records.ArticleRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -41,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Article extends TableImpl<ArticleRecord> {
 
-    private static final long serialVersionUID = -399992533;
+    private static final long serialVersionUID = 490956829;
 
     /**
      * The reference instance of <code>stock.article</code>
@@ -151,14 +149,6 @@ public class Article extends TableImpl<ArticleRecord> {
     @Override
     public Schema getSchema() {
         return Stock.STOCK;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ARTICLES_LIBELLE_KEY, Indexes.ARTICLES_PKEY);
     }
 
     /**

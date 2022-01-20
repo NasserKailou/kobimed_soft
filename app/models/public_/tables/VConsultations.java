@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VConsultations extends TableImpl<VConsultationsRecord> {
 
-    private static final long serialVersionUID = 621269856;
+    private static final long serialVersionUID = 27136554;
 
     /**
      * The reference instance of <code>public.v_consultations</code>
@@ -187,41 +187,6 @@ public class VConsultations extends TableImpl<VConsultationsRecord> {
      * The column <code>public.v_consultations.who_done</code>.
      */
     public final TableField<VConsultationsRecord, String> WHO_DONE = createField("who_done", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_nbr_fact</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_NBR_FACT = createField("r_nbr_fact", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_nbr_total</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_NBR_TOTAL = createField("r_nbr_total", org.jooq.impl.SQLDataType.VARCHAR(15), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_type_fact</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_TYPE_FACT = createField("r_type_fact", org.jooq.impl.SQLDataType.VARCHAR(5), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_date_fact</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_DATE_FACT = createField("r_date_fact", org.jooq.impl.SQLDataType.VARCHAR(30), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_num_dispositif_fact</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_NUM_DISPOSITIF_FACT = createField("r_num_dispositif_fact", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_nif_fact</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_NIF_FACT = createField("r_nif_fact", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
-
-    /**
-     * The column <code>public.v_consultations.r_signature_fact</code>.
-     */
-    public final TableField<VConsultationsRecord, String> R_SIGNATURE_FACT = createField("r_signature_fact", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * Create a <code>public.v_consultations</code> table reference

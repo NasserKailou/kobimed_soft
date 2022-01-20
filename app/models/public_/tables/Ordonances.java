@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import models.public_.Indexes;
 import models.public_.Keys;
 import models.public_.Public;
 import models.public_.tables.records.OrdonancesRecord;
@@ -18,7 +17,6 @@ import models.public_.tables.records.OrdonancesRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -41,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Ordonances extends TableImpl<OrdonancesRecord> {
 
-    private static final long serialVersionUID = -934080055;
+    private static final long serialVersionUID = 1771878987;
 
     /**
      * The reference instance of <code>public.ordonances</code>
@@ -141,14 +139,6 @@ public class Ordonances extends TableImpl<OrdonancesRecord> {
     @Override
     public Schema getSchema() {
         return Public.PUBLIC;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ORDONANCES_PKEY);
     }
 
     /**
