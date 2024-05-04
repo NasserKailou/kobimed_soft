@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VPatients implements Serializable {
 
-    private static final long serialVersionUID = -1271810909;
+    private static final long serialVersionUID = -2089566903;
 
     private Long      id;
     private String    nomPrenom;
@@ -36,6 +36,8 @@ public class VPatients implements Serializable {
     private Boolean   isDeleted;
     private Timestamp whenDone;
     private Long      poid;
+    private String    sexe;
+    private String    groupeSanguin;
     private String    status;
     private String    whoDone;
 
@@ -53,6 +55,8 @@ public class VPatients implements Serializable {
         this.isDeleted = value.isDeleted;
         this.whenDone = value.whenDone;
         this.poid = value.poid;
+        this.sexe = value.sexe;
+        this.groupeSanguin = value.groupeSanguin;
         this.status = value.status;
         this.whoDone = value.whoDone;
     }
@@ -69,6 +73,8 @@ public class VPatients implements Serializable {
         Boolean   isDeleted,
         Timestamp whenDone,
         Long      poid,
+        String    sexe,
+        String    groupeSanguin,
         String    status,
         String    whoDone
     ) {
@@ -83,6 +89,8 @@ public class VPatients implements Serializable {
         this.isDeleted = isDeleted;
         this.whenDone = whenDone;
         this.poid = poid;
+        this.sexe = sexe;
+        this.groupeSanguin = groupeSanguin;
         this.status = status;
         this.whoDone = whoDone;
     }
@@ -175,6 +183,22 @@ public class VPatients implements Serializable {
         this.poid = poid;
     }
 
+    public String getSexe() {
+        return this.sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public String getGroupeSanguin() {
+        return this.groupeSanguin;
+    }
+
+    public void setGroupeSanguin(String groupeSanguin) {
+        this.groupeSanguin = groupeSanguin;
+    }
+
     public String getStatus() {
         return this.status;
     }
@@ -206,6 +230,8 @@ public class VPatients implements Serializable {
         sb.append(", ").append(isDeleted);
         sb.append(", ").append(whenDone);
         sb.append(", ").append(poid);
+        sb.append(", ").append(sexe);
+        sb.append(", ").append(groupeSanguin);
         sb.append(", ").append(status);
         sb.append(", ").append(whoDone);
 

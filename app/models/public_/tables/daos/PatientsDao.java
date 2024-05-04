@@ -134,4 +134,18 @@ public class PatientsDao extends DAOImpl<PatientsRecord, models.public_.tables.p
     public List<models.public_.tables.pojos.Patients> fetchByWhoDone(String... values) {
         return fetch(Patients.PATIENTS.WHO_DONE, values);
     }
+
+    /**
+     * Fetch records that have <code>sexe IN (values)</code>
+     */
+    public List<models.public_.tables.pojos.Patients> fetchBySexe(String... values) {
+        return fetch(Patients.PATIENTS.SEXE, values);
+    }
+
+    /**
+     * Fetch records that have <code>groupe_sanguin IN (values)</code>
+     */
+    public List<models.public_.tables.pojos.Patients> fetchByGroupeSanguin(String... values) {
+        return fetch(Patients.PATIENTS.GROUPE_SANGUIN, values);
+    }
 }

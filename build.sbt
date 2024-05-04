@@ -42,4 +42,5 @@ libraryDependencies += "com.itextpdf.tool" % "xmlworker" % "5.4.1"
 
 //resolvers += "Jasper3rd" at "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/"
 
-resolvers += ("Jasper3rd" at "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/").withAllowInsecureProtocol(true)
+//resolvers += ("Jasper3rd" at "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/").withAllowInsecureProtocol(true)
+resolvers += ("Jasper3rd" at "https://jaspersoft.jfrog.io/artifactory/third-party-ce-artifacts/").withAllowInsecureProtocol(true)

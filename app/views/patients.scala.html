@@ -2,7 +2,7 @@
 @import helper._
 @import java.util
 @(viewMode:String,  patients: List[models.public_.tables.pojos.Patients],patientsDeleted: List[models.public_.tables.pojos.Patients],
- patient: models.public_.tables.pojos.Patients)(implicit request: Http.Request)
+ patient: models.public_.tables.pojos.Patients, partenaires: List[models.public_.tables.pojos.Partenaire])(implicit request: Http.Request)
  
 
 @main("Clients"){
@@ -41,7 +41,7 @@ function openPopup(target, x, y, w, h) {
 						<br>
 						<div class="form-group row">
 						  <label class="col-sm-1 col-form-label" for="nom" ><b>Nom & Prénom <font style="color:red;  font-size:14px;">*:</font></b></label>
-						  	<div class="col-sm-3">
+						  	<div class="col-sm-2">
 								<input type="text"  name="nomPrenom" autocomplete="off" value="@patient.getNomPrenom()"
 											placeholder="Nom & Prénom du patient" 
 											@if( viewMode.equals("DELETE")){ disabled=disabled}
@@ -59,25 +59,31 @@ function openPopup(target, x, y, w, h) {
 					  		</div>
 					  		
 					  <label class="col-sm-1 col-form-label" for="nom" ><b>Structaire Partenaire<font style="color:red;  font-size:12px;">*:</font></b></label>
-						  	<div class="col-sm-2">
-								<input type="text" id="partenaire"  name="" value=""
-								 placeholder="Précisez l'assureur pour la prise en charge" class="form-control" @if(viewMode.equals("DELETE")){readonly}   />
-							
-						 	<input type="hidden" id="partenaireid" name="partenaire">
+<!--						  	<div class="col-sm-2">-->
+<!--								<input type="text" id="partenaire"  name="" value=""-->
+<!--								 placeholder="Précisez l'assureur pour la prise en charge" class="form-control" @if(viewMode.equals("DELETE")){readonly}   />-->
+							<!--						 	<input type="hidden" id="partenaireid" name="partenaire">-->
+<!--						  	</div>-->
+							 <div class="col-sm-1">
+								
+                            	<select class="form-control" required="required" id="partenaire" @if(viewMode.equals("DELETE")){readonly}  name="partenaire" @if(viewMode.equals("DELETE")){readonly}>
+	                                	<option value="">Selectionner le partenaire</option>
+	                                @for(c<-partenaires){
+	                               			 <option value="@c.getId()"  @if(patient.getPartenaire()==c.getId()){ selected="selected"}>@c.getLibelle </option>
+	                               			
+	                                }
+                            </select>
 						  	</div>
+							
+
 <!-- 						  	<div class="col-sm-2"> -->
 								
 <!-- 								 @if(viewMode.equals("EDIT") || viewMode.equals("DELETE")){}else{<input type="text" id="taux" placeholder="Taux de couvertaure "  name="taux" value="" readonly>} -->
 						  	
 <!-- 						  	</div> -->
 						  	
-						  	</div>
-						  	
-						</div>
-						
-						<div class="form-group row">
-						  <label class="col-sm-1 col-form-label" for="nom" ><b>Date de Naissane<font style="color:red;  font-size:14px;">*:</font></b></label>
-						  	<div class="col-sm-2">
+						  	<label class="col-sm-2 col-form-label" for="nom" ><b>Date de Naissane<font style="color:red;  font-size:14px;">*:</font></b></label>
+						  	<div class="col-sm-1">
 						  	 @if( viewMode.equals("EDIT")){ 
 						  	 	
 								<input value="@patient.getDateNaissance().format("yyyy-MM-dd")" name="tmpDate" type="date">
@@ -89,9 +95,15 @@ function openPopup(target, x, y, w, h) {
 											  @if(patient.getDateNaissance()!=null){ selected="selected"} required="required"/>
 							}
 						  	</div>
+						  	</div>
+						  	
+						</div>
 						
-					 	 <label class="col-sm-1 col-form-label" for="prenom"><b>Situation Matrimoniale  <font style="color:red;  font-size:14px;">*:</font></b></label>
-					 		 <div class="col-sm-3">
+						<div class="form-group row">
+						
+						
+					 	 <label class="col-sm-2 col-form-label" for="prenom"><b>Situation Matrimoniale  <font style="color:red;  font-size:14px;">*:</font></b></label>
+					 		 <div class="col-sm-1">
 									<select class="form-control" name="status" required="required"
 										@if( viewMode.equals("VIEW")){ disabled=disabled}>
 										<option value="">Selectionner un status</option>
@@ -103,13 +115,30 @@ function openPopup(target, x, y, w, h) {
 								</div>
 								
 						 <label class="col-sm-1 col-form-label" for="prenom"><b>Poid (en Kg)  <font style="color:red;  font-size:14px;">*:</font></b></label>
-					 		 <div class="col-sm-3">
+					 		 <div class="col-sm-2">
 								<input type="text" name="poid" autocomplete="off" value="@patient.getPoid()" 
 											class="form-control"
 											@if( viewMode.equals("DELETE")){ disabled=disabled}
 											placeholder="Précisez le poid du patient "
 				                    		required="required"/>
 					  		</div>
+					  		
+					  		 <label class="col-sm-1 col-form-label" for="prenom"><b>Groupe Sanguin  <font style="color:red;  font-size:14px;">*:</font></b></label>
+					 		 <div class="col-sm-2">
+									<select class="form-control" name="groupeSanguin" required="required"
+										@if( viewMode.equals("VIEW")){ disabled=disabled}>
+										<option value="">Selectionner un groupe</option>
+										<option value="A+" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("A+")){ selected="selected"}>A+</option>
+										<option value="A-" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("A-")){ selected="selected"}>A-</option>
+										<option value="B+" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("B+")){ selected="selected"}>B+</option>
+										<option value="B-" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("B-")){ selected="selected"}>B-</option>
+										
+										<option value="AB" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("AB")){ selected="selected"}>AB</option>
+										<option value="O-" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("O-")){ selected="selected"}>O-</option>
+										<option value="O+" @if(patient.getGroupeSanguin!=null && patient.getGroupeSanguin.equals("O+")){ selected="selected"}>O+</option>
+										
+									</select>
+								</div>
 						
 					  	</div>
 						

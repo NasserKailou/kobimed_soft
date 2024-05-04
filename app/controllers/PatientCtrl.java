@@ -23,6 +23,7 @@ import services.ConsultationsMainServices;
 import services.ExamenMainServices;
 import services.InfosMedicalMainServices;
 import services.OrdonanceMainServices;
+import services.PartenaireMainServices;
 import services.PatientsMainServices;
 //import utils.Commons;
 import utils.Secured;
@@ -42,13 +43,14 @@ public class PatientCtrl extends Controller {
 	OrdonanceMainServices ordServ;
 	ExamenMainServices examServ;
 	InfosMedicalMainServices infoMedServ;
+	PartenaireMainServices partServices;
 
 	// public static Commons common;
 
 	@Inject
 	public PatientCtrl(FormFactory formFactory, PatientsMainServices patientServices,
 			ConsultationsMainServices consServ, OrdonanceMainServices ordServ, ExamenMainServices examServ,
-			InfosMedicalMainServices infoMedServ) {
+			InfosMedicalMainServices infoMedServ, PartenaireMainServices partServices) {
 		super();
 		this.formFactory = formFactory;
 		this.patientServices = patientServices;
@@ -56,6 +58,7 @@ public class PatientCtrl extends Controller {
 		this.ordServ = ordServ;
 		this.examServ = examServ;
 		this.infoMedServ = infoMedServ;
+		this.partServices = partServices;
 	}
 
 	public Result show(String subAction, Long idPart, Request request) {
@@ -81,7 +84,7 @@ public class PatientCtrl extends Controller {
 			c = patientServices.findById(idPart);
 
 		}
-		return ok(views.html.patients.render(viewMode, patients, patientsDeleted, c, request));
+		return ok(views.html.patients.render(viewMode, patients, patientsDeleted, c,partServices.listePartenaire(), request));
 
 	}
 

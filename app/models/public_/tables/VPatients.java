@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VPatients extends TableImpl<VPatientsRecord> {
 
-    private static final long serialVersionUID = -1636856935;
+    private static final long serialVersionUID = 908651356;
 
     /**
      * The reference instance of <code>public.v_patients</code>
@@ -102,6 +102,16 @@ public class VPatients extends TableImpl<VPatientsRecord> {
      * The column <code>public.v_patients.poid</code>.
      */
     public final TableField<VPatientsRecord, Long> POID = createField("poid", org.jooq.impl.SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.v_patients.sexe</code>.
+     */
+    public final TableField<VPatientsRecord, String> SEXE = createField("sexe", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.v_patients.groupe_sanguin</code>.
+     */
+    public final TableField<VPatientsRecord, String> GROUPE_SANGUIN = createField("groupe_sanguin", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.v_patients.status</code>.

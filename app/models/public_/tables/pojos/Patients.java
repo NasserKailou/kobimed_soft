@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Patients implements Serializable {
 
-    private static final long serialVersionUID = -202601210;
+    private static final long serialVersionUID = 1315837584;
 
     private Long      id;
     private String    nomPrenom;
@@ -36,6 +36,8 @@ public class Patients implements Serializable {
     private Long      poid;
     private String    status;
     private String    whoDone;
+    private String    sexe;
+    private String    groupeSanguin;
 
     public Patients() {}
 
@@ -51,6 +53,8 @@ public class Patients implements Serializable {
         this.poid = value.poid;
         this.status = value.status;
         this.whoDone = value.whoDone;
+        this.sexe = value.sexe;
+        this.groupeSanguin = value.groupeSanguin;
     }
 
     public Patients(
@@ -64,7 +68,9 @@ public class Patients implements Serializable {
         Timestamp whenDone,
         Long      poid,
         String    status,
-        String    whoDone
+        String    whoDone,
+        String    sexe,
+        String    groupeSanguin
     ) {
         this.id = id;
         this.nomPrenom = nomPrenom;
@@ -77,6 +83,8 @@ public class Patients implements Serializable {
         this.poid = poid;
         this.status = status;
         this.whoDone = whoDone;
+        this.sexe = sexe;
+        this.groupeSanguin = groupeSanguin;
     }
 
     public Long getId() {
@@ -167,6 +175,22 @@ public class Patients implements Serializable {
         this.whoDone = whoDone;
     }
 
+    public String getSexe() {
+        return this.sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public String getGroupeSanguin() {
+        return this.groupeSanguin;
+    }
+
+    public void setGroupeSanguin(String groupeSanguin) {
+        this.groupeSanguin = groupeSanguin;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Patients (");
@@ -182,6 +206,8 @@ public class Patients implements Serializable {
         sb.append(", ").append(poid);
         sb.append(", ").append(status);
         sb.append(", ").append(whoDone);
+        sb.append(", ").append(sexe);
+        sb.append(", ").append(groupeSanguin);
 
         sb.append(")");
         return sb.toString();

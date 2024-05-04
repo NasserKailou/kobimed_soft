@@ -114,7 +114,7 @@ public class ConsultationCtrl extends Controller {
 		}
 		// System.out.println("la liste des consultations est :"+
 		// consultations);
-		return ok(views.html.consultations.render(viewMode, consultations, typeConServices.findAll(), medecins, c,
+		return ok(views.html.consultations.render(viewMode, consultations, typeConServices.findAll(), medecins, c,partServices.listePartenaire(),
 				request));
 
 	}
@@ -153,26 +153,29 @@ public class ConsultationCtrl extends Controller {
 		final String telPatient = formFactory.form().bindFromRequest(request).get("telPatient");
 
 		String idAssurreur = formFactory.form().bindFromRequest(request).get("partenaireid");
+		System.out.println("le code assurreur est :" + idAssurreur);
 		String numero = null == telPatient ? "" : telPatient;
 
 		Consultations c = uForm.get();
 		Patients p = new Patients();
 
 		// System.out.println("id du part est :" + idAssurreur);
-		// controle du taux de couverture
-		if (c.getTauxCouverture() == null)
 
 			if (idAssurreur.isEmpty() || idAssurreur == null)
 				p.setPartenaire(1L);
 			else
 				p.setPartenaire(Long.valueOf(idAssurreur.replace(" ", "")));
+			
 		// Chercher le patient correspondant
 		p = patientService.findByTelNumber(numero);
 		if (p != null) {
 			c.setPatient(p.getId());
 
-			if (ViewMode.VIEW_MODE_CREATE.equals(viewMode))
+			if (ViewMode.VIEW_MODE_CREATE.equals(viewMode))//&& p.getPartenaire()==Long.valueOf(idAssurreur.replace(" ", ""))
 				p.setPartenaire(p.getPartenaire());
+			else
+				p.setPartenaire(Long.valueOf(idAssurreur.replace(" ", "")));
+			
 			if (ViewMode.VIEW_MODE_EDIT.equals(viewMode))
 				p.setPartenaire(Long.valueOf(idAssurreur));
 
@@ -473,7 +476,7 @@ public class ConsultationCtrl extends Controller {
 					consultationServices.getDateT(dateD2), numTel);
 
 		return ok(views.html.consultations.render(ViewMode.VIEW_MODE_CREATE, vcons, typeConServices.findAll(),
-				persServices.listes("Medecin"), c, request));
+				persServices.listes("Medecin"), c,partServices.listePartenaire(), request));
 	}
 
 	public Result rdv(Request request) {

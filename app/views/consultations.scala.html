@@ -3,7 +3,7 @@
 @import java.util
 @(viewMode:String,  consultations: List[models.public_.tables.pojos.VConsultations],
 types: List[models.public_.tables.pojos.TypeConsultation],personnels: List[models.public_.tables.pojos.Personnels], 
-consultation: models.public_.tables.pojos.VConsultations)(implicit request: Http.Request)
+consultation: models.public_.tables.pojos.VConsultations, partenaires: List[models.public_.tables.pojos.Partenaire])(implicit request: Http.Request)
 
 @main("Consultations"){
 
@@ -63,11 +63,21 @@ function openPopup(target, x, y, w, h) {
                                         }
                            <div class="pl" @if( viewMode.equals("CREATE") ){ style="display: none" }>
                             <label class="col-sm-1 col-form-label" for="nom" ><b>Assureur<font style="color:red;  font-size:12px;">*:</font></b></label>
-						  	<div class="col-sm-2">
-								<input type="text" id="partenaire"  name="partenaire" value="@consultation.getNomPartenaire()"
-								 placeholder="Ex: Caren, Saham etc.." class="form-control" @if(viewMode.equals("DELETE")){readonly}   />
-							
+                            <div class="col-sm-2">
+								
+                            	<select class="form-control"  id="partenaireid" @if(viewMode.equals("DELETE")){readonly}  name="partenaireid">
+	                                	<option value="">Selectionner le partenaire</option>
+	                                @for(c<-partenaires){
+	                               			 <option value="@c.getId()"  @if(consultation.getPartenaireId()==c.getId()){ selected="selected"}>@c.getLibelle </option>
+	                               			
+	                                }
+                            </select>
 						  	</div>
+<!--						  	<div class="col-sm-2">-->
+<!--								<input type="text" id="partenaire"  name="partenaire" value="@consultation.getNomPartenaire()"-->
+<!--								 placeholder="Ex: Caren, Saham etc.." class="form-control" @if(viewMode.equals("DELETE")){readonly}   />-->
+							
+<!--						  	</div>-->
 						  	
 						  	<label class="col-sm-1 col-form-label" for="nom" ><b>Structaire Partenaire<font style="color:red;  font-size:12px;">*:</font></b></label>
 						  	<div class="col-sm-2">
