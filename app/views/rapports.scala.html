@@ -132,6 +132,51 @@ function openPopup(target, x, y, w, h) {
 			</form>
 			
 			</center>
+			
+			
+			<br>
+			
+			<center>
+		
+		<form  method="POST" name="form" action="@controllers.routes.ConsultationCtrl.rapportPeriode()"  class="form-horizontal col-md-12 col-sm-12 col-xs-12" >
+			@helper.CSRF.formField
+			<fieldset style=" color:#000; width:90%; background-color:#DDE7E9; border-radius:10px; font-size:14px;" >
+			
+					<h6 style="color:#000;">
+						<strong>
+							<i> <font style="color:red;  font-size:14px;">Situations par médécin </font> </i>	
+						</strong>
+					</h6>
+						<div class="form-group row">
+						 
+						 
+						  	<label class="col-sm-1 col-form-label" for="nom" ><b>Date début:</b></label>
+						  	<div class="col-sm-2">
+								<input type="date" id="tmpDate"  name="tmpDate" placeholder="JJ/MM/AAAA" class="form-control" />
+							</div>
+						  	<label class="col-sm-1 col-form-label" for="nom" ><b>Date fin:</b></label>
+						  	<div class="col-sm-2">
+								<input type="date" id="tmpDate2"  name="tmpDate2" placeholder="JJ/MM/AAAA" class="form-control" />
+							</div>
+						  	
+						  	 <label class="col-sm-1 col-form-label" for="nom" ><b>Médecin<font style="color:red;  font-size:12px;">*:</font></b></label>
+						  	<div class="col-sm-2">
+								<input type="text" id="partenaire"  name="medecin" 
+								 placeholder="Ex: Caren, Saham etc.." class="form-control" required="required" />
+							<input type="hidden" id="partenaireid" required="required" name="partenaireid">
+						  	</div>
+						 <div class="col-sm-2">
+						  	<button class="btn btn-success" type="submit" id="valider" name="Valider" title="Valider(Enregistrer les informations)" >	<i class="glyphicon glyphicon-print"></i> Imprimer</button> 
+						</div>
+						  </div>
+				
+			
+			
+				</fieldset>
+			
+			</form>
+			
+			</center>
 			}
 				</div>
 </div>
